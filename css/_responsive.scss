@@ -1,3 +1,52 @@
 @media only screen and (max-width: 993px) {
-    
+    header {
+        position: relative;
+
+        .header_burger {
+            display: block;
+        }
+
+        .header_logo {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            // margin-left: 0;
+            max-width: 109px;
+        }
+
+        .header_search,
+        .header_phone {
+            display: none;
+        }
+
+        .header_shop {
+            span {
+                display: block;
+            }
+        }
+
+        .header_shop_icon {
+            width: 45px;
+            height: 45px;
+            padding: 12px 11px;
+
+            img {
+                width: 22px;
+                height: 20px;
+            }
+        }
+        
+    }
+
+    .home {
+        margin: 55px 0 45px 0;
+
+        padding: 0 20px;
+        .home_container {
+            button {
+                display: none;
+            }
+        }
+    }
 }
