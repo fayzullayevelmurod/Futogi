@@ -289,6 +289,10 @@ header {
 footer {
     background: rgb(23, 26, 26);
 
+    .footer_container {
+        padding: 0 10px;
+    }
+
     .footer_top {
         padding: 40px 0 0 0;
         @include flex-start();
@@ -424,6 +428,10 @@ footer {
             line-height: 12px;
             color: #D9D9D9;
         }
+    }
+
+    .footer_media {
+        display: none;
     }
 
     .footer_bottom {
