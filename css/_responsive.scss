@@ -39,6 +39,10 @@
         
     }
 
+    .line_block {
+        display: none;
+    }
+
     .home {
         margin: 55px 0 45px 0;
 
@@ -51,7 +55,6 @@
     }
 
     footer {
-        
         .footer_top, 
         .policy_link {
             display: none;
@@ -126,5 +129,11 @@
         .footer_media {
             display: flex;
         }
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .header_menu {
+        display: none;
     }
 }
