@@ -287,7 +287,15 @@ header {
 
 // footer
 footer {
-    
+    .footer_bottom {
+        padding: 48px 0;
+        background: rgb(16, 16, 16);
+
+        .footer_container {
+            @include flex-full-center();
+            gap: 30px;
+        }
+    }
 }
 // footer
 
