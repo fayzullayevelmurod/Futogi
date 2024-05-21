@@ -124,6 +124,80 @@ address {
     margin: 0 auto;
 }
 
+// header_menu
+.header_menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #fff;
+    z-index: 4;
+    padding: 40px 29px 30px 29px;
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+    overflow-y: scroll;
+
+    ul {
+        @include flex-center();
+        flex-direction: column;
+        gap: 24px;
+
+        a {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 17.18px;
+            color: #0E1018;
+            border-bottom: 1px solid #0E1018;
+        }
+    }
+
+    .date {
+        @include flex-center();
+        flex-direction: column;
+        gap: 9px;
+
+        span {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 13.72px;
+            text-align: center;
+            color: #0E1018;
+            border-bottom: 1px solid #0E1018;
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 17.15px;
+            text-align: center;
+
+            span {
+                font-size: 20px;
+                font-weight: 300;
+                line-height: 17.15px;
+                border-bottom: none;
+                color: #FC3F1D;
+            }
+        }
+    }
+
+    .menu_phone {
+        padding: 15px 12px;
+        background: #C4C4C4;
+        @include flex-center();
+        gap: 10px;
+
+        span {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 17.18px;
+            color: #0E1018;
+            border-bottom: 1px solid #0E1018;
+        }
+    }
+}
+// header_menu
+
 // header
 header {
     background: rgb(14, 16, 24);
