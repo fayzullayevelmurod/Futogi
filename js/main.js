@@ -2,10 +2,21 @@
 let header_burger = document.querySelector('.header_burger');
 let header_burger_btn = document.querySelector('.header_burger_btn');
 let header_menu = document.querySelector('.header_menu');
+let header_menu_bg = document.querySelector('.header_menu_bg');
+let body = document.querySelector('body');
 
 header_burger.addEventListener('click', () => {
   header_menu.classList.toggle('active');
   header_burger_btn.classList.toggle('active');
+  header_menu_bg.classList.toggle('active');
+  body.classList.toggle('active');
+})
+
+header_menu_bg.addEventListener('click', () => {
+  header_burger_btn.classList.remove('active');
+  header_menu.classList.remove('active');
+  header_menu_bg.classList.remove('active');
+  body.classList.remove('active');
 })
 // burger
 
