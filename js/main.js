@@ -34,6 +34,7 @@ let swiper = new Swiper(".homeSwiper", {
     spaceBetween: 20,
     centeredSlides: true,
     initialSlide: 1,
+    loop: true,
     pagination: {
       el: ".swiper-pagination",
     },
