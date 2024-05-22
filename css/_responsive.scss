@@ -44,13 +44,115 @@
     }
 
     .home {
-        margin: 55px 0 45px 0;
+        margin: 55px 0 0 0;
 
         padding: 0 20px;
+
         .home_container {
             button {
                 display: none;
             }
+        }
+
+        .swiper-slide {
+            height: 310px;
+
+            img {
+                width: 100%;
+                object-fit: cover;
+                height: 100%;
+            }
+        }
+    }
+
+    .products {
+        padding: 48px 25px 60px 25px;
+        margin: 0;
+        overflow: hidden;
+
+        .products_block {
+
+            h6 {
+                left: 14px;
+                top: 14px;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 12.02px;
+                color: #D9D9D9;
+            }
+
+            img {
+                object-fit: inherit;
+            }
+        }
+
+        .gradient_big {
+            display: none;
+        }
+
+        .gradient_big_media {
+            display: block;
+            bottom: -251px;
+        }
+
+        .desktop_media {
+            display: flex;
+        }
+
+        .desktop_block {
+            display: none;
+        }
+
+        .products_left {
+            width: 100%;
+            gap: 16px;
+
+            .products_blocks_two {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .products_blocks {
+                align-items: stretch;
+                gap: 16px;
+
+                .products_block {
+                    height: auto;
+                }
+            }
+        }
+
+        .products_right {
+            width: 100%;
+            gap: 16px;
+
+            .products_blocks {
+                flex-direction: column;
+                gap: 16px;
+
+                .product_blocks_in {
+                    width: 100%;
+                    align-items: stretch;
+                }
+
+                .products_block {
+                    height: auto;
+                }
+            }
+        }
+
+        .products_blocks_two {
+            flex-direction: row;
+        }
+
+        .products_blocks_two {
+            gap: 16px;
+        }
+
+        .products_in {
+            height: auto;
+            gap: 16px;
+            flex-direction: column;
         }
     }
 
@@ -123,7 +225,17 @@
             padding: 30px 0;
 
             .footer_container {
-                gap: 18px;
+                gap: 5px;
+            }
+
+            a {
+                @include flex-full-center;
+            }
+
+            img {
+                width: 60%;
+                aspect-ratio: 3/2;
+                object-fit: contain;
             }
         }
 

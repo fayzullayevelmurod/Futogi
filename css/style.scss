@@ -397,7 +397,7 @@ header {
 // products
 .products {
     position: relative;
-    margin: 128px 0 206px 0;
+    margin: 128px 25px 206px 25px;
 
     .products_in {
         max-width: 1000px;
@@ -416,6 +416,16 @@ header {
         bottom: 0;
         z-index: -1;
         margin: auto 0;
+    }
+
+    .gradient_big_media {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        bottom: -271px;
+        z-index: -1;
     }
 
     .products_in {
@@ -486,6 +496,10 @@ header {
     .product_one {
         height: calc(100% / 3 - 10.5px);
         flex-shrink: 0;
+    }
+
+    .desktop_media {
+        display: none;
     }
 }
 // products
