@@ -9,6 +9,25 @@ header_burger.addEventListener('click', () => {
 })
 // burger
 
+// footer_media
+let footer_link_btn_one = document.querySelector('.footer_link_btn_one');
+let list_links_one = document.querySelector('.list_links_one');
+let list_links_two = document.querySelector('.list_links_two');
+let footer_link_btn_two = document.querySelector('.footer_link_btn_two');
+let footer_link_btn_one_icon = document.querySelector('.footer_link_btn_one img');
+let footer_link_btn_two_icon = document.querySelector('.footer_link_btn_two img');
+
+footer_link_btn_one.addEventListener('click', () => {
+  list_links_one.classList.toggle('active');
+  footer_link_btn_one_icon.classList.toggle('active');
+});
+
+footer_link_btn_two.addEventListener('click', () => {
+  list_links_two.classList.toggle('active');
+  footer_link_btn_two_icon.classList.toggle('active');
+});
+// footer_media
+
 
 // home slider
 let swiper = new Swiper(".homeSwiper", {
