@@ -317,6 +317,9 @@ header .header_shop_icon {
   max-width: 1000px;
   margin: 0 auto;
 }
+.products .mini_block {
+  width: 201px;
+}
 .products .gradient_big {
   position: absolute;
   width: 100%;
@@ -327,7 +330,6 @@ header .header_shop_icon {
   margin: auto 0;
 }
 .products .products_in {
-  border: 1px solid red;
   display: flex;
   align-items: stretch;
   gap: 21px;
@@ -350,6 +352,9 @@ header .header_shop_icon {
   align-items: stretch;
   gap: 21px;
   height: calc(66.6666666667% - 10.5px);
+}
+.products .products_blocks .product_blocks_in {
+  width: 50%;
 }
 .products .products_blocks_two {
   display: flex;

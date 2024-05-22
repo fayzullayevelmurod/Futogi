@@ -384,6 +384,10 @@ header {
         max-width: 1000px;
         margin: 0 auto;
     }
+    
+    .mini_block {
+        width: 201px;
+    }
 
     .gradient_big {
         position: absolute;
@@ -396,7 +400,6 @@ header {
     }
 
     .products_in {
-        border: 1px solid red;
         display: flex;
         align-items: stretch;
         gap: 21px;
@@ -422,6 +425,10 @@ header {
         align-items: stretch;
         gap: 21px;
         height: calc(100% / 3 * 2 - 10.5px);
+
+        .product_blocks_in {
+            width: calc(100% / 2);
+        }
     }
 
     .products_blocks_two {
