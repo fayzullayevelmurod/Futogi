@@ -30,7 +30,7 @@ export const Home = () => {
   return (
     <>
       <section className="home">
-        <img className="top_gradient" src="./images/top-gradient.webp" alt="" />
+        <img className="top_gradient" src={assets.topGradient} alt="" />
         <div className="home_container">
           <button className="home-button-prev" onClick={goPrev}>
             <svg
@@ -90,10 +90,6 @@ export const Home = () => {
           </button>
         </div>
       </section>
-      <div className="line_block">
-        <div className="header_container"></div>
-      </div>
-
       <section className="products">
         <img className="gradient_big" src={assets.gradientBig} alt="" />
         <img

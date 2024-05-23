@@ -25,7 +25,7 @@ import product5 from './product5.png';
 import product6 from './product6.png';
 import product7 from './product7.png';
 import product8 from './product8.png';
-
+import topGradient from './top-gradient.webp';
 export default {
   headerBurger,
   headerLogo,
@@ -54,4 +54,5 @@ export default {
 	product6,
 	product7,
 	product8,
+	topGradient
 };

@@ -1,5 +1,10 @@
+import { CategoriesTab, TitleBox } from "../components";
+
 export const Rolls = () => {
-	return (
-		<div>Rolls</div>
-	)
-}
+  return (
+    <>
+      <TitleBox />
+      <CategoriesTab />
+    </>
+  );
+};

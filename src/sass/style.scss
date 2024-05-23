@@ -52,6 +52,7 @@ body {
   font-family: "Codec Pro", sans-serif;
   font-style: normal;
   background-color: #0e1018ff;
+  color: #fff;
 }
 
 body.active {
@@ -85,7 +86,11 @@ address {
   padding: 0 10px;
   margin: 0 auto;
 }
-
+.container {
+  max-width: 1020px;
+  width: 100%;
+  margin: 0 auto;
+}
 .header_container {
   max-width: 1200px;
   margin-left: auto;
