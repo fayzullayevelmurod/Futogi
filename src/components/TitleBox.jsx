@@ -1,5 +1,5 @@
 import assets from "../assets";
-export const TitleBox = () => {
+export const TitleBox = ({ name }) => {
   return (
     <div className="title_box">
       <img
@@ -10,7 +10,7 @@ export const TitleBox = () => {
         width="100%"
       />
       <div className="container">
-        <h1 className="title">ХОЛОДНЫЕ РОЛЛЫ</h1>
+        <h1 className="title">{name}</h1>
       </div>
     </div>
   );

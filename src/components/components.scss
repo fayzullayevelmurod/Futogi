@@ -104,7 +104,7 @@
     color: #adadad;
     padding: 9px 5px;
     background: #cccccc33;
-    border: 1px solid #8C8C8C99;
+    border: 1px solid #8c8c8c99;
     // border-image-source: linear-gradient(
     //   165.54deg,
     //   rgba(140, 140, 140, 0.6) 9.19%,
@@ -132,6 +132,7 @@
 }
 
 .parent_box {
+  min-height: 400px;
   position: relative;
 
   .gradient_big {
