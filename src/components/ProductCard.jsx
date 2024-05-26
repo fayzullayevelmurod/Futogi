@@ -1,19 +1,21 @@
-export const ProductCard = ({ selectedCategory = [] }) => {
-  console.log(selectedCategory);
+export const ProductCard = ({ selectedCategory }) => {
   return (
     <>
-      {selectedCategory.data.map((subCategory) => (
+      {selectedCategory.map((subCategory) => (
         <div key={subCategory.id} className="products__box">
           <div>
-            {subCategory.image ? (
-              <img
-                src={`https://api.futoji.ru${subCategory.image}`}
-                alt={subCategory.name}
-              />
-            ) : (
-              <span>No img</span>
-            )}
+            <div className="product_img">
+              {subCategory.image ? (
+                <img
+                  src={`https://api.futoji.ru${subCategory.image}`}
+                  // alt={subCategory.name}
+                />
+              ) : (
+                <span className="no_img">No img</span>
+              )}
+            </div>
             <h4 className="product_name">{subCategory.name}</h4>
+
             <p className="desc">{subCategory.description}</p>
           </div>
           <div className="card_footer">

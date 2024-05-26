@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Home, Rolls } from "./pages";
+import { Cart, Home, Rolls, SectionSomeCategories } from "./pages";
 
 export const AppRoutes = () => (
   <Routes>
@@ -11,4 +11,6 @@ export const AppRoutes = () => (
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/rolls", element: <Rolls /> },
+  { path: "/section-some-categories", element: <SectionSomeCategories /> },
+	{ path: "/cart", element: <Cart /> },
 ];

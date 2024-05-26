@@ -1,221 +1,92 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { ProductCard } from "./ProductCard";
-// import assets from "../assets";
-// import { Loader } from "./Loader";
-// import { TitleBox } from "./TitleBox";
-
-// export const CategoriesTab = () => {
-//   const API_URL = "https://api.futoji.ru";
-//   const [categories, setCategories] = useState([]);
-//   const [selectedCategory, setSelectedCategory] = useState(null);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   const apiClient = axios.create({
-//     baseURL: API_URL,
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   const fetchCategories = async () => {
-//     setIsLoading(true);
-//     setError(null);
-//     try {
-//       const response = await apiClient.get("/categories");
-//       setCategories(response.data.data);
-//     } catch (error) {
-//       setError(`Error fetching categories: ${error.message}`);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   const fetchCategoryById = async (id) => {
-//     setIsLoading(true);
-//     setError(null);
-//     try {
-//       const response = await apiClient.get(`/categories/getById?q=${id}`);
-//       return response.data;
-//     } catch (error) {
-//       setError(`Error fetching category by ID: ${error.message}`);
-//       return null;
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchCategories();
-//   }, []);
-
-//   const handleCategoryClick = async (category) => {
-//     setSelectedCategory(null);
-//     const subCategories = category.subCategories;
-//     if (subCategories.length) {
-//       const subCategoriesData = [];
-//       for (const item of subCategories) {
-//         const data = await fetchCategoryById(item.id);
-//         if (data) {
-//           subCategoriesData.push(data);
-//         }
-//       }
-//       setSelectedCategory({ ...category, subCategories: subCategoriesData });
-//     } else {
-//       setSelectedCategory({ ...category, subCategories: [] });
-//     }
-//   };
-// console.log(categories);
-//   return (
-//     <>
-//       <div className="categories__tabs">
-//         <ul>
-//           {categories.map((category) => (
-//             <li key={category.id} onClick={() => handleCategoryClick(category)}>
-//               {category.name}
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-
-//       <div className="parent_box">
-//         <img className="gradient_big" src={assets.gradientBig} alt="" />
-//         <div className="main_container" style={{ textAlign: "center" }}>
-//           {isLoading ? (
-//             <Loader />
-//           ) : selectedCategory ? (
-//             selectedCategory.subCategories.length ? (
-//               <div className="container">
-//                 <div className="category_details">
-//                   {selectedCategory.subCategories.map((subCategory) => (
-//                     <ProductCard
-//                       key={subCategory.id}
-//                       selectedCategory={subCategory}
-//                     />
-//                   ))}
-//                 </div>
-//               </div>
-//             ) : (
-//               <span className="no_data">No data</span>
-//             )
-//           ) : (
-//             <span className="no_data">No data</span>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ProductCard } from "./ProductCard";
 import assets from "../assets";
 import { Loader } from "./Loader";
-import { TitleBox } from "./TitleBox"; // TitleBox ni import qilish
+import { TitleBox } from "./TitleBox";
+import {
+  getCategories,
+  getCategoryById,
+  getProductByName,
+} from "../services/api";
 
-export const CategoriesTab = () => {
-  const API_URL = "https://api.futoji.ru";
+export const CategoriesTab = ({ allChildCategories }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const apiClient = axios.create({
-    baseURL: API_URL,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const fetchCategories = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await apiClient.get("/categories");
-      const categoriesData = response.data.data;
-      setCategories(categoriesData);
-      if (categoriesData.length > 0) {
-        handleCategoryClick(categoriesData[0]);
-      }
-    } catch (error) {
-      setError(`Error fetching categories: ${error.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchCategoryById = async (id) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await apiClient.get(`/categories/getById?q=${id}`);
-      return response.data;
-    } catch (error) {
-      setError(`Error fetching category by ID: ${error.message}`);
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [allSubCategories, setAllSubCategories] = useState([]);
 
   useEffect(() => {
-    fetchCategories();
+    const fetchData = async () => {
+      try {
+        const response = await getCategories();
+        const categoriesData = response.data.data;
+        setCategories(categoriesData);
+        if (categoriesData.length > 0) {
+          const firstCategory = categoriesData[0];
+          const categoryDetails = await getCategoryById(firstCategory.id);
+          setSelectedCategory(categoryDetails.data.data);
+          setSelectedCategoryId(firstCategory.id);
+        }
+        if (allChildCategories && allSubCategories.length) {
+          const getAllSubCategories = await getProductByName(
+            categoriesData[0].name
+          );
+          console.log(getAllSubCategories, 'all sub categories');
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(true);
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleCategoryClick = async (category) => {
-    setSelectedCategory(null);
-    const subCategories = category.subCategories;
-    if (subCategories.length) {
-      const subCategoriesData = [];
-      for (const item of subCategories) {
-        const data = await fetchCategoryById(item.id);
-        if (data) {
-          subCategoriesData.push(data);
-        }
-      }
-      setSelectedCategory({ ...category, subCategories: subCategoriesData });
-    } else {
-      setSelectedCategory({ ...category, subCategories: [] });
+    if (category.id === selectedCategoryId) {
+      return;
+    }
+    try {
+      const categoryDetails = await getCategoryById(category.id);
+      setSelectedCategory(categoryDetails.data.data);
+      setSelectedCategoryId(category.id);
+    } catch (error) {
+      console.error("Error fetching category details:", error);
     }
   };
+
   return (
     <>
-      {selectedCategory && <TitleBox name={selectedCategory.name} />}
+      {categories.length > 0 && selectedCategory?.length > 0 && (
+        <TitleBox name={selectedCategory[0].name} />
+      )}
       <div className="categories__tabs">
         <ul>
           {categories.map((category) => (
-            <li key={category.id} onClick={() => handleCategoryClick(category)}>
+            <li
+              key={category.id}
+              onClick={() => handleCategoryClick(category)}
+              className={selectedCategoryId === category.id ? "active" : ""}
+            >
               {category.name}
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="parent_box">
+      <div className="parent_box ">
         <img className="gradient_big" src={assets.gradientBig} alt="" />
         <div className="main_container" style={{ textAlign: "center" }}>
-          {isLoading ? (
-            <Loader />
-          ) : selectedCategory ? (
-            selectedCategory.subCategories.length ? (
-              <div className="container">
-                <div className="category_details">
-                  {selectedCategory.subCategories.map((subCategory) => (
-                    <ProductCard
-                      key={subCategory.id}
-                      selectedCategory={subCategory}
-                    />
-                  ))}
-                </div>
-              </div>
+          <div className="category_details">
+            {isLoading ? (
+              <Loader />
+            ) : selectedCategory?.length > 0 ? (
+              <ProductCard selectedCategory={selectedCategory} />
             ) : (
               <span className="no_data">No data</span>
-            )
-          ) : (
-            <span className="no_data">No data</span>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </>

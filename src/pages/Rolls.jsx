@@ -1,4 +1,4 @@
-import { CategoriesTab, TitleBox } from "../components";
+import { CategoriesTab } from "../components";
 
 export const Rolls = () => {
   return (
