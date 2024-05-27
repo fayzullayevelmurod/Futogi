@@ -15,17 +15,18 @@ import footerLogo2 from "./logo/footer_logo2.svg";
 import footerLogo3 from "./logo/footer_logo3.svg";
 import footerLogo4 from "./logo/footer_logo4.svg";
 import homeSlider from "./home_slider.png";
-import gradientBig from './gradient-big.webp';
-import gradientBigMedia from './gradient_big_media.png';
-import product1 from './product1.png';
-import product2 from './product2.png';
-import product3 from './product3.png';
-import product4 from './product4.png';
-import product5 from './product5.png';
-import product6 from './product6.png';
-import product7 from './product7.png';
-import product8 from './product8.png';
-import topGradient from './top-gradient.webp';
+import gradientBig from "./gradient-big.webp";
+import gradientBigMedia from "./gradient_big_media.png";
+import product1 from "./product1.png";
+import product2 from "./product2.png";
+import product3 from "./product3.png";
+import product4 from "./product4.png";
+import product5 from "./product5.png";
+import product6 from "./product6.png";
+import product7 from "./product7.png";
+import product8 from "./product8.png";
+import topGradient from "./top-gradient.webp";
+import closeIcon from "./icons/close-icon.svg";
 export default {
   headerBurger,
   headerLogo,
@@ -44,15 +45,16 @@ export default {
   footerLogo3,
   footerLogo4,
   homeSlider,
-	gradientBig,
-	gradientBigMedia,
-	product1,
+  gradientBig,
+  gradientBigMedia,
+  product1,
   product2,
   product3,
   product4,
   product5,
-	product6,
-	product7,
-	product8,
-	topGradient
+  product6,
+  product7,
+  product8,
+  topGradient,
+  closeIcon,
 };

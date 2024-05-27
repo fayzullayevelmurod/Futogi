@@ -1,3 +1,11 @@
+.add__cart-btn {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 10.29px;
+  padding: 13px 15px;
+  background: #fc3f1d;
+  color: #fff;
+}
 .title_box {
   position: relative;
   padding: 50px 0;
@@ -139,14 +147,6 @@
       //   rgba(143, 143, 143, 0.6) 84.11%
       // );
     }
-    .add__cart-btn {
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 10.29px;
-      padding: 13px 15px;
-      background: #fc3f1d;
-      color: #fff;
-    }
     .right__box {
       display: flex;
       align-items: center;
@@ -185,7 +185,6 @@
     left: 0;
     z-index: -1;
     width: 100%;
-    height: 100%;
   }
 }
 .no_data {
@@ -213,5 +212,116 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+// modal
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  display: none;
+
+  &.show {
+    display: flex;
+  }
+  &_content {
+    max-width: 900px;
+    width: 100%;
+    background: #3f3d3e;
+    border: 2px solid rgba(140, 140, 140, 0.6);
+    padding: 21px 30px 27px 27px;
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+    position: relative;
+    text-align: left;
+    .img_box {
+      width: 100%;
+      height: 476px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  .close_btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 30px;
+    height: 30px;
+    background: #99999980;
+    border: 1px solid #8c8c8c99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  .content_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 0 390px;
+    .product_name {
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 34.36px;
+      padding-top: 38px;
+    }
+    .ingredients {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 13.72px;
+      color: #adadad;
+      span {
+        padding-bottom: 15px;
+      }
+    }
+  }
+  &_footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .mass {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 20.58px;
+      color: #adadad;
+    }
+    .right_box {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      &.full {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+    .price {
+      font-size: 34px;
+      font-weight: 300;
+      line-height: 29.15px;
+      color: #e2e2e2;
+    }
+    .add__cart-btn {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 17.18px;
+      padding: 24px 23px;
+    }
   }
 }

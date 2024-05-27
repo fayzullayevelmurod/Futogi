@@ -5,7 +5,6 @@ import { Loader } from "./Loader";
 import { TitleBox } from "./TitleBox";
 import { getCategories, getCategoryById, getImageById } from "../services/api";
 import { getImageUrl } from "../utils/helpers";
-
 export const CategoriesTab = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
