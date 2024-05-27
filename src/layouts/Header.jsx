@@ -1,5 +1,13 @@
 import assets from "../assets";
-
+const menuDB = [
+  { name: "ХОЛОДНЫЕ РОЛЛЫ" },
+  { name: "ЗАПЕЧЁННЫЕ РОЛЛЫ" },
+  { name: "ЖАРЕННЫЕ РОЛЛЫ" },
+  { name: "СЯКИ МАКИ" },
+  { name: "ВОК" },
+  { name: "ФАСТФУД" },
+  { name: "НАПИТКИ" },
+];
 export const Header = () => {
   return (
     <header>
@@ -28,30 +36,11 @@ export const Header = () => {
         </div>
         <div className="header_menu">
           <ul>
-            <li>
-              <a href="#!">ХОЛОДНЫЕ РОЛЛЫ</a>
-            </li>
-            <li>
-              <a href="#!">ЗАПЕЧЁННЫЕ РОЛЛЫ</a>
-            </li>
-            <li>
-              <a href="#!">ЖАРЕННЫЕ РОЛЛЫ</a>
-            </li>
-            <li>
-              <a href="#!">СЯКИ МАКИ</a>
-            </li>
-            <li>
-              <a href="#!">ВОК</a>
-            </li>
-            <li>
-              <a href="#!">ПИЦЦА</a>
-            </li>
-            <li>
-              <a href="#!">ФАСТФУД</a>
-            </li>
-            <li>
-              <a href="#!">НАПИТКИ</a>
-            </li>
+            {menuDB?.map((item, idx) => (
+              <li key={idx}>
+                <a href="#!">{item.name}</a>
+              </li>
+            ))}
           </ul>
           <div className="date">
             <span>Режим работы:</span>

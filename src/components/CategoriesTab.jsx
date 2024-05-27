@@ -3,18 +3,14 @@ import { ProductCard } from "./ProductCard";
 import assets from "../assets";
 import { Loader } from "./Loader";
 import { TitleBox } from "./TitleBox";
-import {
-  getCategories,
-  getCategoryById,
-  getProductByName,
-} from "../services/api";
+import { getCategories, getCategoryById, getImageById } from "../services/api";
+import { getImageUrl } from "../utils/helpers";
 
-export const CategoriesTab = ({ allChildCategories }) => {
+export const CategoriesTab = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [allSubCategories, setAllSubCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,17 +18,12 @@ export const CategoriesTab = ({ allChildCategories }) => {
         const response = await getCategories();
         const categoriesData = response.data.data;
         setCategories(categoriesData);
+
         if (categoriesData.length > 0) {
           const firstCategory = categoriesData[0];
           const categoryDetails = await getCategoryById(firstCategory.id);
           setSelectedCategory(categoryDetails.data.data);
           setSelectedCategoryId(firstCategory.id);
-        }
-        if (allChildCategories && allSubCategories.length) {
-          const getAllSubCategories = await getProductByName(
-            categoriesData[0].name
-          );
-          console.log(getAllSubCategories, 'all sub categories');
         }
         setIsLoading(false);
       } catch (error) {
@@ -78,15 +69,38 @@ export const CategoriesTab = ({ allChildCategories }) => {
       <div className="parent_box ">
         <img className="gradient_big" src={assets.gradientBig} alt="" />
         <div className="main_container" style={{ textAlign: "center" }}>
-          <div className="category_details">
+          <>
             {isLoading ? (
               <Loader />
-            ) : selectedCategory?.length > 0 ? (
-              <ProductCard selectedCategory={selectedCategory} />
             ) : (
-              <span className="no_data">No data</span>
+              <ProductCard selectedCategory={selectedCategory} />
             )}
-          </div>
+            {/* {isLoading ? (
+              <Loader />
+            ) : (
+              <div className="category_details">
+                {selectedCategory.map((item) => (
+                  <div key={item.id}>
+                    <ProductCard
+                      selectedCategory={item}
+                      image={`https://api.futoji.ru/${item.image}`}
+                    />
+                    {item.mods && item.mods.length > 0 && (
+                      <div className="mods">
+                        {item.mods.map((mod) => (
+                          <ProductCard
+                            key={mod.id}
+                            selectedCategory={mod}
+                            image={`https://api.futoji.ru/${mod.image}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )} */}
+          </>
         </div>
       </div>
     </>

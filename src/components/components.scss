@@ -53,100 +53,125 @@
 .category_details {
   display: grid;
   gap: 54px;
-	grid-template-columns: repeat(3, 1fr);
-  .products__box {
-    // max-width: 304px;
-    // width: 100%;
-  }
-}
-.category_details .products__box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #eeeeee52;
-  border: 1px solid;
-  padding: 14px 10px;
-  text-align: left;
-  border-image-source: linear-gradient(
-    165.54deg,
-    rgba(140, 140, 140, 0.6) 9.19%,
-    rgba(159, 159, 159, 0.3) 46.45%,
-    rgba(143, 143, 143, 0.6) 84.11%
-  );
-  img {
-    padding-bottom: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  &.full {
     width: 100%;
-    object-fit: cover;
-    height: 247px;
     display: block;
   }
-  .product_name {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 13.74px;
-    text-transform: uppercase;
-    margin-top: 18px;
+  &-card {
+    &.pb {
+      padding-bottom: 95px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
   }
-  .desc {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 12px;
-    padding: 34px 0;
-  }
-  .card_footer {
+  .products__box {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    flex-direction: column;
     justify-content: space-between;
-  }
-  .no_img {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 13.74px;
-    text-transform: none;
-    text-align: center;
-  }
-  .product_img {
-    height: 247px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .price {
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 20.58px;
-  }
-  .product__weight {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 12px;
-    color: #adadad;
-    padding: 9px 5px;
-    background: #cccccc33;
-    border: 1px solid #8c8c8c99;
-    // border-image-source: linear-gradient(
-    //   165.54deg,
-    //   rgba(140, 140, 140, 0.6) 9.19%,
-    //   rgba(159, 159, 159, 0.3) 46.45%,
-    //   rgba(143, 143, 143, 0.6) 84.11%
-    // );
-  }
-  .add__cart-btn {
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 10.29px;
-    padding: 13px 15px;
-    background: #fc3f1d;
-    color: #fff;
-  }
-  .right__box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    &.full {
+    background: #eeeeee52;
+    border: 1px solid;
+    padding: 14px 10px;
+    text-align: left;
+    border-image-source: linear-gradient(
+      165.54deg,
+      rgba(140, 140, 140, 0.6) 9.19%,
+      rgba(159, 159, 159, 0.3) 46.45%,
+      rgba(143, 143, 143, 0.6) 84.11%
+    );
+    img {
+      padding-bottom: 18px;
       width: 100%;
+      object-fit: cover;
+      height: 247px;
+      display: block;
+    }
+    .product_name {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 13.74px;
+      text-transform: uppercase;
+      margin-top: 18px;
+    }
+    .desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 12px;
+      padding: 34px 0;
+    }
+    .card_footer {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
     }
+    .no_img {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 13.74px;
+      text-transform: none;
+      text-align: center;
+    }
+    .product_img {
+      height: 247px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .price {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 20.58px;
+    }
+    .product__weight {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 12px;
+      color: #adadad;
+      padding: 9px 5px;
+      background: #cccccc33;
+      border: 1px solid #8c8c8c99;
+      // border-image-source: linear-gradient(
+      //   165.54deg,
+      //   rgba(140, 140, 140, 0.6) 9.19%,
+      //   rgba(159, 159, 159, 0.3) 46.45%,
+      //   rgba(143, 143, 143, 0.6) 84.11%
+      // );
+    }
+    .add__cart-btn {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 10.29px;
+      padding: 13px 15px;
+      background: #fc3f1d;
+      color: #fff;
+    }
+    .right__box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      &.full {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+  .mods_boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 54px;
+  }
+  .modes_title {
+    &:first-child {
+      padding-top: 0;
+    }
+    text-align: left;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 34.36px;
+    padding: 95px 0 56px 0;
   }
 }
 

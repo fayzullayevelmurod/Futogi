@@ -1,1 +1,1 @@
-export const getImageById = (imageId) => `https://api.futoji.ru/images/getById?q=${imageId}`;
+export const getImageUrl = (imageId) => `https://api.futoji.ru/images/getById?q=${imageId}`;
