@@ -63,12 +63,25 @@ body.active {
   font-weight: 300;
   color: #adadad;
   padding: 0 23px;
-  border: 1px solid rgba(140, 140, 140, 0.6);
+  border: 1px solid transparent;
+  border-image: linear-gradient(
+      165.54deg,
+      rgba(140, 140, 140, 0.6) 9.19%,
+      rgba(159, 159, 159, 0.3) 46.45%,
+      rgba(143, 143, 143, 0.6) 84.11%
+    )
+    1;
+
   background: #adadad4d;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.red__btn {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 17.15px;
 }
 input {
   font-family: "Codec Pro", sans-serif;

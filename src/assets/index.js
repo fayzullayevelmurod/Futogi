@@ -27,6 +27,8 @@ import product7 from "./product7.png";
 import product8 from "./product8.png";
 import topGradient from "./top-gradient.webp";
 import closeIcon from "./icons/close-icon.svg";
+import minusIcon from "./icons/minus-icon.svg";
+import plusIcon from "./icons/plus-icon.svg";
 export default {
   headerBurger,
   headerLogo,
@@ -57,4 +59,6 @@ export default {
   product8,
   topGradient,
   closeIcon,
+  minusIcon,
+	plusIcon
 };

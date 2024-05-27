@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import assets from "../assets";
 const menuDB = [
   { name: "ХОЛОДНЫЕ РОЛЛЫ" },
@@ -30,9 +31,9 @@ export const Header = () => {
         </a>
         <div className="header_shop">
           <span>10</span>
-          <a href="#" className="header_shop_icon">
+          <Link to='/cart' className="header_shop_icon">
             <img src={assets.headerShop} alt="" />
-          </a>
+          </Link>
         </div>
         <div className="header_menu">
           <ul>

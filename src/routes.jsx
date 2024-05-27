@@ -1,5 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import { Cart, Home, Rolls } from "./pages";
+import { Cart, Home, Products } from "./pages";
+
+const routes = [
+  { path: "/", element: <Home /> },
+  { path: "/products", element: <Products /> },
+  { path: "/cart", element: <Cart /> },
+];
 
 export const AppRoutes = () => (
   <Routes>
@@ -8,8 +14,3 @@ export const AppRoutes = () => (
     ))}
   </Routes>
 );
-const routes = [
-  { path: "/", element: <Home /> },
-  { path: "/rolls", element: <Rolls /> },
-  { path: "/cart", element: <Cart /> },
-];

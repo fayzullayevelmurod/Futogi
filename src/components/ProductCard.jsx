@@ -1,7 +1,11 @@
-import { useState } from "react";
+// ProductCard.jsx
+import { useContext, useState } from "react";
 import { Modal } from "./Modal";
+import { BasketContext } from "../context/BasketContext";
 
 export const ProductCard = ({ selectedCategory }) => {
+  const { addToBasket } = useContext(BasketContext);
+  // console.log(addToBasket, "basket");
   const [showModal, setShowModal] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -13,12 +17,17 @@ export const ProductCard = ({ selectedCategory }) => {
     setSelectedProduct(product);
     setShowModal(true);
   };
+  const handleAddToBasket = (product) => {
+    addToBasket(product);
+    setShowModal(false);
+  };
   return (
     <>
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
         product={selectedProduct}
+        handleAddToBasket={handleAddToBasket}
       />
       <div className={`category_details ${hasMods ? "full" : ""}`}>
         {selectedCategory?.map((item) => (
@@ -50,7 +59,10 @@ export const ProductCard = ({ selectedCategory }) => {
                     {item.price && (
                       <span className="price">{item.price} р</span>
                     )}
-                    <button className="add__cart-btn" onClick={() => handleOpenModal(item)}>
+                    <button
+                      className="add__cart-btn"
+                      onClick={() => handleOpenModal(item)}
+                    >
                       В корзину
                     </button>
                   </div>

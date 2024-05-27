@@ -1,11 +1,13 @@
 import assets from "../assets";
 
-export const Modal = ({ showModal, setShowModal, product }) => {
+export const Modal = ({
+  showModal,
+  setShowModal,
+  product,
+  handleAddToBasket,
+}) => {
   if (!showModal) return null;
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
   const {
     image = "",
     name = "Product Name",
@@ -13,11 +15,14 @@ export const Modal = ({ showModal, setShowModal, product }) => {
     mass = "No mass available",
     price = "No price available",
   } = product || {};
-
+console.log(product, 'modal product');
   return (
     <div className={`modal ${showModal && "show"}`}>
       <div className="modal_content">
-        <button className="close_btn blur_btn" onClick={handleCloseModal}>
+        <button
+          className="close_btn blur_btn"
+          onClick={() => setShowModal(false)}
+        >
           <img src={assets.closeIcon} alt="close icon" />
         </button>
         <div className="img_box">
@@ -40,7 +45,12 @@ export const Modal = ({ showModal, setShowModal, product }) => {
             {mass && <span className="mass">{mass} г</span>}
             <div className={`right_box ${!mass && "full"}`}>
               {price && <span className="price">{price} р</span>}
-              <button className="add__cart-btn">В корзину</button>
+              <button
+                className="add__cart-btn"
+                onClick={() => handleAddToBasket(product)}
+              >
+                В корзину
+              </button>
             </div>
           </div>
         </div>

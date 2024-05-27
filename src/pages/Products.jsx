@@ -1,6 +1,6 @@
 import { CategoriesTab } from "../components";
 
-export const Rolls = () => {
+export const Products = () => {
   return (
     <>
       <CategoriesTab />
