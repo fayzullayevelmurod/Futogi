@@ -1,25 +1,20 @@
 import { Link } from "react-router-dom";
 import assets from "../assets";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Counter } from "../components";
 import { BasketContext } from "../context/BasketContext";
 
 export const Cart = () => {
   const [productCounts, setProductCounts] = useState({});
-  const [personCount, setPersonCount] = useState();
+  const [personCount, setPersonCount] = useState(1);
+
   const pricePerUnit = 1000;
   const { basket, clearBasket } = useContext(BasketContext);
 
-  // const handleProductCountChange = (productId, newCount) => {
-  //   setProductCounts((prevCounts) => ({
-  //     ...prevCounts,
-  //     [productId]: newCount,
-  //   }));
-  // };
   const handleProductCountChange = (productId, newCount) => {
     setProductCounts((prevCounts) => ({
       ...prevCounts,
-      [productId]: newCount === 0 ? 1 : newCount,
+      [productId]: newCount,
     }));
   };
 
@@ -27,22 +22,21 @@ export const Cart = () => {
     const count = productCounts[productId] || 1;
     return count * pricePerUnit;
   };
-  // const getProductTotalPrice = (productId) => {
-  //   const count = productCounts[productId] || 0;
-  //   return count * pricePerUnit;
-  // };
 
   const handlePersonCountChange = (newCount) => {
     setPersonCount(newCount);
   };
 
-  const totalProductPrice = Object.keys(productCounts).reduce(
-    (total, productId) => {
-      const count = productCounts[productId] || 1;
-      return total + count * pricePerUnit;
-    },
-    0
-  );
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    basket.forEach((item) => {
+      const count = productCounts[item.id] || 1;
+      totalPrice += count * pricePerUnit;
+    });
+    return totalPrice;
+  };
+
+  const totalProductPrice = calculateTotalPrice();
 
   return (
     <div className="basket__page">
