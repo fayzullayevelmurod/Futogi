@@ -2,10 +2,10 @@
 import { useContext, useState } from "react";
 import { Modal } from "./Modal";
 import { BasketContext } from "../context/BasketContext";
-
+import { ToastContainer, toast } from "react-toastify";
 export const ProductCard = ({ selectedCategory }) => {
   const { addToBasket } = useContext(BasketContext);
-  // console.log(addToBasket, "basket");
+  console.log(addToBasket, "basket");
   const [showModal, setShowModal] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -20,9 +20,12 @@ export const ProductCard = ({ selectedCategory }) => {
   const handleAddToBasket = (product) => {
     addToBasket(product);
     setShowModal(false);
+    toast.success("Продукт был добавлен в корзину");
   };
+
   return (
     <>
+      <ToastContainer />
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}

@@ -7,7 +7,6 @@ export const BasketProvider = ({ children }) => {
     const savedBasket = localStorage.getItem("basket");
     return savedBasket ? JSON.parse(savedBasket) : [];
   });
-
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(basket));
   }, [basket]);
@@ -15,9 +14,12 @@ export const BasketProvider = ({ children }) => {
   const addToBasket = (product) => {
     setBasket((prevBasket) => [...prevBasket, product]);
   };
-
+  const clearBasket = () => {
+    setBasket([]);
+    localStorage.removeItem("basket");
+  };
   return (
-    <BasketContext.Provider value={{ basket, addToBasket }}>
+    <BasketContext.Provider value={{ basket, addToBasket, clearBasket }}>
       {children}
     </BasketContext.Provider>
   );

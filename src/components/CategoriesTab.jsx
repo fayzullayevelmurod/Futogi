@@ -3,8 +3,7 @@ import { ProductCard } from "./ProductCard";
 import assets from "../assets";
 import { Loader } from "./Loader";
 import { TitleBox } from "./TitleBox";
-import { getCategories, getCategoryById, getImageById } from "../services/api";
-import { getImageUrl } from "../utils/helpers";
+import { getCategories, getCategoryById } from "../services/api";
 export const CategoriesTab = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -74,31 +73,6 @@ export const CategoriesTab = () => {
             ) : (
               <ProductCard selectedCategory={selectedCategory} />
             )}
-            {/* {isLoading ? (
-              <Loader />
-            ) : (
-              <div className="category_details">
-                {selectedCategory.map((item) => (
-                  <div key={item.id}>
-                    <ProductCard
-                      selectedCategory={item}
-                      image={`https://api.futoji.ru/${item.image}`}
-                    />
-                    {item.mods && item.mods.length > 0 && (
-                      <div className="mods">
-                        {item.mods.map((mod) => (
-                          <ProductCard
-                            key={mod.id}
-                            selectedCategory={mod}
-                            image={`https://api.futoji.ru/${mod.image}`}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )} */}
           </>
         </div>
       </div>

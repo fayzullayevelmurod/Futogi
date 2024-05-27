@@ -15,7 +15,7 @@ export const Modal = ({
     mass = "No mass available",
     price = "No price available",
   } = product || {};
-console.log(product, 'modal product');
+
   return (
     <div className={`modal ${showModal && "show"}`}>
       <div className="modal_content">

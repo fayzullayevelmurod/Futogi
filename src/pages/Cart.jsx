@@ -1,26 +1,36 @@
 import { Link } from "react-router-dom";
 import assets from "../assets";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Counter } from "../components";
 import { BasketContext } from "../context/BasketContext";
 
 export const Cart = () => {
   const [productCounts, setProductCounts] = useState({});
-  const [personCount, setPersonCount] = useState(0);
+  const [personCount, setPersonCount] = useState();
   const pricePerUnit = 1000;
-  const { basket } = useContext(BasketContext);
+  const { basket, clearBasket } = useContext(BasketContext);
 
+  // const handleProductCountChange = (productId, newCount) => {
+  //   setProductCounts((prevCounts) => ({
+  //     ...prevCounts,
+  //     [productId]: newCount,
+  //   }));
+  // };
   const handleProductCountChange = (productId, newCount) => {
     setProductCounts((prevCounts) => ({
       ...prevCounts,
-      [productId]: newCount,
+      [productId]: newCount === 0 ? 1 : newCount,
     }));
   };
 
   const getProductTotalPrice = (productId) => {
-    const count = productCounts[productId] || 0;
+    const count = productCounts[productId] || 1;
     return count * pricePerUnit;
   };
+  // const getProductTotalPrice = (productId) => {
+  //   const count = productCounts[productId] || 0;
+  //   return count * pricePerUnit;
+  // };
 
   const handlePersonCountChange = (newCount) => {
     setPersonCount(newCount);
@@ -28,7 +38,7 @@ export const Cart = () => {
 
   const totalProductPrice = Object.keys(productCounts).reduce(
     (total, productId) => {
-      const count = productCounts[productId] || 0;
+      const count = productCounts[productId] || 1;
       return total + count * pricePerUnit;
     },
     0
@@ -58,9 +68,9 @@ export const Cart = () => {
                 <h3 className="product_name">{item.name}</h3>
               </div>
               <div className="counter_box">
-                {item?.mass && <span className="mass">{item?.mass}г</span>}
+                {item?.mass && <span className="mass">{item?.mass}</span>}
                 <Counter
-                  initialCount={productCounts[item.id] || 0}
+                  initialCount={productCounts[item.id] || 1}
                   onChange={(newCount) =>
                     handleProductCountChange(item.id, newCount)
                   }
@@ -83,6 +93,7 @@ export const Cart = () => {
           <div className="right_box">
             <p>Укажите количество персон </p>
             <Counter
+              // initialCount={productCounts[item.id] || 1}
               initialCount={personCount}
               onChange={handlePersonCountChange}
             />
@@ -96,10 +107,13 @@ export const Cart = () => {
           </p>
         </div>
         <div className="btn_box">
-          <button className="blur__btn">Очистить корзину</button>
+          <button className="blur__btn" onClick={clearBasket}>
+            Очистить корзину
+          </button>
           <Link className="add__cart-btn">К оформлению</Link>
         </div>
       </div>
+      <img className="gradiend_img" src={assets.topGradient} alt="" />
     </div>
   );
 };

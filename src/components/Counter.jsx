@@ -1,7 +1,7 @@
 import { useState } from "react";
 import assets from "../assets";
 
-export const Counter = ({ initialCount = 0, pricePerUnit, onChange }) => {
+export const Counter = ({ initialCount = 1, onChange }) => {
   const [count, setCount] = useState(initialCount);
 
   const increment = () => {
@@ -11,7 +11,7 @@ export const Counter = ({ initialCount = 0, pricePerUnit, onChange }) => {
   };
 
   const decrement = () => {
-    const newCount = count > 0 ? count - 1 : 0;
+    const newCount = count > 1 ? count - 1 : 1;
     setCount(newCount);
     onChange(newCount);
   };
