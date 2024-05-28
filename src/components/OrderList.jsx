@@ -1,26 +1,50 @@
-import assets from "../assets";
+import { useContext } from "react";
+import { BasketContext } from "../context/BasketContext";
+import { getImageUrl } from "../utils/helpers";
+import { useLocation } from "react-router-dom";
 
 export const OrderList = () => {
+  const { basket } = useContext(BasketContext);
+  // const location = useLocation();
+  // const orders = location.state?.orders || [];
+  // console.log(orders);
+  const handleCalculatePrice = () => {
+    return basket.reduce((total, item) => {
+      return total + +item.price;
+    }, 0);
+  };
+  const totalPrice = handleCalculatePrice();
+
   return (
     <div className="order_list">
       <div className="order_list-content">
         <h1 className="title">СОСТАВ ЗАКАЗА</h1>
         <div className="products_boxes">
-          <div className="product_box">
-            <div className="product_left-box">
-              <img
-                className="product_img"
-                src={assets.product1}
-                alt="product img"
-              />
-              <div>
-                <p className="product_name">Маки с лососем и огурцом</p>
-                <span className="mass">200г</span>
-                <span className="quantity">10 шт</span>
+          {basket.length > 0 ? (
+            basket.map((item, index) => (
+              <div key={`${item.id}-${index}`} className="product_box">
+                <div className="product_left-box">
+                  <img
+                    className="product_img"
+                    src={getImageUrl(item.image)}
+                    alt="product img"
+                  />
+                  <div>
+                    <p className="product_name">{item.name}</p>
+                    <div className="flex_box">
+                      {item.mass && <span className="mass">{item.mass}</span>}
+                      {/* {item.hasMods && ( */}
+                      <span className="quantity">{item.count} шт</span>
+                      {/* // )} */}
+                    </div>
+                  </div>
+                </div>
+                <span className="price">{item.price}Р</span>
               </div>
-            </div>
-            <span className="price">10000Р</span>
-          </div>
+            ))
+          ) : (
+            <span style={{ textAlign: "center" }}>Корзина пуста</span>
+          )}
         </div>
         <div className="delivery_box">
           <span>Доставка</span>
@@ -43,7 +67,7 @@ export const OrderList = () => {
           </div>
           <div className="total_price">
             <span className="total">Итого к оплате:</span>
-            <span className="price">10000 Р</span>
+            <span className="price">{totalPrice} Р</span>
           </div>
         </div>
       </div>

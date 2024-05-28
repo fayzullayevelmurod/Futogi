@@ -4,6 +4,7 @@ import "swiper/swiper-bundle.css";
 import "swiper/css";
 import { Navigation, Pagination } from "swiper/modules";
 import assets from "../assets";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const swiperRef = useRef(null);
@@ -99,125 +100,134 @@ export const Home = () => {
         />
         <div className="products_in desktop_block">
           <div className="products_left">
-            <div className="products_block product_one">
+            <Link to="/products" className="products_block product_one">
               <img src={assets.product2} alt="" />
               <h6>СЕТЫ</h6>
-            </div>
+            </Link>
             <div className="products_blocks">
-              <div className="products_block mini_block product_blocks_in">
+              <Link
+                to="/products"
+                className="products_block mini_block product_blocks_in"
+              >
                 <img src={assets.product2} alt="" />
                 <h6>
                   ГОРЯЧИЕ
                   <br /> РОЛЛЫ
                 </h6>
-              </div>
+              </Link>
               <div className="products_blocks_two product_blocks_in">
-                <div className="products_block">
+                <Link to='/products' className="products_block">
                   <img src={assets.product3} alt="" />
                   <h6>ПИЦЦА</h6>
-                </div>
-                <div className="products_block">
+                </Link>
+                <Link to='/products' className="products_block">
                   <img src={assets.product4} alt="" />
                   <h6>ВОК</h6>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
           <div className="products_right">
             <div className="products_blocks">
-              <div className="products_block product_blocks_in">
+              <Link to="/products" className="products_block product_blocks_in">
                 <img src={assets.product5} alt="" />
                 <h6>ХОЛОДНЫЕ РОЛЛЫ</h6>
-              </div>
+              </Link>
               <div className="products_blocks_two product_blocks_in">
-                <div className="products_block mini_block">
+                <Link to="/products" className="products_block mini_block">
                   <img src={assets.product6} alt="" />
                   <h6>
                     СЯКИ
                     <br /> МАКИ
                   </h6>
-                </div>
-                <div className="products_block mini_block">
+                </Link>
+                <Link to="/products" className="products_block mini_block">
                   <img src={assets.product7} alt="" />
                   <h6>
                     ФАСТ
                     <br />
                     ФУД
                   </h6>
-                </div>
+                </Link>
               </div>
             </div>
-            <div className="products_block product_one">
+            <Link to="/products" className="products_block product_one">
               <img src={assets.product8} alt="" />
               <h6>НАПИТКИ</h6>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="products_in desktop_media">
           <div className="products_left">
-            <div className="products_block product_one">
+            <Link to="/products" className="products_block product_one">
               <img src="./images/product_media1.png" alt="" />
               <h6>
                 ЖАРЕННЫЕ
                 <br />
                 РОЛЛЫ
               </h6>
-            </div>
+            </Link>
             <div className="products_blocks">
-              <div className="products_block mini_block product_blocks_in">
+              <Link
+                to="/products"
+                className="products_block mini_block product_blocks_in"
+              >
                 <img src="./images/product_media5.png" alt="" />
                 <h6>
                   ХОЛОДНЫЕ
                   <br />
                   РОЛЛЫ
                 </h6>
-              </div>
+              </Link>
               <div className="products_blocks_two product_blocks_in">
-                <div className="products_block">
+                <Link to='/products' className="products_block">
                   <img src="./images/product_media3.png" alt="" />
                   <h6>
                     СЯКИ
                     <br /> МАКИ
                   </h6>
-                </div>
-                <div className="products_block">
+                </Link>
+                <Link to='/products' className="products_block">
                   <img src="./images/product_media4.png" alt="" />
                   <h6>ВОК</h6>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
           <div className="products_right">
             <div className="products_blocks">
               <div className="products_blocks">
-                <div className="products_block mini_block product_blocks_in">
+                <Link
+                  to="/products"
+                  className="products_block mini_block product_blocks_in"
+                >
                   <img src="./images/product_media2.png" alt="" />
                   <h6>
                     ЗАПЕЧЁННЫЕ
                     <br />
                     РОЛЛЫ
                   </h6>
-                </div>
+                </Link>
                 <div className="products_blocks_two product_blocks_in">
-                  <div className="products_block">
+                  <Link to='/products' className="products_block">
                     <img src="./images/product3.png" alt="" />
                     <h6>ПИЦЦА</h6>
-                  </div>
-                  <div className="products_block">
+                  </Link>
+                  <Link to='/products' className="products_block">
                     <img src="./images/product_media7.png" alt="" />
                     <h6>
                       ФАСТ
                       <br />
                       ФУД
                     </h6>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
-            <div className="products_block product_one">
+            <Link to="/products" className="products_block product_one">
               <img src="./images/product8.png" alt="" />
               <h6>НАПИТКИ</h6>
-            </div>
+            </Link>
           </div>
         </div>
       </section>

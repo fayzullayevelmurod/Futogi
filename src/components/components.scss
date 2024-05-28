@@ -407,8 +407,14 @@
     }
     .quantity {
       text-decoration: none;
-      padding-left: 33px;
       color: #adadad;
+    }
+    .flex_box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      max-width: 100px;
     }
     .price {
       font-size: 17px;

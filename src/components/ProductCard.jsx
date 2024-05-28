@@ -79,7 +79,7 @@ export const ProductCard = ({ selectedCategory }) => {
                   <h1 className="modes_title">{item.name}</h1>
                   <div className="mods_boxes">
                     {item.mods?.map((mod) => (
-                      <div key={mod.id} className="products__box">
+                      <div key={mod.id}  className="products__box">
                         <div>
                           <div className="product_img">
                             {mod.image ? (
