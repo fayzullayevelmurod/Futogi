@@ -540,10 +540,13 @@
     padding: 19px 27px;
     font-size: 20px;
     font-weight: 500;
+    margin-top: 0;
   }
-  .top_form {
+  // .top_form,
+  .form {
     display: flex;
     gap: 70px;
+    flex-wrap: wrap;
   }
   .location_box {
     margin-top: 66px;
@@ -602,7 +605,8 @@
   outline: none;
   color: #fff;
 }
-.form_name {
+.form_name,
+.form_label {
   font-size: 16px;
   font-weight: 300;
   line-height: 13.72px;
