@@ -5,6 +5,11 @@
   padding: 13px 15px;
   background: #fc3f1d;
   color: #fff;
+  transition: all 0.2s linear;
+  &:hover {
+    background: #d9d9d9;
+    color: #fc3f1d;
+  }
 }
 .title_box {
   position: relative;
@@ -341,4 +346,112 @@
 }
 .Toastify__toast-body {
   text-align: left;
+}
+
+// order_list
+.order_list {
+  border-top: 6px solid #fc3f1d;
+  padding: 0 10px;
+  max-width: 400px;
+  width: 100%;
+  &-content {
+    margin: 0 auto;
+    width: 100%;
+    padding: 44px 22px 70px 22px;
+    background: #7c7c7c33;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    .title {
+      padding-bottom: 19px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 24.05px;
+      border-bottom: 1px solid #5a5a5a;
+    }
+  }
+  .products_boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .product_box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .product_img {
+      width: 87px;
+      height: 70px;
+      object-fit: cover;
+    }
+    .product_left-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .product_name {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 12px;
+      padding-bottom: 8px;
+    }
+    .mass,
+    .quantity {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 10.29px;
+      color: #d9d9d9;
+      text-decoration: underline;
+    }
+    .quantity {
+      text-decoration: none;
+      padding-left: 33px;
+      color: #adadad;
+    }
+    .price {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 14.58px;
+      text-decoration: underline;
+    }
+  }
+  .delivery_box {
+    padding: 30px 0;
+    border: 1px solid #5a5a5a;
+    border-left: none;
+    border-right: none;
+    .delivery_location-box {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      span {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 10.31px;
+        color: #d9d9d9;
+      }
+    }
+  }
+  .total_price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 30px;
+    border-top: 1px solid #5a5a5a;
+    margin-top: 30px;
+    .total {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 17.18px;
+    }
+    .price {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 27.48px;
+      color: #fc3f1d;
+    }
+  }
 }
