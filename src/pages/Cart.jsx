@@ -3,6 +3,7 @@ import assets from "../assets";
 import { useContext, useState } from "react";
 import { Counter } from "../components";
 import { BasketContext } from "../context/BasketContext";
+import { getImageUrl } from "../utils/helpers";
 
 export const Cart = () => {
   const [productCounts, setProductCounts] = useState({});
@@ -56,7 +57,7 @@ export const Cart = () => {
               <div className="img_box">
                 <img
                   className="product_img"
-                  src={`https://api.futoji.ru${item.image}`}
+                  src={getImageUrl(item.image)}
                   alt=""
                 />
                 <h3 className="product_name">{item.name}</h3>
@@ -104,7 +105,9 @@ export const Cart = () => {
           <button className="blur__btn" onClick={clearBasket}>
             Очистить корзину
           </button>
-          <Link className="add__cart-btn">К оформлению</Link>
+          <Link to="/making-an-order" className="add__cart-btn">
+            К оформлению
+          </Link>
         </div>
       </div>
       <img className="gradiend_img" src={assets.topGradient} alt="" />

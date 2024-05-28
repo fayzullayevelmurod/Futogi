@@ -17,7 +17,6 @@ export const getCategoryById = (id) => api.get(`categories/getById?q=${id}`);
 export const getProductById = (id) => api.get(`products/getById?q=${id}`);
 export const getProductByName = (name) =>
   api.get(`products/getByName?s=${name}`);
-export const getImageById = (id) => api.get(`images/getById?q=${id}`);
 export const createOrder = (orderData) => api.post("orders/create", orderData);
 
 export default api;

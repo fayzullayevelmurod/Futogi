@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { Modal } from "./Modal";
 import { BasketContext } from "../context/BasketContext";
 import { ToastContainer, toast } from "react-toastify";
+import { getImageUrl } from "../utils/helpers";
 export const ProductCard = ({ selectedCategory }) => {
   const { addToBasket } = useContext(BasketContext);
   console.log(addToBasket, "basket");
@@ -44,7 +45,7 @@ export const ProductCard = ({ selectedCategory }) => {
                   <div className="product_img">
                     {item.image ? (
                       <img
-                        src={`https://api.futoji.ru${item.image}`}
+                        src={getImageUrl(item.image)}
                         alt={item.name}
                       />
                     ) : (
@@ -83,7 +84,7 @@ export const ProductCard = ({ selectedCategory }) => {
                           <div className="product_img">
                             {mod.image ? (
                               <img
-                                src={`https://api.futoji.ru${mod.image}`}
+                                src={getImageUrl(mod.image)}
                                 alt={mod.name}
                               />
                             ) : (

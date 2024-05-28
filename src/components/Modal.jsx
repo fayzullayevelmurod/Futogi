@@ -1,4 +1,5 @@
 import assets from "../assets";
+import { getImageUrl } from "../utils/helpers";
 
 export const Modal = ({
   showModal,
@@ -27,7 +28,7 @@ export const Modal = ({
         </button>
         <div className="img_box">
           {image ? (
-            <img src={`https://api.futoji.ru${image}`} alt={name} />
+            <img src={getImageUrl(image)} alt={name} />
           ) : (
             <span>Нет изображения</span>
           )}
