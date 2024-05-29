@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import assets from "../assets";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Counter } from "../components";
 import { BasketContext } from "../context/BasketContext";
 import { getImageUrl } from "../utils/helpers";
@@ -8,14 +8,29 @@ import { getImageUrl } from "../utils/helpers";
 export const Cart = () => {
   const [productCounts, setProductCounts] = useState({});
   const [personCount, setPersonCount] = useState(1);
-  const { basket, clearBasket } = useContext(BasketContext);
+  const { basket, clearBasket, updateProductCount } = useContext(BasketContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const savedCounts = localStorage.getItem("productCounts");
+    if (savedCounts) {
+      setProductCounts(JSON.parse(savedCounts));
+    } else {
+      const initialCounts = basket.reduce((acc, item) => {
+        acc[item.id] = item.count || 1;
+        return acc;
+      }, {});
+      setProductCounts(initialCounts);
+    }
+  }, [basket]);
+
   const handleProductCountChange = (productId, newCount) => {
-    setProductCounts((prevCounts) => ({
-      ...prevCounts,
-      [productId]: newCount,
-    }));
+    updateProductCount(productId, newCount);
+    setProductCounts((prevCounts) => {
+      const updatedCounts = { ...prevCounts, [productId]: newCount };
+      localStorage.setItem("productCounts", JSON.stringify(updatedCounts));
+      return updatedCounts;
+    });
   };
 
   const getProductTotalPrice = (productId, price) => {
@@ -39,16 +54,7 @@ export const Cart = () => {
   const totalProductPrice = calculateTotalPrice();
 
   const handleSubmit = () => {
-    const orders = basket.map((item) => ({
-      id: item.id,
-      image: item.image,
-      name: item.name,
-      count: productCounts[item.id] || 1,
-      pricePerUnit: item.price,
-      price: item.price,
-      mass: item.mass,
-    }));
-    navigate("/making-an-order", { state: { orders } });
+    navigate("/making-an-order");
   };
 
   return (
@@ -78,7 +84,8 @@ export const Cart = () => {
                 <div className="counter_box">
                   {item?.mass && <span className="mass">{item?.mass}</span>}
                   <Counter
-                    initialCount={productCounts[item.id] || 1}
+                    initialCount={1}
+                    productCounts={productCounts[item.id]}
                     onChange={(newCount) =>
                       handleProductCountChange(item.id, newCount)
                     }

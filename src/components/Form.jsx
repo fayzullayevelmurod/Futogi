@@ -1,14 +1,19 @@
-export const FormSection = ({ title, children }) => (
-  <div className="form_box">
+export const FormSection = ({ title, children, className }) => (
+  <div className={`form_box ${className ? className : ""}`}>
     {title && <h1 className="form_title">{title}</h1>}
     {children}
   </div>
 );
 
-export const FormItem = ({ label, type, name }) => (
-  <div className="form_item">
+export const FormItem = ({ label, type, name, className, placeholder }) => (
+  <div className={`form_item ${className ? className : ""}`}>
     <label className="form_label">{label}</label>
-    <input className="form_input" type={type} name={name} />
+    <input
+      className={`form_input ${className ? className : ""}`}
+      type={type}
+      name={name}
+      placeholder={placeholder}
+    />
   </div>
 );
 
@@ -19,19 +24,44 @@ export const FormTextArea = ({ label }) => (
   </div>
 );
 
-export const RadioItem = ({ id, name, label, checked }) => (
+export const RadioItem = ({ id, name, label, checked, onChange }) => (
   <div className="radio_item">
-    <input type="radio" id={id} name={name} defaultChecked={checked} />
-    <label htmlFor={id}>{label}</label>
+    <input
+      type="radio"
+      id={id}
+      name={name}
+      onChange={onChange}
+      defaultChecked={checked}
+      checked={checked}
+      className="checkbox_form-input"
+    />
+    <label className="form_label checked_box-form-label" htmlFor={id}>
+      {label}
+    </label>
   </div>
 );
-
-export const CheckboxItem = ({ id, label }) => (
+export const CheckboxItem = ({ id, label, checked, onChange }) => (
   <div className="checkbox_item">
-    <input type="checkbox" id={id} />
-    <label htmlFor={id}>{label}</label>
+    <input
+      className="checkbox_form-input"
+      type="checkbox"
+      id={id}
+      checked={checked}
+      onChange={onChange}
+    />
+    <label className="form_label checked_box-form-label" htmlFor={id}>
+      {label}
+    </label>
   </div>
 );
+// export const CheckboxItem = ({ id, label }) => (
+//   <div className="checkbox_item">
+//     <input className="checkbox_form-input" type="checkbox" id={id} />
+//     <label className="form_label checked_box-form-label" htmlFor={id}>
+//       {label}
+//     </label>
+//   </div>
+// );
 
 export const PromocodeInput = () => (
   <div className="promocode_box">
@@ -44,5 +74,5 @@ export const PromocodeInput = () => (
 );
 
 export const Button = ({ label, className }) => (
-  <button className={`button ${className}`}>{label}</button>
+  <button className={`button ${className ? className : ""}`}>{label}</button>
 );

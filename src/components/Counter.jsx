@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import assets from "../assets";
 
-export const Counter = ({ initialCount = 1, onChange }) => {
+export const Counter = ({ initialCount = 1, onChange, productCounts }) => {
   const [count, setCount] = useState(initialCount);
+
+  useEffect(() => {
+    setCount(productCounts || initialCount);
+  }, [productCounts, initialCount]);
 
   const increment = () => {
     const newCount = count + 1;

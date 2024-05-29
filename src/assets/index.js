@@ -29,6 +29,7 @@ import topGradient from "./top-gradient.webp";
 import closeIcon from "./icons/close-icon.svg";
 import minusIcon from "./icons/minus-icon.svg";
 import plusIcon from "./icons/plus-icon.svg";
+// import gradientBig from "./gradient-big.png";
 export default {
   headerBurger,
   headerLogo,
@@ -60,5 +61,6 @@ export default {
   topGradient,
   closeIcon,
   minusIcon,
-	plusIcon
+  plusIcon,
+  // gradientBig
 };
