@@ -13,20 +13,14 @@ import {
 import { Link } from "react-router-dom";
 
 export const MakingOrder = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const [selectCheckbox, setSelectCheckbox] = useState(false);
+  const [deliveryMethod, setDeliveryMethod] = useState("");
+  const [deliveryTime, setDeliveryTime] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [noChange, setNoChange] = useState(false);
   const [showOrderList, setShowOrderList] = useState(true);
 
   const handleShowOrderList = () => {
     setShowOrderList(!showOrderList);
-  };
-
-  const handleOptionChange = (option) => {
-    setSelectedOption(option);
-  };
-
-  const handleCheckboxChange = () => {
-    setSelectCheckbox(!selectCheckbox);
   };
 
   return (
@@ -58,22 +52,22 @@ export const MakingOrder = () => {
                       id="delivery"
                       name="deliveryMethod"
                       label="Доставка"
-                      checked={selectedOption === "delivery"}
-                      onChange={() => handleOptionChange("delivery")}
+                      checked={deliveryMethod === "delivery"}
+                      onChange={() => setDeliveryMethod("delivery")}
                     />
                     <RadioItem
                       id="pickup"
                       name="deliveryMethod"
                       label="Самовывоз"
-                      checked={selectedOption === "pickup"}
-                      onChange={() => handleOptionChange("pickup")}
+                      checked={deliveryMethod === "pickup"}
+                      onChange={() => setDeliveryMethod("pickup")}
                     />
-                    {selectedOption === "delivery" && (
+                    {deliveryMethod === "delivery" && (
                       <div className="top_child-form">
                         <FormItem
                           label="Населенный пункт, улица:"
                           type="text"
-                          name="name"
+                          name="address"
                           className="full"
                         />
                         <FormSection className="flex_box full">
@@ -91,7 +85,7 @@ export const MakingOrder = () => {
                         </FormSection>
                       </div>
                     )}
-                    {selectedOption === "pickup" && (
+                    {deliveryMethod === "pickup" && (
                       <RadioItem
                         id="vladimirAddress"
                         label="г. Владимир, ул. Пушкина, д. 8"
@@ -112,19 +106,19 @@ export const MakingOrder = () => {
                 <form className="form checked_box check_form-box">
                   <RadioItem
                     id="delivery2"
-                    name="deliveryMethod2"
+                    name="deliveryTime"
                     label="Как можно скорее"
-                    checked={selectedOption === "delivery2"}
-                    onChange={() => handleOptionChange("delivery2")}
+                    checked={deliveryTime === "delivery2"}
+                    onChange={() => setDeliveryTime("delivery2")}
                   />
                   <RadioItem
                     id="pickup2"
-                    name="deliveryMethod2"
+                    name="deliveryTime"
                     label="К точному времени"
-                    checked={selectedOption === "pickup2"}
-                    onChange={() => handleOptionChange("pickup2")}
+                    checked={deliveryTime === "pickup2"}
+                    onChange={() => setDeliveryTime("pickup2")}
                   />
-                  {selectedOption === "delivery2" && (
+                  {deliveryTime === "pickup2" && (
                     <FormSection className="delivery_time">
                       <FormItem type="number" label="Укажите время доставки" />
                     </FormSection>
@@ -132,7 +126,7 @@ export const MakingOrder = () => {
                 </form>
               </FormSection>
 
-              {selectedOption === "pickup2" && (
+              {deliveryTime === "delivery2" && (
                 <div className="form_box promocode_box">
                   <FormSection>
                     <PromocodeInput />
@@ -148,21 +142,21 @@ export const MakingOrder = () => {
                         id="cash"
                         name="paymentMethod"
                         label="Оплата наличными при получении"
-                        checked={selectedOption === "cash"}
-                        onChange={() => handleOptionChange("cash")}
+                        checked={paymentMethod === "cash"}
+                        onChange={() => setPaymentMethod("cash")}
                       />
                     </div>
-                    {selectedOption === "cash" && (
-                      <div className="check_form-box checked_box">
+                    {paymentMethod === "cash" && (
+                      <div className="check_form-box checked_box sm-radio">
                         <CheckboxItem
                           id="noChange"
                           label="Без сдачи"
-                          checked={selectCheckbox}
-                          onChange={handleCheckboxChange}
+                          checked={noChange}
+                          onChange={() => setNoChange(!noChange)}
                         />
                       </div>
                     )}
-                    {!selectCheckbox && selectedOption !== "card" && (
+                    {!noChange && paymentMethod === "cash" && (
                       <div className="ways_pay">
                         <FormItem
                           label="Укажите с какой суммы подготовить сдачу"
@@ -181,8 +175,8 @@ export const MakingOrder = () => {
                         id="card"
                         name="paymentMethod"
                         label="Оплата картой при получении"
-                        checked={selectedOption === "card"}
-                        onChange={() => handleOptionChange("card")}
+                        checked={paymentMethod === "card"}
+                        onChange={() => setPaymentMethod("card")}
                       />
                     </div>
                   </form>
