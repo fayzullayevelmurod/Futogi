@@ -10,10 +10,16 @@ import {
   PromocodeInput,
   RadioItem,
 } from "../components/Form";
+import { Link } from "react-router-dom";
 
 export const MakingOrder = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectCheckbox, setSelectCheckbox] = useState(false);
+  const [showOrderList, setShowOrderList] = useState(true);
+
+  const handleShowOrderList = () => {
+    setShowOrderList(!showOrderList);
+  };
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -26,8 +32,11 @@ export const MakingOrder = () => {
   return (
     <div className="making_order">
       <div className="parent_sidebar">
-        <div className="top_gradient">
-          <img src={assets.topGradient} alt="top gradient" />
+        <div className="title_box">
+          <h1 className="media_title title">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+          <div className="top_gradient">
+            <img src={assets.topGradient} alt="top gradient" />
+          </div>
         </div>
         <div className="sidebars">
           <div className="left_box">
@@ -186,7 +195,18 @@ export const MakingOrder = () => {
             </div>
           </div>
           <div className="right_box">
-            <OrderList />
+            <button className="show_order" onClick={handleShowOrderList}>
+              Показать заказ
+            </button>
+            <div className="desktop_order-list">
+              <OrderList />
+            </div>
+            <div className={`media_order-list ${showOrderList ? "show" : ""}`}>
+              <OrderList />
+            </div>
+            <Link className="button send_btn add__cart-btn">
+              Оформить заказ
+            </Link>
           </div>
         </div>
       </div>

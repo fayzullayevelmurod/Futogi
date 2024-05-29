@@ -457,10 +457,39 @@
 .making_order {
   position: relative;
   z-index: 1;
+  .show_order {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 17.15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    background: #6f6f6f33;
+    border: 1px solid transparent;
+    width: 100%;
+    color: #fff;
+    border-image: linear-gradient(
+        146.49deg,
+        rgba(140, 140, 140, 0.6) 3.89%,
+        rgba(0, 0, 0, 0) 48.54%,
+        rgba(143, 143, 143, 0.6) 89.85%
+      )
+      0;
+    margin-bottom: 40px;
+  }
+
   .parent_sidebar {
     position: relative;
     z-index: 1;
     margin: 236px 0 210px 0;
+    .title__box {
+      z-index: 1;
+      position: relative;
+    }
+    .media_title {
+      display: none;
+    }
   }
   .top_gradient {
     height: 300px;
@@ -468,10 +497,13 @@
       height: 100%;
     }
   }
+  .title_box .top_gradient {
+    top: 57px;
+  }
   .top_gradient,
   .bottom_gradient {
     position: absolute;
-    top: -13%;
+    top: 57px;
     left: 0;
     width: 100%;
     z-index: -1;
@@ -494,12 +526,23 @@
     gap: 64px;
     max-width: 980px;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
     .left_box {
       max-width: 516px;
       width: 100%;
     }
     .right_box {
       flex: 1 1 380px;
+      .media_order-list {
+        display: none;
+      }
+      .add__cart-btn {
+        display: none;
+      }
+      .show_order {
+        display: none;
+      }
     }
   }
   .form_boxes {
@@ -760,11 +803,28 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
+  .parent_relative {
+    padding: 250px 40px 73px 40px;
+    position: relative;
+    z-index: 1;
+    img {
+      position: absolute;
+      top: 42%;
+      left: 0;
+      width: 100%;
+      z-index: -1;
+      height: 239px;
+    }
+  }
+  .top__box {
+    position: relative;
+    margin: 0;
+  }
   .bottom_gradient {
     position: absolute;
     width: 100%;
     z-index: -1;
-    bottom: -46%;
+    bottom: -87%;
     height: 144%;
     img {
       width: 100%;

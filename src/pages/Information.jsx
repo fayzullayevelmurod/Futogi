@@ -4,12 +4,14 @@ import assets from "../assets";
 export const Information = () => {
   return (
     <div className="information_page basket__page">
-      <div className="top__box">
-        <div className="title__box">
-          <h1>ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ</h1>
-          <Link className="blur__btn" to="/products">
-            Назад к меню
-          </Link>
+      <div className="parent_relative">
+        <div className="top__box">
+          <div className="title__box">
+            <h1>ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ</h1>
+            <Link className="blur__btn" to="/products">
+              Назад к меню
+            </Link>
+          </div>
         </div>
         <img src={assets.topGradient} alt="" />
       </div>
