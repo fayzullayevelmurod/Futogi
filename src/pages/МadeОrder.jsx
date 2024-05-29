@@ -11,12 +11,14 @@ export const МadeОrder = () => {
   };
 
   return (
-    <div className="madeorder_page basket__page">
-      <div className="top__box">
-        <div className="title__box">
-          <h1>ВАШ ЗАКАЗ ОФОРМЛЕН</h1>
+    <div className="madeorder_page information_page basket__page">
+      <div className="parent_relative">
+        <div className="top__box">
+          <div className="title__box">
+            <h1>ВАШ ЗАКАЗ ОФОРМЛЕН</h1>
+          </div>
         </div>
-        <img src={assets.topGradient} alt="top gradient" />
+        <img src={assets.topGradient} alt="" />
       </div>
       <div className="btns">
         <button className="blur__btn" onClick={handleShowOrderList}>
@@ -27,7 +29,7 @@ export const МadeОrder = () => {
           Назад к меню
         </Link>
       </div>
-      <div className="bottom_gradient">
+      <div className={`bottom_gradient ${showOrderList ? 'show' : 'hide'}`}>
         <img src={assets.gradientBig} alt="" />
       </div>
     </div>
