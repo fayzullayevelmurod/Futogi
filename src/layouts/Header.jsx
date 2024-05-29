@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import assets from "../assets";
+import { useContext, useEffect, useState } from "react";
+import { BasketContext } from "../context/BasketContext";
 const menuDB = [
   { name: "ХОЛОДНЫЕ РОЛЛЫ" },
   { name: "ЗАПЕЧЁННЫЕ РОЛЛЫ" },
@@ -10,10 +12,29 @@ const menuDB = [
   { name: "НАПИТКИ" },
 ];
 export const Header = () => {
+  const { basket } = useContext(BasketContext);
+  const [itemCount, setItemCount] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const calculateItemCount = () => {
+    return basket.length;
+  };
+
+  useEffect(() => {
+    setItemCount(calculateItemCount());
+  }, [basket]);
+
+  const handeShowMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
   return (
     <header>
       <div className="header_container">
-        <button className="header_burger header_burger_btn">
+        <button
+          className="header_burger header_burger_btn"
+          onClick={handeShowMenu}
+        >
           <img src={assets.headerBurger} alt="header burder icon" />
         </button>
         <a href="/" className="header_logo">
@@ -30,12 +51,12 @@ export const Header = () => {
           <span>8 (800) 555-35-35</span>
         </a>
         <div className="header_shop">
-          <span>10</span>
-          <Link to='/cart' className="header_shop_icon">
+          <span>{itemCount}</span>
+          <Link to="/cart" className="header_shop_icon">
             <img src={assets.headerShop} alt="" />
           </Link>
         </div>
-        <div className="header_menu">
+        <div className={`header_menu ${showMenu ? "active" : ""}`}>
           <ul>
             {menuDB?.map((item, idx) => (
               <li key={idx}>

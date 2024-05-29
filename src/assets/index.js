@@ -29,7 +29,14 @@ import topGradient from "./top-gradient.webp";
 import closeIcon from "./icons/close-icon.svg";
 import minusIcon from "./icons/minus-icon.svg";
 import plusIcon from "./icons/plus-icon.svg";
-// import gradientBig from "./gradient-big.png";
+import productMedia1 from "./product_media1.png";
+import productMedia2 from "./product_media2.png";
+import productMedia3 from "./product_media3.png";
+import productMedia4 from "./product_media4.png";
+import productMedia5 from "./product_media5.png";
+// import productMedia6 from "./product_media6.png";
+import productMedia7 from "./product_media7.png";
+// import product8 from "./product8.png";
 export default {
   headerBurger,
   headerLogo,
@@ -62,5 +69,11 @@ export default {
   closeIcon,
   minusIcon,
   plusIcon,
-  // gradientBig
+  productMedia1,
+  productMedia2,
+  productMedia3,
+  productMedia4,
+  productMedia5,
+  // productMedia6,
+  productMedia7,
 };

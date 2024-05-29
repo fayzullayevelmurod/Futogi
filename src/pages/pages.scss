@@ -67,6 +67,14 @@
         width: 10px;
         height: 10px;
         background: #b3b3b3ff;
+        border: 1px solid transparent;
+        border-image: linear-gradient(
+            146.49deg,
+            rgba(140, 140, 140, 0.6) 3.89%,
+            rgba(0, 0, 0, 0) 48.54%,
+            rgba(143, 143, 143, 0.6) 89.85%
+          )
+          0;
       }
 
       .swiper-pagination-bullet-active {

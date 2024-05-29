@@ -1,6 +1,19 @@
+import { useState } from "react";
 import assets from "../assets";
 
 export const Footer = () => {
+  const [visibility, setVisibility] = useState({
+    element1: false,
+    element2: false,
+  });
+
+  const handleShowContent = (element) => {
+    setVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [element]: !prevVisibility[element],
+    }));
+  };
+
   return (
     <footer>
       <div className="footer_container">
@@ -99,22 +112,44 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <button className="list_btn footer_link_btn_one">
+          <button
+            className={`list_btn footer_link_btn_one`}
+            onClick={() => handleShowContent("element1")}
+          >
             <span>Информация</span>
-            <img src={assets.downIcon} alt="" />
+            <img
+              className={`${visibility.element1 ? "active" : ""}`}
+              src={assets.downIcon}
+              alt=""
+            />
           </button>
-          <div className="list_links list_links_one">
+          <div
+            className={`list_links list_links_one ${
+              visibility.element1 ? "active" : ""
+            }`}
+          >
             <span>Режим работы:</span>
             <p>
               Пн - Вс:
               <br /> с <span>8.00</span> до <span>22.00</span>
             </p>
           </div>
-          <button className="list_btn footer_link_btn_two">
+          <button
+            className="list_btn footer_link_btn_two"
+            onClick={() => handleShowContent("element2")}
+          >
             <span>Покупателям</span>
-            <img src={assets.downIcon} alt="" />
+            <img
+              className={`${visibility.element2 ? "active" : ""}`}
+              src={assets.downIcon}
+              alt=""
+            />
           </button>
-          <ul className="list_links list_links_two">
+          <ul
+            className={`list_links list_links_two ${
+              visibility.element2 ? "active" : ""
+            }`}
+          >
             <li className="one_link">
               <a href="#">Меню</a>
             </li>
@@ -139,17 +174,17 @@ export const Footer = () => {
           </li>
           <li>
             <a href="#">
-						<img src={assets.footerLogo2} alt="" />
+              <img src={assets.footerLogo2} alt="" />
             </a>
           </li>
           <li>
             <a href="#">
-						<img src={assets.footerLogo3} alt="" />
+              <img src={assets.footerLogo3} alt="" />
             </a>
           </li>
           <li>
             <a href="#">
-						<img src={assets.footerLogo4} alt="" />
+              <img src={assets.footerLogo4} alt="" />
             </a>
           </li>
         </div>

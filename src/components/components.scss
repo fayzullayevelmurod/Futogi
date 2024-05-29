@@ -64,14 +64,26 @@
   padding: 150px 0 219px 0;
 }
 .category_details {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 54px;
-  grid-template-columns: repeat(3, 1fr);
   &.full {
     width: 100%;
+    max-width: 100%;
     display: block;
+    .category_details-card {
+      width: 100%;
+      max-width: 100%;
+    }
+    .products__box {
+      max-width: 304px;
+      width: 100%;
+    }
   }
   &-card {
+    max-width: 304px;
+    width: 100%;
     &.pb {
       padding-bottom: 95px;
       &:last-child {
@@ -85,15 +97,16 @@
     flex-direction: column;
     justify-content: space-between;
     background: #eeeeee52;
-    border: 1px solid;
+    border: 1px solid transparent;
     padding: 14px 10px;
     text-align: left;
-    border-image-source: linear-gradient(
-      165.54deg,
-      rgba(140, 140, 140, 0.6) 9.19%,
-      rgba(159, 159, 159, 0.3) 46.45%,
-      rgba(143, 143, 143, 0.6) 84.11%
-    );
+    border-image: linear-gradient(
+        165.54deg,
+        rgba(140, 140, 140, 0.6) 9.19%,
+        rgba(159, 159, 159, 0.3) 46.45%,
+        rgba(143, 143, 143, 0.6) 84.11%
+      )
+      0;
     img {
       padding-bottom: 18px;
       width: 100%;
@@ -118,6 +131,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .add__cart-btn {
+        margin-left: auto;
+      }
     }
     .no_img {
       font-size: 16px;
@@ -144,13 +160,14 @@
       color: #adadad;
       padding: 9px 5px;
       background: #cccccc33;
-      border: 1px solid #8c8c8c99;
-      // border-image-source: linear-gradient(
-      //   165.54deg,
-      //   rgba(140, 140, 140, 0.6) 9.19%,
-      //   rgba(159, 159, 159, 0.3) 46.45%,
-      //   rgba(143, 143, 143, 0.6) 84.11%
-      // );
+      border: 1px solid transparent;
+      border-image: linear-gradient(
+          165.54deg,
+          rgba(140, 140, 140, 0.6) 9.19%,
+          rgba(159, 159, 159, 0.3) 46.45%,
+          rgba(143, 143, 143, 0.6) 84.11%
+        )
+        0;
     }
     .right__box {
       display: flex;
@@ -163,14 +180,17 @@
     }
   }
   .mods_boxes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
     gap: 54px;
   }
   .modes_title {
     &:first-child {
       padding-top: 0;
+      max-width: 1015px;
+      margin: 0 auto;
     }
     text-align: left;
     font-size: 40px;
