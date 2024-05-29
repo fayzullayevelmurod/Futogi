@@ -221,21 +221,13 @@
     height: 80%;
     z-index: -1;
   }
-  .top__box {
+  .top_parent-box {
     position: relative;
+  }
+  .top__box {
     z-index: 1;
-    margin: 250px 0 73px 0;
-    padding: 0 40px;
-
-    &::before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      border-bottom: 1px solid #adadad;
-    }
+    margin: 250px 40px 73px 40px;
+    border-bottom: 1px solid #adadad;
     .title__box {
       position: relative;
       padding: 50px 0;
@@ -356,7 +348,9 @@
       line-height: 13.72px;
     }
     .product_img {
-      width: 150px;
+      width: 100%;
+      min-width: 150px;
+      max-width: 150px;
       height: 100%;
       object-fit: cover;
     }
@@ -430,7 +424,7 @@
     padding: 0 155px;
     padding-bottom: 210px;
     .total_price {
-      span {
+      .total {
         font-size: 32px;
         font-weight: 300;
         line-height: 27.44px;

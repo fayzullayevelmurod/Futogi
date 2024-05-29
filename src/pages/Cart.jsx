@@ -60,14 +60,16 @@ export const Cart = () => {
   return (
     <>
       <div className="basket__page">
-        <div className="top__box">
-          <div className="title__box">
-            <h1>КОРЗИНА</h1>
-            <Link className="blur__btn" to="/products">
-              Назад к меню
-            </Link>
+        <div className="top_parent-box">
+          <div className="top__box">
+            <div className="title__box">
+              <h1>КОРЗИНА</h1>
+              <Link className="blur__btn" to="/products">
+                Назад к меню
+              </Link>
+            </div>
+            <img src={assets.topGradient} alt="" />
           </div>
-          <img src={assets.topGradient} alt="" />
         </div>
         <div className="backet_products">
           {basket?.map((item, index) => (
@@ -79,7 +81,12 @@ export const Cart = () => {
                     src={getImageUrl(item.image)}
                     alt=""
                   />
-                  <h3 className="product_name">{item.name}</h3>
+                  <div className="content">
+                    <h3 className="product_name">{item.name}</h3>
+                    {item.mass && (
+                      <span className="media_mass">{item.mass}</span>
+                    )}
+                  </div>
                 </div>
                 <div className="counter_box">
                   {item?.mass && <span className="mass">{item?.mass}</span>}
@@ -119,7 +126,8 @@ export const Cart = () => {
         <div className="total_box">
           <div className="total_price">
             <p>
-              <span>Итого:</span> {totalProductPrice} р
+              <span className="total">Итого:</span>{" "}
+              <span>{totalProductPrice} р</span>
             </p>
           </div>
           <div className="btn_box">
@@ -131,7 +139,7 @@ export const Cart = () => {
             </button>
           </div>
         </div>
-        <img className="gradiend_img" src={assets.topGradient} alt="" />
+        <img className="gradiend_img" src={assets.gradientBig} alt="" />
       </div>
     </>
   );
