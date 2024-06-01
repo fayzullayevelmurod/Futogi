@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import assets from "../assets";
 import { useContext, useEffect, useState } from "react";
 import { BasketContext } from "../context/BasketContext";
+import { Search } from "../components";
 const menuDB = [
   { name: "ХОЛОДНЫЕ РОЛЛЫ" },
   { name: "ЗАПЕЧЁННЫЕ РОЛЛЫ" },
@@ -41,10 +42,7 @@ export const Header = () => {
           <img src={assets.headerLogo} alt="" />
         </a>
         <div className="header_search">
-          <button>
-            <img src={assets.headerSearch} alt="" />
-          </button>
-          <input type="search" placeholder="Введите название блюда" />
+          <Search />
         </div>
         <a href="tel:+88005553535" className="header_phone">
           <img src={assets.headerPhone} alt="" />
