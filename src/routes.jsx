@@ -11,6 +11,7 @@ import {
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/products", element: <Products /> },
+  { path: "/products/:productName", element: <Products /> },
   { path: "/cart", element: <Cart /> },
   { path: "/making-an-order", element: <MakingOrder /> },
   { path: "/information", element: <Information /> },

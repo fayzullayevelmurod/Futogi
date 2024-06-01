@@ -1,14 +1,18 @@
+// CategoriesTab.js
 import { useEffect, useState } from "react";
 import { ProductCard } from "./ProductCard";
 import assets from "../assets";
 import { Loader } from "./Loader";
 import { TitleBox } from "./TitleBox";
 import { getCategories, getCategoryById } from "../services/api";
+import { useNavigate, useParams } from "react-router-dom";
+
 export const CategoriesTab = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const { productName } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,10 +22,14 @@ export const CategoriesTab = () => {
         setCategories(categoriesData);
 
         if (categoriesData.length > 0) {
-          const firstCategory = categoriesData[0];
-          const categoryDetails = await getCategoryById(firstCategory.id);
-          setSelectedCategory(categoryDetails.data.data);
-          setSelectedCategoryId(firstCategory.id);
+          const initialCategory = productName
+            ? categoriesData.find((cat) => cat.name === productName)
+            : categoriesData[0];
+
+          if (initialCategory) {
+            const categoryDetails = await getCategoryById(initialCategory.id);
+            setSelectedCategory(categoryDetails.data.data);
+          }
         }
         setIsLoading(false);
       } catch (error) {
@@ -30,16 +38,16 @@ export const CategoriesTab = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [productName]);
 
   const handleCategoryClick = async (category) => {
-    if (category.id === selectedCategoryId) {
+    if (category.name === productName) {
       return;
     }
+    navigate(`/products/${category.name}`);
     try {
       const categoryDetails = await getCategoryById(category.id);
       setSelectedCategory(categoryDetails.data.data);
-      setSelectedCategoryId(category.id);
     } catch (error) {
       console.error("Error fetching category details:", error);
     }
@@ -56,7 +64,7 @@ export const CategoriesTab = () => {
             <li
               key={category.id}
               onClick={() => handleCategoryClick(category)}
-              className={selectedCategoryId === category.id ? "active" : ""}
+              className={productName === category.name ? "active" : ""}
             >
               {category.name}
             </li>
@@ -64,16 +72,10 @@ export const CategoriesTab = () => {
         </ul>
       </div>
 
-      <div className="parent_box ">
+      <div className="parent_box">
         <img className="gradient_big" src={assets.gradientBig} alt="" />
         <div className="main_container" style={{ textAlign: "center" }}>
-          <>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <ProductCard selectedCategory={selectedCategory} />
-            )}
-          </>
+          {isLoading ? <Loader /> : <ProductCard selectedCategory={selectedCategory} />}
         </div>
       </div>
     </>

@@ -92,7 +92,7 @@ export const Search = () => {
           setProducts(data);
           setError('');
         } catch (err) {
-          setError('Natijalar yuklanmadi, iltimos qayta urinib ko\'ring');
+          setError('Не удалось загрузить результаты. Повторите попытку.');
           setProducts([]);
         } finally {
           setLoading(false);
@@ -133,9 +133,9 @@ export const Search = () => {
       />
 
       <div className="result_products">
-        {loading && <p>Yuklanmoqda...</p>}
+        {loading && <p className='loading'> Загрузка...</p>}
         {error && <p>{error}</p>}
-        {products.length === 0 && !loading && !error && searchTerm && <p>Mahsulot topilmadi</p>}
+        {/* {products.length === 0 && !loading && !error && searchTerm && <p className='loading'>Товар не найден</p>} */}
         {products?.data?.map((product) => (
           <div
             key={product.id}
@@ -145,7 +145,7 @@ export const Search = () => {
             <img src={assets.product1} alt="product img" width={112} height={70} />
             <div className="product_content">
               <div className="left_box">
-                <span className="product_tip">{product.tip}</span>
+                <span className="product_tip">{product.description}</span>
                 <h4 className="product_name">{product.name}</h4>
               </div>
               <span className="product_price">{product.price}Р</span>

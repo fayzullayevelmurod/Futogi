@@ -982,4 +982,10 @@
   .information_page {
     padding-bottom: 60px;
   }
+  .products .product_one,
+  .products .products_left .products_blocks_two .products_block:first-child,
+  .products .products_left .products_blocks_two .products_block:last-child,
+  .products .products_right .products_blocks .product_blocks_in {
+    height: 84px;
+  }
 }

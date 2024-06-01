@@ -37,6 +37,7 @@ import productMedia5 from "./product_media5.png";
 // import productMedia6 from "./product_media6.png";
 import productMedia7 from "./product_media7.png";
 // import product8 from "./product8.png";
+import productMedia7_2 from "./productmedia7.png";
 export default {
   headerBurger,
   headerLogo,
@@ -74,6 +75,6 @@ export default {
   productMedia3,
   productMedia4,
   productMedia5,
-  // productMedia6,
   productMedia7,
+  productMedia7_2,
 };

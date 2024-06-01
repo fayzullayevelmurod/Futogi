@@ -28,6 +28,11 @@ header {
       line-height: 17.18px;
       color: #0e1018;
       border-bottom: 1px solid #0e1018;
+
+      &:hover {
+        color: #fc3f1d;
+        border-color: #fc3f1d;
+      }
     }
   }
 
@@ -75,6 +80,16 @@ header {
       line-height: 17.18px;
       color: #0e1018;
       border-bottom: 1px solid #0e1018;
+    }
+
+    &:hover {
+      span {
+        color: #fc3f1d;
+        border-color: #fc3f1d;
+      }
+      svg path {
+        stroke: #fc3f1d;
+      }
     }
   }
 }
@@ -144,7 +159,7 @@ header {
       top: 100%;
       left: -105px;
       width: 680px;
-      height: 480px;
+      height: 270px;
       overflow-x: auto;
       &::-webkit-scrollbar {
         width: 4px;
