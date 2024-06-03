@@ -23,6 +23,20 @@ export const MakingOrder = () => {
     setShowOrderList(!showOrderList);
   };
 
+  const [selectedOption, setSelectedOption] = useState('Выберите время');
+  const [showOptions, setShowOptions] = useState(false);
+
+  const options = [
+    "18:00 - 18:30", "18:00 - 18:30", "18:00 - 18:30",
+    "18:00 - 18:30", "18:00 - 18:30", "18:00 - 18:30",
+    "18:00 - 18:30", "18:00 - 18:30", "18:00 - 18:30"
+  ];
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setShowOptions(false);
+  };
+
   return (
     <div className="making_order">
       <div className="parent_sidebar">
@@ -120,7 +134,57 @@ export const MakingOrder = () => {
                   />
                   {deliveryTime === "pickup2" && (
                     <FormSection className="delivery_time">
-                      <FormItem type="number" label="Укажите время доставки" />
+                      {/* <div className={`form_item`}>
+                        <label className="form_label">Укажите время доставки</label>
+                        <div className="select__box">
+                          <input type="text"
+                            readOnly
+                            className="form_input select__input"
+                          />
+
+                          <div className="option__box">
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                            <div className="option">18:00 - 18:30</div>
+                          </div>
+                        </div>
+                      </div> */}
+                      <div className="form_item">
+                        <label className="form_label">Укажите время доставки</label>
+                        <div className="select__box">
+                          <input
+                            type="text"
+                            value={selectedOption}
+                            readOnly
+                            className="form_input select__input"
+                            onClick={() => setShowOptions(!showOptions)}
+                          />
+
+                          {showOptions && (
+                            <div className="option__box">
+                              {options.map((option, index) => (
+                                <div
+                                  key={index}
+                                  className="option"
+                                  onClick={() => handleOptionClick(option)}
+                                >
+                                  {option}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </FormSection>
                   )}
                 </form>
