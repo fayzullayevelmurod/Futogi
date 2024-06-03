@@ -14,6 +14,7 @@ header {
   gap: 38px;
   overflow-y: scroll;
   transition: all 0.2s linear;
+  z-index: 999;
 
   ul {
     display: flex;
