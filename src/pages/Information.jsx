@@ -8,7 +8,7 @@ export const Information = () => {
         <div className="top__box">
           <div className="title__box">
             <h1>ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ</h1>
-            <Link className="blur__btn" to="/products">
+            <Link className="blur__btn" to="/products/Пицца">
               Назад к меню
             </Link>
           </div>

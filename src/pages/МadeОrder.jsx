@@ -25,7 +25,7 @@ export const МadeОrder = () => {
           Посмотреть заказ
         </button>
         {showOrderList && <OrderList />}
-        <Link className="add__cart-btn" to="/products">
+        <Link className="add__cart-btn" to="/products/Пицца">
           Назад к меню
         </Link>
       </div>

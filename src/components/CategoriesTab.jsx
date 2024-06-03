@@ -28,7 +28,10 @@ export const CategoriesTab = () => {
 
           if (initialCategory) {
             const categoryDetails = await getCategoryById(initialCategory.id);
-            setSelectedCategory(categoryDetails.data.data);
+            setSelectedCategory({
+              name: initialCategory.name,
+              products: categoryDetails.data.data,
+            });
           }
         }
         setIsLoading(false);
@@ -47,7 +50,10 @@ export const CategoriesTab = () => {
     navigate(`/products/${category.name}`);
     try {
       const categoryDetails = await getCategoryById(category.id);
-      setSelectedCategory(categoryDetails.data.data);
+      setSelectedCategory({
+        name: category.name,
+        products: categoryDetails.data.data,
+      });
     } catch (error) {
       console.error("Error fetching category details:", error);
     }
@@ -55,8 +61,8 @@ export const CategoriesTab = () => {
 
   return (
     <>
-      {categories.length > 0 && selectedCategory?.length > 0 && (
-        <TitleBox name={selectedCategory[0].name} />
+      {selectedCategory && (
+        <TitleBox name={selectedCategory.name} />
       )}
       <div className="categories__tabs">
         <ul>
@@ -75,7 +81,11 @@ export const CategoriesTab = () => {
       <div className="parent_box">
         <img className="gradient_big" src={assets.gradientBig} alt="" />
         <div className="main_container" style={{ textAlign: "center" }}>
-          {isLoading ? <Loader /> : <ProductCard selectedCategory={selectedCategory} />}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <ProductCard selectedCategory={selectedCategory?.products || []} />
+          )}
         </div>
       </div>
     </>
