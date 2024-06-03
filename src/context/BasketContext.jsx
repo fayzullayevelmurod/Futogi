@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 
 export const BasketContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export const BasketProvider = ({ children }) => {
   const [basket, setBasket] = useState(() => {
     const savedBasket = localStorage.getItem("basket");
@@ -30,9 +31,13 @@ export const BasketProvider = ({ children }) => {
     localStorage.removeItem("productCounts");
   };
 
+  const removeProduct = (productId) => {
+    setBasket((prevBasket) => prevBasket.filter((item) => item.id !== productId));
+  };
+
   return (
     <BasketContext.Provider
-      value={{ basket, addToBasket, updateProductCount, clearBasket }}
+      value={{ basket, addToBasket, updateProductCount, clearBasket, removeProduct }}
     >
       {children}
     </BasketContext.Provider>
