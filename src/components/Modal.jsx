@@ -1,5 +1,5 @@
-// import assets from "../assets";
-// import { getImageUrl } from "../utils/helpers";
+// import assets from '../assets';
+// import { getImageUrl } from '../utils/helpers';
 
 // export const Modal = ({
 //   showModal,
@@ -16,6 +16,7 @@
 //     mass = "No mass available",
 //     price = "No price available",
 //   } = product || {};
+
 
 //   return (
 //     <div className={`modal ${showModal && "show"}`}>
@@ -60,7 +61,7 @@
 //   );
 // };
 
-// Modal.js
+// Modal.jsx
 import assets from '../assets';
 import { getImageUrl } from '../utils/helpers';
 

@@ -925,7 +925,10 @@
     position: absolute;
     width: 100%;
     height: 273px;
-    background: #d9d9d933;
+    // background: #d9d9d933;
+    background: url(../assets/select-bg.png) no-repeat;
+    background-size: cover;
+    z-index: 10;
     overflow-x: auto;
     &::-webkit-scrollbar {
       width: 6px;
