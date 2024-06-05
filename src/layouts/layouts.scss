@@ -1,15 +1,14 @@
-frgt0
-header {
+frgt0 header {
   z-index: 100;
   position: relative;
 }
 .header_menu {
   position: absolute;
-  left: -100%;
+  left: 0;
   top: 45px;
   background: #fff;
   padding: 40px 29px 30px 29px;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 38px;
   overflow-y: scroll;
@@ -96,7 +95,7 @@ header {
 }
 
 .header_menu.active {
-  left: 0;
+  display: flex;
 }
 // header_menu
 
@@ -162,6 +161,7 @@ header {
       width: 680px;
       height: 270px;
       overflow-x: auto;
+      z-index: 2;
       &::-webkit-scrollbar {
         width: 4px;
       }
@@ -222,7 +222,6 @@ header {
     gap: 12px;
 
     span {
-      display: none;
       color: rgb(252, 63, 29);
       font-size: 20px;
       font-weight: 300;

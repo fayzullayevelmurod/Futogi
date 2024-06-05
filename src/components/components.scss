@@ -71,6 +71,10 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 54px;
+  .products__box-mods {
+    max-width: 304px;
+    width: 100%;
+  }
   &.full {
     width: 100%;
     max-width: 100%;

@@ -24,7 +24,7 @@ export const FormTextArea = ({ label }) => (
   </div>
 );
 
-export const RadioItem = ({ id, name, label, checked, onChange }) => (
+export const RadioItem = ({ id, name, label, checked, onChange, value }) => (
   <div className="radio_item">
     <input
       type="radio"
@@ -33,6 +33,7 @@ export const RadioItem = ({ id, name, label, checked, onChange }) => (
       onChange={onChange}
       defaultChecked={checked}
       checked={checked}
+      value={value}
       className="checkbox_form-input"
     />
     <label className="form_label checked_box-form-label" htmlFor={id}>
@@ -54,14 +55,6 @@ export const CheckboxItem = ({ id, label, checked, onChange }) => (
     </label>
   </div>
 );
-// export const CheckboxItem = ({ id, label }) => (
-//   <div className="checkbox_item">
-//     <input className="checkbox_form-input" type="checkbox" id={id} />
-//     <label className="form_label checked_box-form-label" htmlFor={id}>
-//       {label}
-//     </label>
-//   </div>
-// );
 
 export const PromocodeInput = () => (
   <div className="promocode_box">
@@ -73,6 +66,6 @@ export const PromocodeInput = () => (
   </div>
 );
 
-export const Button = ({ label, className }) => (
-  <button className={`button ${className ? className : ""}`}>{label}</button>
+export const Button = ({ label, className, onClick }) => (
+  <button className={`button ${className ? className : ""}`} onClick={onClick}>{label}</button>
 );

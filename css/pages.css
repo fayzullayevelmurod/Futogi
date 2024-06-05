@@ -388,6 +388,12 @@
   padding: 18px 23px;
 }
 
+.add__cart-btn:disabled {
+  cursor: default;
+  background: #d9d9d9 !important;
+  color: #fc3f1d;
+}
+
 .making_order {
   position: relative;
   z-index: 1;
@@ -642,7 +648,9 @@
   text-align: right;
 }
 .making_order .delivery_time input {
-  width: 149px;
+  width: 160px;
+  text-align: center;
+  font-size: 18px;
 }
 .making_order .comments_box textarea {
   width: 100%;
@@ -681,6 +689,9 @@
   margin-top: 0;
   height: 40px;
 }
+.making_order .promocode_box .form_input {
+  width: 168px;
+}
 
 .top_child-form {
   display: flex;
@@ -689,6 +700,7 @@
 }
 
 .form_input {
+  font-size: 17px;
   background: rgba(217, 217, 217, 0.2);
   height: 42px;
   padding: 0 12px;
@@ -852,7 +864,9 @@
   background: rgba(67, 67, 67, 0.2);
 }
 .select__box .option__box .option {
-  padding: 12px 24px;
+  padding: 12px 0;
+  width: 100%;
+  text-align: center;
   color: #adadad;
   font-size: 18px;
   font-weight: 300;

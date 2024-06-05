@@ -72,6 +72,10 @@
   flex-wrap: wrap;
   gap: 54px;
 }
+.category_details .products__box-mods {
+  max-width: 304px;
+  width: 100%;
+}
 .category_details.full {
   width: 100%;
   max-width: 100%;
