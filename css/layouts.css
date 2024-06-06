@@ -158,14 +158,14 @@ header .header_search .result_products-box {
   align-items: center;
   gap: 18px;
   white-space: nowrap;
-  background: rgba(109, 109, 109, 0.3490196078);
+  background: #515359;
   transition: all 0.2s linear;
   cursor: pointer;
   padding: 10px 15px;
   width: 100%;
 }
 header .header_search .result_products-box:hover {
-  background: rgba(238, 238, 238, 0.3019607843);
+  background: #a2a2a2;
 }
 header .header_search .result_products-box img {
   width: 112px;

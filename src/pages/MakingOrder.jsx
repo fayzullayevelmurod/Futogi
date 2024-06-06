@@ -303,8 +303,8 @@ export const MakingOrder = () => {
     }
 
     const orderData = {
-      name: userName,
-      lastName: userName,
+      name: 'userName',
+      lastName: 'userName',
       changeAmount: noChange ? 0 : parseFloat(changeAmount),
       phone: phoneNumber,
       time: selectedOption,
@@ -316,7 +316,6 @@ export const MakingOrder = () => {
       source: 1,
       promo: promoCode,
     };
-    console.log(userName, 'mame');
 
     try {
       const response = await fetch('https://api.futoji.ru/orders/create', {
@@ -363,7 +362,7 @@ export const MakingOrder = () => {
                   <form className="form">
                     <FormItem
                       label="Номер телефона:"
-                      type="text"
+                      type="number"
                       name="number"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
@@ -552,7 +551,7 @@ export const MakingOrder = () => {
                 <Button
                   label="Оформить заказ"
                   className="send_btn add__cart-btn"
-                  onClick={() => console.log(handleSubmitOrder)}
+                  onClick={handleSubmitOrder}
                 />
               </div>
             </div>
@@ -569,7 +568,6 @@ export const MakingOrder = () => {
               <Button label='Оформить заказ' className="button send_btn add__cart-btn" onClick={handleSubmitOrder} />
             </div>
           </div>
-          <button> salom</button>
         </div>
         <div className="bottom_gradient">
           <img src={assets.gradientBig} alt="top gradient" />
