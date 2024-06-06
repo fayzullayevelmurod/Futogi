@@ -5,7 +5,7 @@ export const FormSection = ({ title, children, className }) => (
   </div>
 );
 
-export const FormItem = ({ label, type, name, className, placeholder }) => (
+export const FormItem = ({ label, type, name, className, placeholder, onChange }) => (
   <div className={`form_item ${className ? className : ""}`}>
     <label className="form_label">{label}</label>
     <input
@@ -13,14 +13,15 @@ export const FormItem = ({ label, type, name, className, placeholder }) => (
       type={type}
       name={name}
       placeholder={placeholder}
+      onChange={onChange}
     />
   </div>
 );
 
-export const FormTextArea = ({ label }) => (
+export const FormTextArea = ({ label, onChange }) => (
   <div className="form_item">
     <label className="form_label">{label}</label>
-    <textarea className="form_input"></textarea>
+    <textarea className="form_input" onChange={onChange}></textarea>
   </div>
 );
 
@@ -31,7 +32,6 @@ export const RadioItem = ({ id, name, label, checked, onChange, value }) => (
       id={id}
       name={name}
       onChange={onChange}
-      defaultChecked={checked}
       checked={checked}
       value={value}
       className="checkbox_form-input"
@@ -56,12 +56,12 @@ export const CheckboxItem = ({ id, label, checked, onChange }) => (
   </div>
 );
 
-export const PromocodeInput = () => (
+export const PromocodeInput = ({ onChange }) => (
   <div className="promocode_box">
     <p>
       Введите <span>ПРОМОКОД:</span>
     </p>
-    <input className="form_input" type="text" />
+    <input className="form_input" type="text" onChange={onChange} />
     <Button className="add__cart-btn" label="Применить" />
   </div>
 );
