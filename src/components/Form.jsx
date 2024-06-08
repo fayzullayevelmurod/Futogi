@@ -24,7 +24,21 @@ export const FormTextArea = ({ label, onChange }) => (
     <textarea className="form_input" onChange={onChange}></textarea>
   </div>
 );
-
+export const RadioItem2 = ({ id, name, label, checked, value }) => (
+  <div className="radio_item">
+    <input
+      type="radio"
+      id={id}
+      name={name}
+      defaultChecked={checked}
+      value={value}
+      className="checkbox_form-input"
+    />
+    <label className="form_label checked_box-form-label" htmlFor={id}>
+      {label}
+    </label>
+  </div>
+);
 export const RadioItem = ({ id, name, label, checked, onChange, value }) => (
   <div className="radio_item">
     <input
