@@ -12,7 +12,8 @@ import {
   RadioItem2,
 } from "../components/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { BasketContext } from "../context/BasketContext";
 
 export const MakingOrder = () => {
@@ -37,9 +38,9 @@ export const MakingOrder = () => {
   const [loading, setLoading] = useState(false);
 
   const options = [
-    "22:00 - 22:30", "18:00 - 18:30", "18:00 - 18:30",
-    "18:00 - 18:30", "18:00 - 18:30", "18:00 - 18:30",
-    "18:00 - 18:30", "18:00 - 18:30", "22:00 - 23:00"
+    "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30",
+    "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00",
+    "21:00 - 21:30", "21:30 - 22:00"
   ];
 
   const handleOptionClick = (option) => {
@@ -52,15 +53,17 @@ export const MakingOrder = () => {
   };
 
   const handleSubmitOrder = async () => {
-    setLoading(true)
+    setLoading(true);
     if (!phoneNumber) {
       toast.error('Пожалуйста, введите ваш номер телефона.');
       document.querySelector("input[name='number']").focus();
+      setLoading(false);
       return;
     }
     if (!userName) {
       toast.error('Пожалуйста, введите ваше имя.');
       document.querySelector("input[name='name']").focus();
+      setLoading(false);
       return;
     }
     if (deliveryMethod === "delivery" && (!address || !house || !kvartira || !etaj)) {
@@ -69,6 +72,7 @@ export const MakingOrder = () => {
       else if (!house) document.querySelector(".house").focus();
       else if (!kvartira) document.querySelector(".kvartira").focus();
       else if (!etaj) document.querySelector(".etaj").focus();
+      setLoading(false);
       return;
     }
 
@@ -76,55 +80,21 @@ export const MakingOrder = () => {
       ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
       : "г. Владимир, ул. Пушкина, д. 8";
 
-    // const orderData = {
-    //   name: userName,
-    //   lastName: userName,
-    //   adress: fullAddress,
-    //   paymentType: paymentMethod,
-    //   persons: 1,
-    //   phone: phoneNumber,
-    //   nomenclature: [
-    //     { id: 1907, count: 10 },
-    //     { id: 1940, count: 20 },
-    //     {
-    //       id: 1927,
-    //       count: 120,
-    //       modifiers: [
-    //         { id: 1934, count: 1 },
-    //         { id: 1935, count: 1 },
-    //       ],
-    //     },
-    //     {
-    //       id: 2103,
-    //       count: 2,
-    //       modifiers: [
-    //         { id: 1968, count: 1 },
-    //         { id: 1964, count: 1 },
-    //         { id: 2036, count: 1 },
-    //         { id: 1955, count: 1 },
-    //       ],
-    //     },
-    //   ],
-    //   time: deliveryTime === "delivery2" ? selectedOption : "now",
-    //   source: 1,
-    //   comment: comment,
-    // };
     const nomenclature = basket.map(item => ({
       id: item.id,
       count: item.count || 1,
       modifiers: item.modifiers || []
     }));
 
-    const orderTime = deliveryTime === "delivery2" ? "now" : selectedOption;
-    const isTimeValid = orderTime === "now" || orderTime < "22:00";
+    const orderTime = deliveryTime === "delivery2" ? selectedOption : "now";
+    const isTimeValid = orderTime === "now" || options.includes(orderTime);
 
     if (!isTimeValid) {
-      toast.error("Выберите время после 22:00");
+      toast.error("Выберите допустимое время.");
       setLoading(false);
       return;
     }
-    console.log(deliveryTime === "delivery2");
-    console.log(nomenclature);
+
     const orderData = {
       name: userName,
       lastName: userName,
@@ -133,13 +103,11 @@ export const MakingOrder = () => {
       persons: 1,
       phone: phoneNumber,
       nomenclature,
-      // time: deliveryTime === "delivery2" ? "now" : selectedOption,
       time: orderTime,
       source: 1,
       comment: comment,
     };
-    console.log(orderData, 'orderDta');
-    console.log(deliveryTime === 'delivery2' && 'select' || deliveryTime === 'delivery' && 'now');
+
     try {
       const response = await fetch('https://api.futoji.ru/orders/create', {
         method: 'POST',
@@ -153,22 +121,21 @@ export const MakingOrder = () => {
         const responseData = await response.json();
         console.log('Order successfully created:', responseData);
         toast.success('Заказ успешно создан!');
-        setLoading(false);
       } else {
         const errorData = await response.json();
         console.error('Error creating order:', errorData.detail[0].msg);
         toast.error(errorData.detail[0].msg);
       }
     } catch (error) {
-      setLoading(true);
       console.error('Network error:', error);
       toast.error('Сетевая ошибка. Попробуйте еще раз.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <ToastContainer />
       <div className="making_order">
         <div className="parent_sidebar">
           <div className="title_box">
