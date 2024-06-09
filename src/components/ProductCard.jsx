@@ -60,9 +60,9 @@ export const ProductCard = ({ selectedCategory }) => {
                       )}
                     </div>
                     <h4 className="product_name">{item.name}</h4>
-                  <p className="desc">{item.description}</p>
+                    {item.description && <p className="desc">{item.description}</p>}
                   </div>
-                  <div className="card_footer">
+                  <div className={`card_footer ${!item.description && 'mt-5'}`}>
                     {item.mass ? (
                       <p className="product__weight">{item.mass}</p>
                     ) : null}
@@ -101,9 +101,9 @@ export const ProductCard = ({ selectedCategory }) => {
                   )}
                 </div>
                 <h4 className="product_name">{mod.name}</h4>
-                <p className="desc">{mod.description}</p>
+                {mod.description && <p className="desc">{mod.description}</p>}
               </div>
-              <div className="card_footer">
+              <div className={`card_footer ${!mod.description && 'mt-5'}`}>
                 {mod.mass ? (
                   <p className="product__weight">{mod.mass}</p>
                 ) : null}

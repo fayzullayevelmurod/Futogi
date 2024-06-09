@@ -989,6 +989,16 @@
   .products .products_left .products_blocks_two .products_block:first-child,
   .products .products_left .products_blocks_two .products_block:last-child,
   .products .products_right .products_blocks .product_blocks_in {
-    height: 84px;
+    // height: 84px;
+  }
+  .products .products_left .products_blocks {
+    height: 184px;
+    overflow: hidden;
+  }
+  .products .products_left .products_blocks_two {
+    height: 100%;
+    a {
+      height: 84px !important;
+    }
   }
 }
