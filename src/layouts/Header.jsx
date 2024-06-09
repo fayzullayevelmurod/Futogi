@@ -3,19 +3,13 @@ import assets from "../assets";
 import { useContext, useEffect, useState } from "react";
 import { BasketContext } from "../context/BasketContext";
 import { Search } from "../components";
-const menuDB = [
-  { name: "ХОЛОДНЫЕ РОЛЛЫ", link: '/products/Холодные%20роллы' },
-  { name: "ЗАПЕЧЁННЫЕ РОЛЛЫ", link: '/products/Горячие%20роллы' },
-  { name: "ЖАРЕННЫЕ РОЛЛЫ", link: '#!' },
-  { name: "СЯКИ МАКИ", link: '/products/Сяке%20маки' },
-  { name: "ВОК", link: '/products/WOK' },
-  { name: "ФАСТФУД", link: '/products/Фаст%20Фуд' },
-  { name: "НАПИТКИ", link: '/products/' },
-];
+import { getCategories } from "../services/api";
+
 export const Header = () => {
   const { basket } = useContext(BasketContext);
   const [itemCount, setItemCount] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const calculateItemCount = () => {
     return basket.length;
@@ -28,6 +22,19 @@ export const Header = () => {
   const handeShowMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const response = await getCategories();
+        const categoriesData = response.data.data;
+        setCategories(categoriesData);
+      }
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [])
 
   return (
     <header>
@@ -56,17 +63,17 @@ export const Header = () => {
         </div>
         <div className={`header_menu ${showMenu ? "active" : ""}`}>
           <ul>
-            {menuDB?.map((item, idx) => (
+            {categories?.map((item, idx) => (
               <li key={idx}>
-                <Link to={item.link}>{item.name}</Link>
+                <Link to={`/products/${item.name}`}>{item.name}</Link>
               </li>
             ))}
           </ul>
           <div className="date">
             <span>Режим работы:</span>
             <p>
-              Пн - Вс:
-              <br />с <span>8.00</span> до <span>22.00</span>
+              <span className="hafta">Пн - Вс:</span>
+              <br /><span className="hafta">с</span> <span>8.00</span> <span className="hafta">до</span> <span>22.00</span>
             </p>
           </div>
           <a className="menu_phone" href="tel:+88005553535">
