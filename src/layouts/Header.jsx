@@ -11,6 +11,10 @@ export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [categories, setCategories] = useState([]);
 
+  const handleCloseMenu = () => {
+    setShowMenu(false);
+  }
+
   const calculateItemCount = () => {
     return basket.length;
   };
@@ -65,7 +69,7 @@ export const Header = () => {
           <ul>
             {categories?.map((item, idx) => (
               <li key={idx}>
-                <Link to={`/products/${item.name}`}>{item.name}</Link>
+                <Link to={`/products/${item.name}`} onClick={handleCloseMenu}>{item.name}</Link>
               </li>
             ))}
           </ul>

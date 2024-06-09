@@ -359,7 +359,7 @@ export const MakingOrder = () => {
               <div className={`media_order-list ${showOrderList ? "show" : ""}`}>
                 <OrderList deliveryAddress={deliveryMethod === "delivery" ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}` : "г. Владимир, ул. Пушкина, д. 8"} />
               </div>
-              <Button label='Оформить заказ' className="button send_btn add__cart-btn" onClick={handleSubmitOrder} />
+              <Button label={`${loading ? 'Загрузка...' : 'Оформить заказ'}`} className="button send_btn add__cart-btn" onClick={handleSubmitOrder} />
             </div>
           </div>
         </div>

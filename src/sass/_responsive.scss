@@ -572,7 +572,7 @@
         align-items: end;
         justify-content: space-between;
         input {
-          width: 119px;
+          width: 140px;
         }
         label {
           padding-bottom: 0;
@@ -1001,11 +1001,22 @@
     // height: 84px;
   }
   .products .products_left .products_blocks {
-    height: 184px;
+    height: 250px;
     overflow: hidden;
   }
   .products .products_left .products_blocks_two {
     height: 100%;
+    a {
+      height: 117px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .products .products_left .products_blocks {
+    height: 184px;
+  }
+  .products .products_left .products_blocks_two {
     a {
       height: 84px !important;
     }
