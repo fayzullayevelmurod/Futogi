@@ -170,7 +170,7 @@ export const Home = () => {
                 </Link>
               </div>
             </div>
-            <Link to="/products/Пицца" className="products_block product_one">
+            <Link to="/products/Напитки" className="products_block product_one">
               <img src={assets.product8} alt="" />
               <h6>НАПИТКИ</h6>
             </Link>
@@ -242,7 +242,7 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-            <Link to="/products/Пицца" className="products_block product_one">
+            <Link to="/products/Напитки" className="products_block product_one">
               <img src={assets.product8} alt="" />
               <h6>НАПИТКИ</h6>
             </Link>

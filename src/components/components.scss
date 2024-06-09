@@ -116,7 +116,6 @@
       )
       0;
     img {
-      padding-bottom: 18px;
       width: 100%;
       object-fit: cover;
       height: 247px;
@@ -128,12 +127,14 @@
       line-height: 13.74px;
       text-transform: uppercase;
       margin-top: 18px;
+      min-height: 30px;
     }
     .desc {
       font-size: 14px;
       font-weight: 300;
       line-height: 12px;
       padding: 34px 0;
+      color: #adadad;
     }
     .card_footer {
       display: flex;

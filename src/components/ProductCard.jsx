@@ -56,11 +56,11 @@ export const ProductCard = ({ selectedCategory }) => {
                           alt={item.name}
                         />
                       ) : (
-                        <span className="no_img">No img</span>
+                        <span className="no_img">Нет изображения</span>
                       )}
                     </div>
                     <h4 className="product_name">{item.name}</h4>
-                    <p className="desc">{item.description}</p>
+                  <p className="desc">{item.description}</p>
                   </div>
                   <div className="card_footer">
                     {item.mass ? (
