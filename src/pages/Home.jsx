@@ -5,28 +5,9 @@ import "swiper/css";
 import { Navigation, Pagination } from "swiper/modules";
 import assets from "../assets";
 import { Link } from "react-router-dom";
-// import { getCategories } from "../services/api";
 
 export const Home = () => {
   const swiperRef = useRef(null);
-  // const [categories, setCategories] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getCategories();
-  //       setCategories(response.data.data);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       setIsLoading(true);
-  //       console.error("Error fetching categories:", error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [])
-
-  // console.log(categories);
 
   useEffect(() => {
     if (swiperRef.current && swiperRef.current.swiper) {

@@ -5,14 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import { getImageUrl } from "../utils/helpers";
 
 export const ProductCard = ({ selectedCategory }) => {
-  const { addToBasket } = useContext(BasketContext);
+  const { addToBasket, basket } = useContext(BasketContext);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [basketItems, setBasketItems] = useState({});
-
-  const hasMods = selectedCategory.some(
-    (item) => item.mods && item.mods.length > 0
-  );
 
   const handleOpenModal = (product) => {
     setSelectedProduct(product);
@@ -21,13 +16,14 @@ export const ProductCard = ({ selectedCategory }) => {
 
   const handleAddToBasket = (product) => {
     if (product) {
-      addToBasket(product);
-      setBasketItems((prevItems) => ({
-        ...prevItems,
-        [product.id]: true,
-      }));
+      const isProductInBasket = basket.some(item => item.id === product.id);
+      if (!isProductInBasket) {
+        addToBasket(product);
+        toast.success("Продукт был добавлен в корзину");
+      } else {
+        toast.info("Продукт уже находится в корзине");
+      }
       setShowModal(false);
-      toast.success("Продукт был добавлен в корзину");
     } else {
       toast.error("Произошла ошибка, попробуйте еще раз");
     }
@@ -42,86 +38,43 @@ export const ProductCard = ({ selectedCategory }) => {
         product={selectedProduct}
         handleAddToBasket={handleAddToBasket}
       />
-      <div className={`category_details ${hasMods ? "full" : ""}`}>
+      <div className="category_details">
         {selectedCategory?.map((item) => (
-          <div className={`category_details-card ${hasMods && "pb" && !item.mods && "pb"}`} key={item.id}>
-            {!item.mods && (
-              <>
-                <div className="products__box">
-                  <div>
-                    <div onClick={() => handleOpenModal(item)} className="product_img">
-                      {item.image ? (
-                        <img
-                          src={getImageUrl(item.image)}
-                          alt={item.name}
-                        />
-                      ) : (
-                        <span className="no_img">Нет изображения</span>
-                      )}
-                    </div>
-                    <h4 className="product_name">{item.name}</h4>
-                    {item.description && <p className="desc">{item.description}</p>}
-                  </div>
-                  <div className={`card_footer ${!item.description && 'mt-5'}`}>
-                    {item.mass ? (
-                      <p className="product__weight">{item.mass}</p>
-                    ) : null}
-                    <div className={`right__box ${item.mass ? "" : "full"}`}>
-                      {item.price && (
-                        <span className="price">{item.price} р</span>
-                      )}
-                      <button
-                        className="add__cart-btn"
-                        onClick={() => handleAddToBasket(item)}
-                        disabled={basketItems[item.id]}
-                      >
-                        {basketItems[item.id] ? "Продукт в корзине" : "В корзину"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-      <div className={`category_details`}>
-        {selectedCategory?.map((item) => (
-          item.mods && item.mods.map((mod) => (
-            <div key={mod.id} className="products__box products__box-mods">
+          <div className="category_details-card" key={item.id}>
+            <div className="products__box">
               <div>
-                <div className="product_img" onClick={() => handleOpenModal(mod)}>
-                  {mod.image ? (
+                <div onClick={() => handleOpenModal(item)} className="product_img">
+                  {item.image ? (
                     <img
-                      src={getImageUrl(mod.image)}
-                      alt={mod.name}
+                      src={getImageUrl(item.image)}
+                      alt={item.name}
                     />
                   ) : (
                     <span className="no_img">Нет изображения</span>
                   )}
                 </div>
-                <h4 className="product_name">{mod.name}</h4>
-                {mod.description && <p className="desc">{mod.description}</p>}
+                <h4 className="product_name">{item.name}</h4>
+                {item.description && <p className="desc">{item.description}</p>}
               </div>
-              <div className={`card_footer ${!mod.description && 'mt-5'}`}>
-                {mod.mass ? (
-                  <p className="product__weight">{mod.mass}</p>
+              <div className={`card_footer ${!item.description && 'mt-5'}`}>
+                {item.mass ? (
+                  <p className="product__weight">{item.mass}</p>
                 ) : null}
-                <div className={`right__box ${mod.mass ? "" : "full"}`}>
-                  {mod.price && (
-                    <span className="price">{mod.price} р</span>
+                <div className={`right__box ${item.mass ? "" : "full"}`}>
+                  {item.price && (
+                    <span className="price">{item.price} р</span>
                   )}
                   <button
                     className="add__cart-btn"
-                    onClick={() => handleAddToBasket(mod)}
-                    disabled={basketItems[mod.id]}
+                    onClick={() => handleAddToBasket(item)}
+                    disabled={basket.some(basketItem => basketItem.id === item.id)}
                   >
-                    {basketItems[mod.id] ? "Продукт в корзине" : "В корзину"}
+                    {basket.some(basketItem => basketItem.id === item.id) ? "Продукт в корзине" : "В корзину"}
                   </button>
                 </div>
               </div>
             </div>
-          ))
+          </div>
         ))}
       </div>
     </>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import assets from "../assets";
 
-// eslint-disable-next-line react/prop-types
 export const Counter = ({ initialCount = 1, onChange, productCounts }) => {
   const [count, setCount] = useState(initialCount);
 

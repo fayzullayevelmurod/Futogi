@@ -11,7 +11,6 @@ import {
   RadioItem,
   RadioItem2,
 } from "../components/Form";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { BasketContext } from "../context/BasketContext";
@@ -34,7 +33,6 @@ export const MakingOrder = () => {
   const [selectedOption, setSelectedOption] = useState('Выберите время');
   const [showOptions, setShowOptions] = useState(false);
   const { basket } = useContext(BasketContext);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const options = [
@@ -136,6 +134,7 @@ export const MakingOrder = () => {
 
   return (
     <>
+      
       <div className="making_order">
         <div className="parent_sidebar">
           <div className="title_box">

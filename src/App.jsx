@@ -2,6 +2,7 @@ import { Footer, Header } from "./layouts";
 import { AppRoutes } from "./routes";
 import { BasketProvider } from "./context/BasketContext";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (

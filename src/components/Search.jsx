@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import assets from '../assets';
 import { Modal } from './Modal';
 import { BasketContext } from '../context/BasketContext';
+import { getImageUrl } from '../utils/helpers';
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -69,7 +70,8 @@ export const Search = () => {
             className="result_products-box"
             onClick={() => handleProductClick(product)}
           >
-            <img src={assets.product1} alt="product img" width={112} height={70} />
+            {console.log(product)}
+            <img src={getImageUrl(product.image)} alt="product img" width={112} height={70} />
             <div className="product_content">
               <div className="left_box">
                 <span className="product_tip">{product.description}</span>
