@@ -46,8 +46,6 @@ export const Search = () => {
   const handleAddToBasket = (product) => {
     setShowModal(false);
     addToBasket(product);
-    // setProducts([]);
-    // setSearchTerm('');
   };
 
   return (
@@ -65,7 +63,6 @@ export const Search = () => {
       <div className="result_products">
         {loading && <p className='loading'> Загрузка...</p>}
         {error && <p>{error}</p>}
-        {/* {products.length === 0 && !loading && !error && searchTerm && <p className='loading'>Товар не найден</p>} */}
         {products?.data?.map((product) => (
           <div
             key={product.id}
