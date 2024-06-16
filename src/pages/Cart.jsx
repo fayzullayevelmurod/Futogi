@@ -11,6 +11,19 @@ export const Cart = () => {
   const { basket, clearBasket, updateProductCount, removeProduct } = useContext(BasketContext);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const savedCounts = localStorage.getItem("productCounts");
+  //   if (savedCounts) {
+  //     setProductCounts(JSON.parse(savedCounts));
+  //   } else {
+  //     const initialCounts = basket.reduce((acc, item) => {
+  //       acc[item.id] = item.count || 1;
+  //       return acc;
+  //     }, {});
+  //     setProductCounts(initialCounts);
+  //   }
+  // }, [basket]);
+
   useEffect(() => {
     const savedCounts = localStorage.getItem("productCounts");
     if (savedCounts) {
@@ -21,6 +34,11 @@ export const Cart = () => {
         return acc;
       }, {});
       setProductCounts(initialCounts);
+    }
+
+    const savedPersonCount = localStorage.getItem("personCount");
+    if (savedPersonCount) {
+      setPersonCount(parseInt(savedPersonCount, 10));
     }
   }, [basket]);
 
@@ -50,6 +68,7 @@ export const Cart = () => {
 
   const handlePersonCountChange = (newCount) => {
     setPersonCount(newCount);
+    localStorage.setItem("personCount", newCount);
   };
 
   const calculateTotalPrice = () => {
@@ -64,7 +83,8 @@ export const Cart = () => {
   const totalProductPrice = calculateTotalPrice();
 
   const handleSubmit = () => {
-    navigate("/making-an-order");
+    // navigate("/making-an-order");
+    navigate("/making-an-order", { state: { personCount } });
   };
 
   return (

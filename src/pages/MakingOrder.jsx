@@ -7,6 +7,7 @@ import {
   FormItem,
   FormSection,
   FormTextArea,
+  PhoneInput,
   PromocodeInput,
   RadioItem,
   RadioItem2,
@@ -14,6 +15,9 @@ import {
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { BasketContext } from "../context/BasketContext";
+import InputMask from 'react-input-mask';
+import { useLocation } from "react-router-dom";
+
 
 export const MakingOrder = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("");
@@ -34,7 +38,8 @@ export const MakingOrder = () => {
   const [showOptions, setShowOptions] = useState(false);
   const { basket } = useContext(BasketContext);
   const [loading, setLoading] = useState(false);
-
+  const location = useLocation();
+  const { personCount } = location.state;
   const options = [
     "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30",
     "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00",
@@ -54,7 +59,7 @@ export const MakingOrder = () => {
     setLoading(true);
     if (!phoneNumber) {
       toast.error('Пожалуйста, введите ваш номер телефона.');
-      document.querySelector("input[name='number']").focus();
+      document.querySelector(".number-input").focus();
       setLoading(false);
       return;
     }
@@ -81,12 +86,12 @@ export const MakingOrder = () => {
     const nomenclature = basket.map(item => ({
       id: item.id,
       count: item.count || 1,
-      modifiers: item.modifiers || []
+      modifiers: item.modifiers || [{ id: 1968, count: 1 }]
     }));
 
-    const orderTime = deliveryTime === "delivery2" ? selectedOption : "now";
+    const orderTime = deliveryTime === "pickup2" ? selectedOption : "now";
     const isTimeValid = orderTime === "now" || options.includes(orderTime);
-
+    console.log(deliveryTime);
     if (!isTimeValid) {
       toast.error("Выберите допустимое время.");
       setLoading(false);
@@ -98,15 +103,34 @@ export const MakingOrder = () => {
       lastName: userName,
       adress: fullAddress,
       paymentType: paymentMethod,
-      persons: 1,
-      phone: phoneNumber,
+      persons: personCount,
+      phone: "79964421797",
       nomenclature,
-      time: orderTime,
+      // nomenclature: [
+      //   {
+      //     id: 1907,
+      //     count: 10,
+      //     modifiers: [{ id: 1968, count: 1 }],
+      //   },
+      //   {
+      //     id: 1927,
+      //     count: 120,
+      //     modifiers: [{ id: 1968, count: 1 }],
+      //   },
+      //   {
+      //     id: 2103,
+      //     count: 2,
+      //     modifiers: [{ id: 1968, count: 1 }],
+      //   },
+      // ],
+      time: "now",
       source: 1,
       comment: comment,
     };
+    console.log('orderData', orderData);
 
     try {
+
       const response = await fetch('https://api.futoji.ru/orders/create', {
         method: 'POST',
         headers: {
@@ -134,7 +158,6 @@ export const MakingOrder = () => {
 
   return (
     <>
-      
       <div className="making_order">
         <div className="parent_sidebar">
           <div className="title_box">
@@ -147,14 +170,15 @@ export const MakingOrder = () => {
             <div className="left_box">
               <div className="form_boxes">
                 <FormSection title="Персональные данные">
-                  <form className="form">
-                    <FormItem
-                      label="Номер телефона:"
-                      type="number"
-                      name="number"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
+                  <form className="form first-form">
+                    <div className="form_item">
+                      <label className="form_label">Номер телефона:</label>
+                      <PhoneInput
+                        value={phoneNumber}
+                        onChange={setPhoneNumber}
+                        placeholder="+7 (___) ___-__-__"
+                      />
+                    </div>
                     <FormItem
                       label="Ваше имя:"
                       type="text"

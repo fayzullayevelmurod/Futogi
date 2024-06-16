@@ -554,6 +554,15 @@
     flex-direction: column;
     gap: 82px;
   }
+  .first-form {
+    .form_item {
+      max-width: 43%;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
+  }
   .form_title {
     font-size: 32px;
     font-weight: 500;

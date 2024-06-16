@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { formatPhoneNumber } from "../utils/helpers";
+
 export const FormSection = ({ title, children, className }) => (
   <div className={`form_box ${className ? className : ""}`}>
     {title && <h1 className="form_title">{title}</h1>}
@@ -83,3 +86,24 @@ export const PromocodeInput = ({ onChange }) => (
 export const Button = ({ label, className, onClick }) => (
   <button className={`button ${className ? className : ""}`} onClick={onClick}>{label}</button>
 );
+
+
+// PhoneInput.js
+export const PhoneInput = ({ value, onChange, placeholder }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  const handleChange = (e) => {
+    const formattedValue = formatPhoneNumber(e.target.value);
+    setInputValue(formattedValue);
+    onChange(formattedValue);
+  };
+
+  return (
+    <input
+      className="form_input number-input"
+      value={inputValue}
+      onChange={handleChange}
+      placeholder={placeholder}
+    />
+  );
+};
