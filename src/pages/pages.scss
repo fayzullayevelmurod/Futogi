@@ -317,7 +317,7 @@
       align-items: center;
       justify-content: space-between;
       & > div {
-        height: 75px;
+        height: 75px !important;
         display: flex;
         align-items: center;
       }

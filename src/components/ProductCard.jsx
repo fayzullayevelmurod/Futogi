@@ -54,11 +54,13 @@ export const ProductCard = ({ selectedCategory }) => {
                   )}
                 </div>
                 <h4 className="product_name">{item.name}</h4>
-                {item.description && <p className="desc">{item.description}</p>}
+                {item.description && <p className="desc">
+                  {item.description?.length > 300 ? `${item.description.slice(0, 300)}...` : item.description}
+                </p>}
               </div>
               <div className={`card_footer ${!item.description && 'mt-5'}`}>
                 {item.mass ? (
-                  <p className="product__weight">{item.mass}</p>
+                  <p p className="product__weight">{item.mass}</p>
                 ) : null}
                 <div className={`right__box ${item.mass ? "" : "full"}`}>
                   {item.price && (
@@ -69,12 +71,52 @@ export const ProductCard = ({ selectedCategory }) => {
                     onClick={() => handleAddToBasket(item)}
                     disabled={basket.some(basketItem => basketItem.id === item.id)}
                   >
-                    {basket.some(basketItem => basketItem.id === item.id) ? "Продукт в корзине" : "В корзину"}
+                    {basket.some(basketItem => basketItem.id === item.id) ? "В корзину" : "В корзину"}
                   </button>
                 </div>
               </div>
             </div>
           </div>
+        ))}
+        {selectedCategory?.map((item) => (
+          console.log(item.mods),
+          item?.mods && item?.mods?.map((mod) => (
+            <div key={mod.id} className="products__box products__box-mods">
+              <div>
+                <div className="product_img" onClick={() => handleOpenModal(mod)}>
+                  {mod.image ? (
+                    <img
+                      src={getImageUrl(mod.image)}
+                      alt={mod.name}
+                    />
+                  ) : (
+                    <span className="no_img">Нет изображения</span>
+                  )}
+                </div>
+                <h4 className="product_name">{mod.name}</h4>
+                {mod.description ? <p className="desc">
+                  {mod.description?.length > 50 ? `${mod.description.slice(0, 50)}...` : mod.description}
+                </p> : <p className="desc">Нетез описания</p>}
+              </div>
+              <div className="card_footer">
+                {mod.mass ? (
+                  <p className="product__weight">{mod.mass}</p>
+                ) : null}
+                <div className={`right__box ${mod.mass ? "" : "full"}`}>
+                  {mod.price && (
+                    <span className="price">{mod.price} р</span>
+                  )}
+                  <button
+                    className="add__cart-btn"
+                    onClick={() => handleAddToBasket(mod)}
+                    disabled={basket.some(basketItem => basketItem.id === mod.id)}
+                  >
+                    {basket.some(basketItem => basketItem.id === mod.id) ? "В корзину" : "В корзину"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
         ))}
       </div>
     </>

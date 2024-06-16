@@ -162,7 +162,7 @@ export const Home = () => {
         <div className="products_in desktop_media">
           <div className="products_left">
             <Link to="/products/Сеты%20и%20наборы" className="products_block product_one">
-              <img src={assets.product1} alt="" />
+              <img src={assets.mediaProductImg1} alt="" />
               <h6>
                 СЕТЫ
               </h6>
@@ -170,7 +170,7 @@ export const Home = () => {
             <div className="products_blocks">
               <Link
                 to="/products/Холодные%20роллы"
-                className="products_block mini_block product_blocks_in"
+                className="products_block mini_block product_blocks_in left-img"
               >
                 <img src={assets.productMedia5} alt="" />
                 <h6>
@@ -181,14 +181,14 @@ export const Home = () => {
               </Link>
               <div className="products_blocks_two product_blocks_in">
                 <Link to="/products/Сяке%20маки" className="products_block">
-                  <img src={assets.product6} alt="" />
+                  <img src={assets.mediaProductImg6} alt="" />
                   <h6>
                     СЯКИ
                     <br /> МАКИ
                   </h6>
                 </Link>
                 <Link to="/products/WOK" className="products_block">
-                  <img src={assets.productMedia4} alt="" />
+                  <img src={assets.mediaProduct4} alt="" />
                   <h6>ВОК</h6>
                 </Link>
               </div>
@@ -209,7 +209,7 @@ export const Home = () => {
                 </Link>
                 <div className="products_blocks_two product_blocks_in">
                   <Link to="/products/Пицца" className="products_block">
-                    <img src={assets.product3} alt="" />
+                    <img src={assets.mediaProduct3} alt="" />
                     <h6>ПИЦЦА</h6>
                   </Link>
                   <Link to="/products/Фаст%20Фуд" className="products_block">
@@ -224,7 +224,7 @@ export const Home = () => {
               </div>
             </div>
             <Link to="/products/Напитки" className="products_block product_one">
-              <img src={assets.product8} alt="" />
+              <img src={assets.mediaProduct8} alt="" />
               <h6>НАПИТКИ</h6>
             </Link>
           </div>

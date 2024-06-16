@@ -57,7 +57,7 @@ export const Modal = ({
                 onClick={() => handleAddToBasket(product)}
                 disabled={isProductInBasket}
               >
-                {isProductInBasket ? "Продукт в корзине" : "В корзину"}
+                {isProductInBasket ? "В корзину" : "В корзину"}
               </button>
             </div>
           </div>

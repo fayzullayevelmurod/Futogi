@@ -112,7 +112,14 @@
       }
     }
   }
+  .products .products_left .left-img {
+    height: unset !important;
 
+    img {
+      height: 100%;
+      object-fit: inherit;
+    }
+  }
   .products {
     padding: 48px 25px 60px 25px;
     margin: 0;
@@ -130,6 +137,7 @@
 
       img {
         object-fit: inherit;
+        // height: 84px;
       }
     }
 
@@ -1020,5 +1028,8 @@
     a {
       height: 84px !important;
     }
+  }
+  .products .products_block img {
+    height: 84px;
   }
 }

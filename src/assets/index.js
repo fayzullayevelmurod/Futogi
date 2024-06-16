@@ -34,10 +34,13 @@ import productMedia2 from "./product_media2.png";
 import productMedia3 from "./product_media3.png";
 import productMedia4 from "./product_media4.png";
 import productMedia5 from "./product_media5.png";
-// import productMedia6 from "./product_media6.png";
 import productMedia7 from "./product_media7.png";
-// import product8 from "./product8.png";
 import productMedia7_2 from "./productmedia7.png";
+import mediaProductImg1 from "./media-product-1.png";
+import mediaProductImg6 from "./product-media-6.png";
+import mediaProduct4 from "./product-media-4.png";
+import mediaProduct3 from "./product-media-3.png";
+import mediaProduct8 from "./product-media-8.png";
 export default {
   headerBurger,
   headerLogo,
@@ -77,4 +80,9 @@ export default {
   productMedia5,
   productMedia7,
   productMedia7_2,
+  mediaProductImg1,
+  mediaProductImg6,
+  mediaProduct4,
+  mediaProduct3,
+  mediaProduct8
 };
