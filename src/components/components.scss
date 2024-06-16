@@ -117,8 +117,7 @@
       0;
     img {
       width: 100%;
-      object-fit: cover;
-      height: 247px;
+      height: auto;
       display: block;
     }
     .product_name {
@@ -155,7 +154,7 @@
       text-align: center;
     }
     .product_img {
-      height: 247px;
+      // height: 247px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -376,7 +375,7 @@
       // padding: 24px 23px;
 
       padding: 24px 18px;
-        font-size: 17px;
+      font-size: 17px;
     }
   }
 }
@@ -419,8 +418,6 @@
     }
     .product_img {
       width: 87px;
-      height: 70px;
-      object-fit: cover;
     }
     .product_left-box {
       display: flex;
