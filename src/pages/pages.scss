@@ -105,6 +105,7 @@
   padding: 128px 25px 206px 25px;
 
   .products_in {
+    user-select: none;
     max-width: 1000px;
     margin: 0 auto;
   }

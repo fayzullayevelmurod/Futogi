@@ -23,11 +23,12 @@ export const OrderList = ({ deliveryAddress }) => {
             basket.map((item, index) => (
               <div key={`${item.id}-${index}`} className="product_box">
                 <div className="product_left-box">
-                  <img
-                    className="product_img"
-                    src={getImageUrl(item.image)}
-                    alt="product img"
-                  />
+                  {item.image ?
+                    <img
+                      className="product_img"
+                      src={getImageUrl(item.image)}
+                      alt="product img"
+                    /> : <div className="no-order-list-img">Нет img</div>}
                   <div>
                     <p className="product_name">{item.name}</p>
                     <div className="flex_box">

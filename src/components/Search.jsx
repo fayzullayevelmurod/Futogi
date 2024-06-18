@@ -70,7 +70,6 @@ export const Search = () => {
             className="result_products-box"
             onClick={() => handleProductClick(product)}
           >
-            {console.log(product)}
             <img src={getImageUrl(product.image)} alt="product img" width={112} height={70} />
             <div className="product_content">
               <div className="left_box">

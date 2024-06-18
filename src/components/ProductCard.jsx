@@ -78,8 +78,7 @@ export const ProductCard = ({ selectedCategory }) => {
             </div>
           </div>
         ))}
-        {selectedCategory?.map((item) => (
-          console.log(item.mods),
+        {/* {selectedCategory?.map((item) => (
           item?.mods && item?.mods?.map((mod) => (
             <div key={mod.id} className="products__box products__box-mods">
               <div>
@@ -117,7 +116,7 @@ export const ProductCard = ({ selectedCategory }) => {
               </div>
             </div>
           ))
-        ))}
+        ))} */}
       </div>
     </>
   );

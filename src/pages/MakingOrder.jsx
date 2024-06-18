@@ -15,9 +15,14 @@ import {
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { BasketContext } from "../context/BasketContext";
-import InputMask from 'react-input-mask';
 import { useLocation } from "react-router-dom";
 
+const isValidPhoneNumber = (phoneNumber) => phoneNumber && phoneNumber.length > 0;
+const isValidUserName = (userName) => userName && userName.length > 0;
+const isValidAddress = (deliveryMethod, address, house, kvartira, etaj) =>
+  deliveryMethod !== "delivery" || (address && house && kvartira && etaj);
+const isValidDeliveryTime = (deliveryTime, selectedOption, options) =>
+  deliveryTime !== "pickup2" || options.includes(selectedOption);
 
 export const MakingOrder = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("");
@@ -55,82 +60,106 @@ export const MakingOrder = () => {
     setShowOrderList(!showOrderList);
   };
 
-  const handleSubmitOrder = async () => {
-    setLoading(true);
-    if (!phoneNumber) {
+  const handleValidation = () => {
+    if (!isValidPhoneNumber(phoneNumber)) {
       toast.error('Пожалуйста, введите ваш номер телефона.');
       document.querySelector(".number-input").focus();
-      setLoading(false);
-      return;
+      return false;
     }
-    if (!userName) {
+    if (!isValidUserName(userName)) {
       toast.error('Пожалуйста, введите ваше имя.');
       document.querySelector("input[name='name']").focus();
-      setLoading(false);
-      return;
+      return false;
     }
-    if (deliveryMethod === "delivery" && (!address || !house || !kvartira || !etaj)) {
+    if (!isValidAddress(deliveryMethod, address, house, kvartira, etaj)) {
       toast.error('Пожалуйста, введите полный адрес.');
       if (!address) document.querySelector("input[name='address']").focus();
       else if (!house) document.querySelector(".house").focus();
       else if (!kvartira) document.querySelector(".kvartira").focus();
       else if (!etaj) document.querySelector(".etaj").focus();
-      setLoading(false);
-      return;
+      return false;
+    }
+    if (!isValidDeliveryTime(deliveryTime, selectedOption, options)) {
+      toast.error("Выберите допустимое время.");
+      return false;
+    }
+    return true;
+  };
+
+  
+
+
+  const buildOrderData = async () => {
+
+    const sortNomenclature = async () => {
+      const arr = [];
+      const checkMods = async (id) => {
+        return await fetch(`https://api.futoji.ru/products/getMods?q=${id}`);
+      }
+
+      basket.forEach(item => {
+        checkMods(item.id).then((data) => data.json()).then((res) => {
+          if (res.data.length) {
+            const mod = [];
+            res.data.forEach(el => {
+              basket.forEach(s => {
+                if (el.id === s.id) {
+                  mod.push({
+                    id: s.id,
+                    count: s.count
+                  });
+                }
+              })
+            })
+            arr.push({
+              id: item.id,
+              count: item.count,
+              modifiers: mod
+            });
+          }
+        });
+      })
+
+      return arr;
     }
 
     const fullAddress = deliveryMethod === "delivery"
       ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
       : "г. Владимир, ул. Пушкина, д. 8";
 
-    const nomenclature = basket.map(item => ({
-      id: item.id,
-      count: item.count || 1,
-      modifiers: item.modifiers || [{ id: 1968, count: 1 }]
-    }));
 
-    const orderTime = deliveryTime === "pickup2" ? selectedOption : "now";
-    const isTimeValid = orderTime === "now" || options.includes(orderTime);
-    console.log(deliveryTime);
-    if (!isTimeValid) {
-      toast.error("Выберите допустимое время.");
-      setLoading(false);
-      return;
-    }
+    const orderTime = selectedOption === "pickup2" ? deliveryMethod : "now";
 
-    const orderData = {
+    return {
       name: userName,
       lastName: userName,
       adress: fullAddress,
       paymentType: paymentMethod,
       persons: personCount,
+      changeAmount: 0,
       phone: "79964421797",
-      nomenclature,
-      // nomenclature: [
-      //   {
-      //     id: 1907,
-      //     count: 10,
-      //     modifiers: [{ id: 1968, count: 1 }],
-      //   },
-      //   {
-      //     id: 1927,
-      //     count: 120,
-      //     modifiers: [{ id: 1968, count: 1 }],
-      //   },
-      //   {
-      //     id: 2103,
-      //     count: 2,
-      //     modifiers: [{ id: 1968, count: 1 }],
-      //   },
-      // ],
+      nomenclature: await sortNomenclature(),
       time: "now",
       source: 1,
       comment: comment,
+      promo: "salom pomo",
+      isPickup: false
     };
-    console.log('orderData', orderData);
+  };
 
+
+
+  const handleSubmitOrder = async () => {
+    setLoading(true);
+
+    if (!handleValidation()) {
+      setLoading(false);
+      return;
+    }
+
+    const orderData = buildOrderData();
+    console.log(orderData, 'order data');
     try {
-
       const response = await fetch('https://api.futoji.ru/orders/create', {
         method: 'POST',
         headers: {
