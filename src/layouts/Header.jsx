@@ -55,6 +55,17 @@ export const Header = () => {
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
+    
+    if (showMenu) {
+      document.addEventListener('click', handleClickOutside)
+
+      window.addEventListener('click', (e) => {
+        if (e.target !== document.querySelector('.header_burger_btn img') && e.target !== document.querySelector('.header_burger_btn') && e.target !== document.querySelector('.header_menu')) {
+          setShowMenu(false)
+          console.log('salom');
+        }
+      })
+    }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
