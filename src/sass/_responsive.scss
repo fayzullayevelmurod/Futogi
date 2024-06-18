@@ -797,6 +797,13 @@
 }
 
 @media screen and (max-width: 767px) {
+  .modal {
+    height: unset;
+  }
+  .modal .modal_content {
+    height: 100vh;
+    overflow-y: auto;
+  }
   .title_box .title,
   .title_box h1,
   .title__box h1,
