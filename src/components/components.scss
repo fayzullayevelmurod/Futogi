@@ -507,3 +507,32 @@
     }
   }
 }
+.parent__select {
+  text-align: left;
+  max-width: 1020px;
+  margin: 0 auto;
+  .select__product {
+    width: fit-content;
+    padding: 12px 10px;
+    color: 12px 10px;
+    outline: none;
+    background: #d9d9d933;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 15.43px;
+    color: #d9d9d9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+  }
+}
+.category_details.no-stretch {
+  align-items: end;
+}
+
+.all__filter-select {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 50px;
+  align-items: stretch;
+}

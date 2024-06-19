@@ -86,76 +86,169 @@ export const MakingOrder = () => {
     return true;
   };
 
-  const buildOrderData = async () => {
+  // const sortNomenclature = async () => {
+  //   const arr = [];
+  //   const checkMods = async (id) => {
+  //     return await fetch(`https://api.futoji.ru/products/getMods?q=${id}`);
+  //   }
 
-    const sortNomenclature = async () => {
-      const arr = [];
-      const checkMods = async (id) => {
-        return await fetch(`https://api.futoji.ru/products/getMods?q=${id}`);
-      }
+  //   basket.forEach(item => {
+  //     checkMods(item.id).then((data) => data.json()).then((res) => {
+  //       if (res.data.length) {
+  //         const mod = [];
+  //         res.data.forEach(el => {
+  //           basket.forEach(s => {
+  //             if (el.id === s.id) {
+  //               mod.push({
+  //                 id: s.id,
+  //                 count: s.count
+  //               });
+  //             }
+  //           })
+  //         })
+  //         arr.push({
+  //           id: item.id,
+  //           count: item.count,
+  //           modifiers: mod
+  //         });
+  //       }
+  //     });
+  //   })
 
-      basket.forEach(item => {
-        checkMods(item.id).then((data) => data.json()).then((res) => {
-          if (res.data.length) {
-            const mod = [];
-            res.data.forEach(el => {
-              basket.forEach(s => {
-                if (el.id === s.id) {
-                  mod.push({
-                    id: s.id,
-                    count: s.count
-                  });
-                }
-              })
-            })
-            arr.push({
-              id: item.id,
-              count: item.count,
-              modifiers: mod
-            });
-          }
-        });
-      })
+  //   return arr;
+  // }
 
-      return arr;
+
+  // const buildOrderData = async () => {
+
+  //   const fullAddress = deliveryMethod === "delivery"
+  //     ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
+  //     : "г. Владимир, ул. Пушкина, д. 8";
+
+  //   const orderTime = selectedOption === "pickup2" ? deliveryMethod : "now";
+
+  //   const nomenclature = basket.map(item => ({
+  //     id: item.id,
+  //     count: item.count,
+  //     modifiers: item.mods ? item.mods.map(mod => ({
+  //       id: mod.id,
+  //       count: mod.count
+  //     })) : []
+  //   }));
+
+  //   return {
+  //     name: userName,
+  //     lastName: userName,
+  //     adress: fullAddress,
+  //     paymentType: paymentMethod,
+  //     persons: personCount,
+  //     changeAmount: 0,
+  //     phone: "79964421797",
+  //     nomenclature,
+  //     time: "now",
+  //     source: 1,
+  //     comment: comment,
+  //     promo: "salom pomo",
+  //     isPickup: false
+  //   };
+  // };
+
+
+
+  // const handleSubmitOrder = async () => {
+  //   setLoading(true);
+
+  //   if (!handleValidation()) {
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   const orderData = buildOrderData();
+  //   console.log(orderData, 'order data');
+  //   try {
+  //     const response = await fetch('https://api.futoji.ru/orders/create', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json;charset=utf-8',
+  //       },
+  //       body: JSON.stringify(orderData),
+  //     });
+
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       console.log('Order successfully created:', responseData);
+  //       toast.success('Заказ успешно создан!');
+  //     } else {
+  //       const errorData = await response.json();
+  //       console.error('Error creating order:', errorData.detail[0].msg);
+  //       toast.error(errorData.detail[0].msg);
+  //     }
+  //   } catch (error) {
+  //     console.error('Network error:', error);
+  //     toast.error('Сетевая ошибка. Попробуйте еще раз.');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const handleSubmitOrder = async () => {
+    setLoading(true);
+    if (!phoneNumber) {
+      toast.error('Пожалуйста, введите ваш номер телефона.');
+      document.querySelector("input[name='number']").focus();
+      setLoading(false);
+      return;
+    }
+    if (!userName) {
+      toast.error('Пожалуйста, введите ваше имя.');
+      document.querySelector("input[name='name']").focus();
+      setLoading(false);
+      return;
+    }
+    if (deliveryMethod === "delivery" && (!address || !house || !kvartira || !etaj)) {
+      toast.error('Пожалуйста, введите полный адрес.');
+      if (!address) document.querySelector("input[name='address']").focus();
+      else if (!house) document.querySelector(".house").focus();
+      else if (!kvartira) document.querySelector(".kvartira").focus();
+      else if (!etaj) document.querySelector(".etaj").focus();
+      setLoading(false);
+      return;
     }
 
     const fullAddress = deliveryMethod === "delivery"
       ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
       : "г. Владимир, ул. Пушкина, д. 8";
 
+    const nomenclature = basket.map(item => ({
+      id: item.id,
+      count: item.count,
+      modifiers: item.mods ? item.mods.map(mod => ({
+        id: mod.id,
+        count: mod.count || 1
+      })) : []
+    }));
 
-    const orderTime = selectedOption === "pickup2" ? deliveryMethod : "now";
+    const orderTime = deliveryTime === "delivery2" ? selectedOption : "now";
+    const isTimeValid = orderTime === "now" || options.includes(orderTime);
 
-    return {
+    if (!isTimeValid) {
+      toast.error("Выберите допустимое время.");
+      setLoading(false);
+      return;
+    }
+
+    const orderData = {
       name: userName,
       lastName: userName,
       adress: fullAddress,
       paymentType: paymentMethod,
       persons: personCount,
-      changeAmount: 0,
       phone: "79964421797",
-      nomenclature: await sortNomenclature(),
+      nomenclature,
       time: "now",
       source: 1,
       comment: comment,
-      promo: "salom pomo",
-      isPickup: false
     };
-  };
-
-
-
-  const handleSubmitOrder = async () => {
-    setLoading(true);
-
-    if (!handleValidation()) {
-      setLoading(false);
-      return;
-    }
-
-    const orderData = buildOrderData();
-    console.log(orderData, 'order data');
     try {
       const response = await fetch('https://api.futoji.ru/orders/create', {
         method: 'POST',
@@ -172,7 +265,7 @@ export const MakingOrder = () => {
       } else {
         const errorData = await response.json();
         console.error('Error creating order:', errorData.detail[0].msg);
-        toast.error(errorData.detail[0].msg);
+        toast.error(errorData.detail);
       }
     } catch (error) {
       console.error('Network error:', error);

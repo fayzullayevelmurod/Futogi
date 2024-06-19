@@ -60,28 +60,27 @@ export const Search = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-
-      <div className="result_products">
-        {loading && <p className='loading'> Загрузка...</p>}
-        {error && <p>{error}</p>}
-        {products?.data?.map((product) => (
-          <div
-            key={product.id}
-            className="result_products-box"
-            onClick={() => handleProductClick(product)}
-          >
-            <img src={getImageUrl(product.image)} alt="product img" width={112} height={70} />
-            <div className="product_content">
-              <div className="left_box">
-                <span className="product_tip">{product.description}</span>
-                <h4 className="product_name">{product.name}</h4>
+      {products?.data?.length ?
+        (<div className="result_products">
+          {loading && <p className='loading'> Загрузка...</p>}
+          {error && <p>{error}</p>}
+          {products?.data?.map((product) => (
+            <div
+              key={product.id}
+              className="result_products-box"
+              onClick={() => handleProductClick(product)}
+            >
+              <img src={getImageUrl(product.image)} alt="product img" width={112} height={70} />
+              <div className="product_content">
+                <div className="left_box">
+                  <span className="product_tip">{product.description}</span>
+                  <h4 className="product_name">{product.name}</h4>
+                </div>
+                <span className="product_price">{product.price}Р</span>
               </div>
-              <span className="product_price">{product.price}Р</span>
             </div>
-          </div>
-        ))}
-      </div>
-
+          ))}
+        </div>) : null}
       {showModal && (
         <Modal
           showModal={showModal}
