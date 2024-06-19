@@ -86,9 +86,6 @@ export const MakingOrder = () => {
     return true;
   };
 
-  
-
-
   const buildOrderData = async () => {
 
     const sortNomenclature = async () => {
