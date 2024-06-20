@@ -532,7 +532,29 @@
 
 .all__filter-select {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-bottom: 50px;
   align-items: stretch;
+}
+@media screen and (max-width: 768px) {
+  .all__filter-select {
+    justify-content: space-between;
+    gap: 1rem;
+    .select__product,
+    .add__cart-btn {
+      // flex: 1 1 auto;
+      width: 48%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .all__filter-select {
+    .select__product,
+    .add__cart-btn {
+      flex: 1 1 auto;
+      width: auto;
+    }
+  }
 }

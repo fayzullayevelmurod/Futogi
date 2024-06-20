@@ -24,6 +24,11 @@ const isValidAddress = (deliveryMethod, address, house, kvartira, etaj) =>
 const isValidDeliveryTime = (deliveryTime, selectedOption, options) =>
   deliveryTime !== "pickup2" || options.includes(selectedOption);
 
+const convertTimeRangeToTime = (timeRange) => {
+  const [startTime] = timeRange.split(" - ");
+  return `${startTime}:00`;
+};
+
 export const MakingOrder = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
@@ -86,131 +91,18 @@ export const MakingOrder = () => {
     return true;
   };
 
-  // const sortNomenclature = async () => {
-  //   const arr = [];
-  //   const checkMods = async (id) => {
-  //     return await fetch(`https://api.futoji.ru/products/getMods?q=${id}`);
-  //   }
-
-  //   basket.forEach(item => {
-  //     checkMods(item.id).then((data) => data.json()).then((res) => {
-  //       if (res.data.length) {
-  //         const mod = [];
-  //         res.data.forEach(el => {
-  //           basket.forEach(s => {
-  //             if (el.id === s.id) {
-  //               mod.push({
-  //                 id: s.id,
-  //                 count: s.count
-  //               });
-  //             }
-  //           })
-  //         })
-  //         arr.push({
-  //           id: item.id,
-  //           count: item.count,
-  //           modifiers: mod
-  //         });
-  //       }
-  //     });
-  //   })
-
-  //   return arr;
-  // }
-
-
-  // const buildOrderData = async () => {
-
-  //   const fullAddress = deliveryMethod === "delivery"
-  //     ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
-  //     : "г. Владимир, ул. Пушкина, д. 8";
-
-  //   const orderTime = selectedOption === "pickup2" ? deliveryMethod : "now";
-
-  //   const nomenclature = basket.map(item => ({
-  //     id: item.id,
-  //     count: item.count,
-  //     modifiers: item.mods ? item.mods.map(mod => ({
-  //       id: mod.id,
-  //       count: mod.count
-  //     })) : []
-  //   }));
-
-  //   return {
-  //     name: userName,
-  //     lastName: userName,
-  //     adress: fullAddress,
-  //     paymentType: paymentMethod,
-  //     persons: personCount,
-  //     changeAmount: 0,
-  //     phone: "79964421797",
-  //     nomenclature,
-  //     time: "now",
-  //     source: 1,
-  //     comment: comment,
-  //     promo: "salom pomo",
-  //     isPickup: false
-  //   };
-  // };
-
-
-
-  // const handleSubmitOrder = async () => {
-  //   setLoading(true);
-
-  //   if (!handleValidation()) {
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   const orderData = buildOrderData();
-  //   console.log(orderData, 'order data');
-  //   try {
-  //     const response = await fetch('https://api.futoji.ru/orders/create', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json;charset=utf-8',
-  //       },
-  //       body: JSON.stringify(orderData),
-  //     });
-
-  //     if (response.ok) {
-  //       const responseData = await response.json();
-  //       console.log('Order successfully created:', responseData);
-  //       toast.success('Заказ успешно создан!');
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.error('Error creating order:', errorData.detail[0].msg);
-  //       toast.error(errorData.detail[0].msg);
-  //     }
-  //   } catch (error) {
-  //     console.error('Network error:', error);
-  //     toast.error('Сетевая ошибка. Попробуйте еще раз.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const calculateTotalPrice = () => {
+    return basket.reduce((total, item) => {
+      const itemTotal = item.price * item.count;
+      const modsTotal = item.mods ? item.mods.reduce((sum, mod) => sum + (mod.price * (mod.count || 1)), 0) : 0;
+      return total + itemTotal + modsTotal;
+    }, 0);
+  };
 
   const handleSubmitOrder = async () => {
     setLoading(true);
-    if (!phoneNumber) {
-      toast.error('Пожалуйста, введите ваш номер телефона.');
-      document.querySelector("input[name='number']").focus();
-      setLoading(false);
-      return;
-    }
-    if (!userName) {
-      toast.error('Пожалуйста, введите ваше имя.');
-      document.querySelector("input[name='name']").focus();
-      setLoading(false);
-      return;
-    }
-    if (deliveryMethod === "delivery" && (!address || !house || !kvartira || !etaj)) {
-      toast.error('Пожалуйста, введите полный адрес.');
-      if (!address) document.querySelector("input[name='address']").focus();
-      else if (!house) document.querySelector(".house").focus();
-      else if (!kvartira) document.querySelector(".kvartira").focus();
-      else if (!etaj) document.querySelector(".etaj").focus();
+
+    if (!handleValidation()) {
       setLoading(false);
       return;
     }
@@ -218,6 +110,14 @@ export const MakingOrder = () => {
     const fullAddress = deliveryMethod === "delivery"
       ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
       : "г. Владимир, ул. Пушкина, д. 8";
+
+    const totalPrice = calculateTotalPrice();
+
+    if (changeAmount && changeAmount < totalPrice) {
+      toast.error(`Сумма не может быть меньше ${totalPrice} штук.`);
+      setLoading(false);
+      return;
+    }
 
     const nomenclature = basket.map(item => ({
       id: item.id,
@@ -228,14 +128,7 @@ export const MakingOrder = () => {
       })) : []
     }));
 
-    const orderTime = deliveryTime === "delivery2" ? selectedOption : "now";
-    const isTimeValid = orderTime === "now" || options.includes(orderTime);
-
-    if (!isTimeValid) {
-      toast.error("Выберите допустимое время.");
-      setLoading(false);
-      return;
-    }
+    const orderTime = deliveryTime === "pickup2" ? convertTimeRangeToTime(selectedOption) : "now";
 
     const orderData = {
       name: userName,
@@ -243,12 +136,13 @@ export const MakingOrder = () => {
       adress: fullAddress,
       paymentType: paymentMethod,
       persons: personCount,
-      phone: "79964421797",
+      phone: phoneNumber,
       nomenclature,
-      time: "now",
+      time: orderTime,
       source: 1,
       comment: comment,
     };
+
     try {
       const response = await fetch('https://api.futoji.ru/orders/create', {
         method: 'POST',
@@ -265,11 +159,11 @@ export const MakingOrder = () => {
       } else {
         const errorData = await response.json();
         console.error('Error creating order:', errorData.detail[0].msg);
-        toast.error(errorData.detail);
+        toast.error(errorData.detail, 'salom');
       }
     } catch (error) {
-      console.error('Network error:', error);
-      toast.error('Сетевая ошибка. Попробуйте еще раз.');
+      console.error('Network error:', error, 'salom');
+      toast.error('Сетевая ошибка. Попробуйте еще раз. 12');
     } finally {
       setLoading(false);
     }

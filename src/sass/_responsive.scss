@@ -1,6 +1,13 @@
 .basket__page .backet_products .content .media_mass {
   display: none;
 }
+.modal_footer {
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
+.modal_content .img_box img {
+  object-fit: unset !important;
+}
 @media screen and (max-width: 1145px) {
   .categories__tabs {
     overflow-x: auto;

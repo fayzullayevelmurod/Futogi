@@ -23,3 +23,8 @@ export const formatPhoneNumber = (phoneNumber) => {
     7
   )}-${phoneNumberDigits.slice(7, 9)}-${phoneNumberDigits.slice(9, 11)}`;
 };
+
+export const convertTimeRangeToTime = (timeRange) => {
+  const [startTime] = timeRange.split(" - ");
+  return `${startTime}:00`;
+};
