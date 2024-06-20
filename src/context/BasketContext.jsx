@@ -12,22 +12,34 @@ export const BasketProvider = ({ children }) => {
     localStorage.setItem("basket", JSON.stringify(basket));
   }, [basket]);
 
-  const addToBasket = (product) => {
+  const addToBasket = (productWithMods) => {
     setBasket((prevBasket) => {
-      const isProductInBasket = prevBasket.some((item) => item.id === product.id);
-      if (!isProductInBasket) {
-        return [...prevBasket, { ...product, count: 1 }];
+      const isProductWithModsInBasket = prevBasket.some((item) => {
+        return (
+          item.id === productWithMods.id &&
+          item.mods &&
+          productWithMods.mods &&
+          item.mods.every((mod, index) => mod.id === productWithMods.mods[index].id)
+        );
+      });
+
+      if (!isProductWithModsInBasket) {
+        return [...prevBasket, { ...productWithMods, count: 1 }];
       } else {
         return prevBasket;
       }
     });
   };
 
-
-  const updateProductCount = (productId, count) => {
+  const updateProductCount = (productId, mods = [], count) => {
     setBasket((prevBasket) =>
       prevBasket.map((product) =>
-        product.id === productId ? { ...product, count } : product
+        product.id === productId &&
+          product.mods &&
+          mods &&
+          product.mods.every((mod, index) => mod.id === mods[index].id)
+          ? { ...product, count }
+          : product
       )
     );
   };
@@ -35,11 +47,15 @@ export const BasketProvider = ({ children }) => {
   const clearBasket = () => {
     setBasket([]);
     localStorage.removeItem("basket");
-    localStorage.removeItem("productCounts");
   };
 
-  const removeProduct = (productId) => {
-    setBasket((prevBasket) => prevBasket.filter((item) => item.id !== productId));
+  const removeProduct = (productId, mods = []) => {
+    setBasket((prevBasket) =>
+      prevBasket.filter(
+        (item) =>
+          item.id !== productId || !item.mods || !mods || !item.mods.every((mod, index) => mod.id === mods[index].id)
+      )
+    );
   };
 
   return (

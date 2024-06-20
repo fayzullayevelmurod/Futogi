@@ -98,7 +98,16 @@ export const MakingOrder = () => {
       return total + itemTotal + modsTotal;
     }, 0);
   };
-
+  const nomenclature = basket.map(item => (
+    console.log(item, 'nomenclature'),
+    {
+      id: item.id,
+      count: item.count,
+      modifiers: item.mods ? item.mods.map(mod => ({
+        id: mod.id,
+        count: mod.count || 1
+      })) : [],
+    }));
   const handleSubmitOrder = async () => {
     setLoading(true);
 
@@ -125,7 +134,7 @@ export const MakingOrder = () => {
       modifiers: item.mods ? item.mods.map(mod => ({
         id: mod.id,
         count: mod.count || 1
-      })) : []
+      })) : [],
     }));
 
     const orderTime = deliveryTime === "pickup2" ? convertTimeRangeToTime(selectedOption) : "now";
@@ -141,6 +150,8 @@ export const MakingOrder = () => {
       time: orderTime,
       source: 1,
       comment: comment,
+      promo: promoCode,
+      // isPickup: 
     };
 
     try {

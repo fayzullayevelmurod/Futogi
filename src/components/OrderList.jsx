@@ -4,7 +4,7 @@ import { getImageUrl } from "../utils/helpers";
 
 export const OrderList = ({ deliveryAddress }) => {
   const { basket } = useContext(BasketContext);
-
+  
   const handleCalculatePrice = () => {
     return basket.reduce((total, item) => {
       const count = item.count || 1;
@@ -13,7 +13,7 @@ export const OrderList = ({ deliveryAddress }) => {
   };
 
   const totalPrice = handleCalculatePrice();
-
+  
   return (
     <div className="order_list">
       <div className="order_list-content">

@@ -17,7 +17,7 @@ export const Cart = () => {
       setProductCounts(JSON.parse(savedCounts));
     } else {
       const initialCounts = basket.reduce((acc, item) => {
-        acc[item.id] = item.count || 1;
+        acc[`${item.id}-${item.mods ? item.mods.map(mod => mod.id).join('-') : ''}`] = item.count || 1;
         return acc;
       }, {});
       setProductCounts(initialCounts);
@@ -29,27 +29,29 @@ export const Cart = () => {
     }
   }, [basket]);
 
-  const handleProductCountChange = (productId, newCount) => {
+  const handleProductCountChange = (productId, mods = [], newCount) => {
+    const key = `${productId}-${mods ? mods.map(mod => mod.id).join('-') : ''}`;
     if (newCount === 0) {
-      removeProduct(productId);
+      removeProduct(productId, mods);
       setProductCounts((prevCounts) => {
         const updatedCounts = { ...prevCounts };
-        delete updatedCounts[productId];
+        delete updatedCounts[key];
         localStorage.setItem("productCounts", JSON.stringify(updatedCounts));
         return updatedCounts;
       });
     } else {
-      updateProductCount(productId, newCount);
+      updateProductCount(productId, mods, newCount);
       setProductCounts((prevCounts) => {
-        const updatedCounts = { ...prevCounts, [productId]: newCount };
+        const updatedCounts = { ...prevCounts, [key]: newCount };
         localStorage.setItem("productCounts", JSON.stringify(updatedCounts));
         return updatedCounts;
       });
     }
   };
 
-  const getProductTotalPrice = (productId, price) => {
-    const count = productCounts[productId] || 1;
+  const getProductTotalPrice = (productId, mods = [], price) => {
+    const key = `${productId}-${mods ? mods.map(mod => mod.id).join('-') : ''}`;
+    const count = productCounts[key] || 1;
     return count * price;
   };
 
@@ -61,12 +63,12 @@ export const Cart = () => {
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     basket.forEach((item) => {
-      const count = productCounts[item.id] || 1;
+      const key = `${item.id}-${item.mods ? item.mods.map(mod => mod.id).join('-') : ''}`;
+      const count = productCounts[key] || 1;
       totalPrice += count * item.price;
     });
     return totalPrice;
   };
-
   const totalProductPrice = calculateTotalPrice();
 
   const handleSubmit = () => {
@@ -107,14 +109,13 @@ export const Cart = () => {
                 <div className="counter_box">
                   {item?.mass && <span className="mass">{item?.mass}</span>}
                   <Counter
-                    initialCount={1}
-                    productCounts={productCounts[item.id]}
+                    initialCount={productCounts[`${item.id}-${item.mods ? item.mods.map(mod => mod.id).join('-') : ''}`] || 1}
                     onChange={(newCount) =>
-                      handleProductCountChange(item.id, newCount)
+                      handleProductCountChange(item.id, item.mods, newCount)
                     }
                   />
                   <span className="price">
-                    {getProductTotalPrice(item.id, item.price)} р
+                    {getProductTotalPrice(item.id, item.mods, item.price)} р
                   </span>
                 </div>
               </div>

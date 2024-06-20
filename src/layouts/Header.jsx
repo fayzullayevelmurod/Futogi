@@ -62,7 +62,6 @@ export const Header = () => {
       window.addEventListener('click', (e) => {
         if (e.target !== document.querySelector('.header_burger_btn img') && e.target !== document.querySelector('.header_burger_btn') && e.target !== document.querySelector('.header_menu')) {
           setShowMenu(false)
-          console.log('salom');
         }
       })
     }

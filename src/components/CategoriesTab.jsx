@@ -97,11 +97,19 @@ export const CategoriesTab = () => {
   };
 
   const { addToBasket, basket } = useContext(BasketContext);
-  const handleAddToBasket = (product) => {
-    if (product) {
-      const isProductInBasket = basket.some((item) => item.id === product.id);
-      if (!isProductInBasket) {
-        addToBasket(product);
+  const handleAddToBasket = (product, noodle, sauce) => {
+    if (product && noodle && sauce) {
+      const productWithMods = {
+        ...product,
+        mods: [noodle, sauce],
+      };
+      const isProductWithModsInBasket = basket.some((item) =>
+        item.id === productWithMods.id &&
+        item.mods.every((mod, index) => mod.id === productWithMods.mods[index].id)
+      );
+
+      if (!isProductWithModsInBasket) {
+        addToBasket(productWithMods);
         toast.success("Продукт был добавлен в корзину");
       } else {
         toast.info("Продукт уже находится в корзине");
@@ -175,10 +183,7 @@ export const CategoriesTab = () => {
                     <button
                       className="add__cart-btn"
                       onClick={() =>
-                        handleAddToBasket({
-                          ...selectedProduct,
-                          mods: [selectedNoodle, selectedSauce],
-                        })
+                        handleAddToBasket(selectedProduct, selectedNoodle, selectedSauce)
                       }
                       disabled={!selectedProduct || !selectedNoodle || !selectedSauce}
                     >
