@@ -173,6 +173,9 @@ export const MakingOrder = () => {
         const responseData = await response.json();
         console.log("Order successfully created:", responseData);
         toast.success("Заказ успешно создан!");
+
+        // responseData ni localStorage ga saqlash
+        localStorage.setItem("orderData", JSON.stringify(responseData));
         navigate("/madeorder", {
           state: {
             deliveryAddress: `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`,

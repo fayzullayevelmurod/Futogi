@@ -8,6 +8,9 @@ export const МadeОrder = () => {
   const location = useLocation();
   // const { deliveryAddress } = location.state;
 
+  // const storedResponseData = localStorage.getItem("orderData");
+  // const responseData = JSON.parse(storedResponseData);
+
   const handleShowOrderList = () => {
     setShowOrderList(!showOrderList);
   };
