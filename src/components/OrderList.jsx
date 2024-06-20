@@ -4,16 +4,15 @@ import { getImageUrl } from "../utils/helpers";
 
 export const OrderList = ({ deliveryAddress }) => {
   const { basket } = useContext(BasketContext);
-  
+
   const handleCalculatePrice = () => {
     return basket.reduce((total, item) => {
-      const count = item.count || 1;
-      return total + count * item.price;
+      return total + item.price;
     }, 0);
   };
 
   const totalPrice = handleCalculatePrice();
-  
+
   return (
     <div className="order_list">
       <div className="order_list-content">
@@ -23,12 +22,15 @@ export const OrderList = ({ deliveryAddress }) => {
             basket.map((item, index) => (
               <div key={`${item.id}-${index}`} className="product_box">
                 <div className="product_left-box">
-                  {item.image ?
+                  {item.image ? (
                     <img
                       className="product_img"
                       src={getImageUrl(item.image)}
                       alt="product img"
-                    /> : <div className="no-order-list-img">Нет img</div>}
+                    />
+                  ) : (
+                    <div className="no-order-list-img">Нет img</div>
+                  )}
                   <div>
                     <p className="product_name">{item.name}</p>
                     <div className="flex_box">
@@ -37,7 +39,7 @@ export const OrderList = ({ deliveryAddress }) => {
                     </div>
                   </div>
                 </div>
-                <span className="price">{(item.count || 1) * item.price}Р</span>
+                <span className="price">{item.price}Р</span>
               </div>
             ))
           ) : (

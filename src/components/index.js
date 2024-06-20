@@ -7,3 +7,4 @@ export { Modal } from "./Modal";
 export { Counter } from "./Counter";
 export { OrderList } from "./OrderList";
 export { Search } from "./Search";
+export { CustomSelect } from "./CustomSelect";

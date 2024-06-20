@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import assets from "../assets";
 import { OrderList } from "../components";
 import { useState } from "react";
 
 export const МadeОrder = () => {
   const [showOrderList, setShowOrderList] = useState(false);
+  const location = useLocation();
+  // const { deliveryAddress } = location.state;
 
   const handleShowOrderList = () => {
     setShowOrderList(!showOrderList);
@@ -29,7 +31,7 @@ export const МadeОrder = () => {
           Назад к меню
         </Link>
       </div>
-      <div className={`bottom_gradient ${showOrderList ? 'show' : 'hide'}`}>
+      <div className={`bottom_gradient ${showOrderList ? "show" : "hide"}`}>
         <img src={assets.gradientBig} alt="" />
       </div>
     </div>

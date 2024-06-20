@@ -1,0 +1,42 @@
+/* src/components/CustomSelect.css */
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+
+.custom-select__selected {
+    background: #d9d9d933;
+    padding: 16px 24px;
+    cursor: pointer;
+    width: max-content;
+    box-sizing: border-box;
+}
+
+.custom-select__options {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    background: url(../assets/select-bg.png) no-repeat;
+    background-size: cover;
+}
+
+.custom-select__selected:focus + .custom-select__options,
+.custom-select__selected:active + .custom-select__options {
+    display: block;
+}
+
+.custom-select__option {
+    padding: 16px 24px;
+    cursor: pointer;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.custom-select__option:hover {
+    background: #1a1a1a33;
+}

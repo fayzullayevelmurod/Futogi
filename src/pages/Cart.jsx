@@ -8,7 +8,8 @@ import { getImageUrl } from "../utils/helpers";
 export const Cart = () => {
   const [productCounts, setProductCounts] = useState({});
   const [personCount, setPersonCount] = useState(1);
-  const { basket, clearBasket, updateProductCount, removeProduct } = useContext(BasketContext);
+  const { basket, clearBasket, updateProductCount, removeProduct } =
+    useContext(BasketContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +18,10 @@ export const Cart = () => {
       setProductCounts(JSON.parse(savedCounts));
     } else {
       const initialCounts = basket.reduce((acc, item) => {
-        acc[`${item.id}-${item.mods ? item.mods.map(mod => mod.id).join('-') : ''}`] = item.count || 1;
+        acc[
+          `${item.id}-${item.mods ? item.mods.map((mod) => mod.id).join("-") : ""}`
+        ] = item.count || 1;
+
         return acc;
       }, {});
       setProductCounts(initialCounts);
@@ -29,8 +33,9 @@ export const Cart = () => {
     }
   }, [basket]);
 
+  console.log(basket);
   const handleProductCountChange = (productId, mods = [], newCount) => {
-    const key = `${productId}-${mods ? mods.map(mod => mod.id).join('-') : ''}`;
+    const key = `${productId}-${mods ? mods.map((mod) => mod.id).join("-") : ""}`;
     if (newCount === 0) {
       removeProduct(productId, mods);
       setProductCounts((prevCounts) => {
@@ -50,7 +55,7 @@ export const Cart = () => {
   };
 
   const getProductTotalPrice = (productId, mods = [], price) => {
-    const key = `${productId}-${mods ? mods.map(mod => mod.id).join('-') : ''}`;
+    const key = `${productId}-${mods ? mods.map((mod) => mod.id).join("-") : ""}`;
     const count = productCounts[key] || 1;
     return count * price;
   };
@@ -63,8 +68,7 @@ export const Cart = () => {
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     basket.forEach((item) => {
-      const key = `${item.id}-${item.mods ? item.mods.map(mod => mod.id).join('-') : ''}`;
-      const count = productCounts[key] || 1;
+      const count = productCounts[item.id] || 1;
       totalPrice += count * item.price;
     });
     return totalPrice;
@@ -109,14 +113,16 @@ export const Cart = () => {
                 <div className="counter_box">
                   {item?.mass && <span className="mass">{item?.mass}</span>}
                   <Counter
-                    initialCount={productCounts[`${item.id}-${item.mods ? item.mods.map(mod => mod.id).join('-') : ''}`] || 1}
+                    initialCount={
+                      productCounts[
+                        `${item.id}-${item.mods ? item.mods.map((mod) => mod.id).join("-") : ""}`
+                      ] || 1
+                    }
                     onChange={(newCount) =>
                       handleProductCountChange(item.id, item.mods, newCount)
                     }
                   />
-                  <span className="price">
-                    {getProductTotalPrice(item.id, item.mods, item.price)} р
-                  </span>
+                  <span className="price">{item.price} p</span>
                 </div>
               </div>
             </div>

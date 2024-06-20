@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import assets from "../assets";
 
 export const Counter = ({ initialCount = 1, onChange, productCounts }) => {

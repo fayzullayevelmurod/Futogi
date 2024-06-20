@@ -13,11 +13,12 @@ import {
   RadioItem2,
 } from "../components/Form";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { BasketContext } from "../context/BasketContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const isValidPhoneNumber = (phoneNumber) => phoneNumber && phoneNumber.length > 0;
+const isValidPhoneNumber = (phoneNumber) =>
+  phoneNumber && phoneNumber.length > 0;
 const isValidUserName = (userName) => userName && userName.length > 0;
 const isValidAddress = (deliveryMethod, address, house, kvartira, etaj) =>
   deliveryMethod !== "delivery" || (address && house && kvartira && etaj);
@@ -44,16 +45,23 @@ export const MakingOrder = () => {
   const [comment, setComment] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [changeAmount, setChangeAmount] = useState("");
-  const [selectedOption, setSelectedOption] = useState('Выберите время');
+  const [selectedOption, setSelectedOption] = useState("Выберите время");
   const [showOptions, setShowOptions] = useState(false);
   const { basket } = useContext(BasketContext);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const { personCount } = location.state;
+  const navigate = useNavigate();
+
   const options = [
-    "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30",
-    "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00",
-    "21:00 - 21:30", "21:30 - 22:00"
+    "18:00 - 18:30",
+    "18:30 - 19:00",
+    "19:00 - 19:30",
+    "19:30 - 20:00",
+    "20:00 - 20:30",
+    "20:30 - 21:00",
+    "21:00 - 21:30",
+    "21:30 - 22:00",
   ];
 
   const handleOptionClick = (option) => {
@@ -67,17 +75,17 @@ export const MakingOrder = () => {
 
   const handleValidation = () => {
     if (!isValidPhoneNumber(phoneNumber)) {
-      toast.error('Пожалуйста, введите ваш номер телефона.');
+      toast.error("Пожалуйста, введите ваш номер телефона.");
       document.querySelector(".number-input").focus();
       return false;
     }
     if (!isValidUserName(userName)) {
-      toast.error('Пожалуйста, введите ваше имя.');
+      toast.error("Пожалуйста, введите ваше имя.");
       document.querySelector("input[name='name']").focus();
       return false;
     }
     if (!isValidAddress(deliveryMethod, address, house, kvartira, etaj)) {
-      toast.error('Пожалуйста, введите полный адрес.');
+      toast.error("Пожалуйста, введите полный адрес.");
       if (!address) document.querySelector("input[name='address']").focus();
       else if (!house) document.querySelector(".house").focus();
       else if (!kvartira) document.querySelector(".kvartira").focus();
@@ -94,20 +102,12 @@ export const MakingOrder = () => {
   const calculateTotalPrice = () => {
     return basket.reduce((total, item) => {
       const itemTotal = item.price * item.count;
-      const modsTotal = item.mods ? item.mods.reduce((sum, mod) => sum + (mod.price * (mod.count || 1)), 0) : 0;
+      const modsTotal = item.mods
+        ? item.mods.reduce((sum, mod) => sum + mod.price * (mod.count || 1), 0)
+        : 0;
       return total + itemTotal + modsTotal;
     }, 0);
   };
-  const nomenclature = basket.map(item => (
-    console.log(item, 'nomenclature'),
-    {
-      id: item.id,
-      count: item.count,
-      modifiers: item.mods ? item.mods.map(mod => ({
-        id: mod.id,
-        count: mod.count || 1
-      })) : [],
-    }));
   const handleSubmitOrder = async () => {
     setLoading(true);
 
@@ -116,9 +116,10 @@ export const MakingOrder = () => {
       return;
     }
 
-    const fullAddress = deliveryMethod === "delivery"
-      ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
-      : "г. Владимир, ул. Пушкина, д. 8";
+    const fullAddress =
+      deliveryMethod === "delivery"
+        ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
+        : "г. Владимир, ул. Пушкина, д. 8";
 
     const totalPrice = calculateTotalPrice();
 
@@ -128,16 +129,21 @@ export const MakingOrder = () => {
       return;
     }
 
-    const nomenclature = basket.map(item => ({
+    const nomenclature = basket.map((item) => ({
       id: item.id,
       count: item.count,
-      modifiers: item.mods ? item.mods.map(mod => ({
-        id: mod.id,
-        count: mod.count || 1
-      })) : [],
+      modifiers: item.mods
+        ? item.mods.map((mod) => ({
+            id: mod.id,
+            count: mod.count || 1,
+          }))
+        : [],
     }));
 
-    const orderTime = deliveryTime === "pickup2" ? convertTimeRangeToTime(selectedOption) : "now";
+    const orderTime =
+      deliveryTime === "pickup2"
+        ? convertTimeRangeToTime(selectedOption)
+        : "now";
 
     const orderData = {
       name: userName,
@@ -151,30 +157,33 @@ export const MakingOrder = () => {
       source: 1,
       comment: comment,
       promo: promoCode,
-      // isPickup: 
+      // changeAmount
     };
 
     try {
-      const response = await fetch('https://api.futoji.ru/orders/create', {
-        method: 'POST',
+      const response = await fetch("https://api.futoji.ru/orders/create", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json;charset=utf-8',
+          "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(orderData),
       });
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Order successfully created:', responseData);
-        toast.success('Заказ успешно создан!');
+        console.log("Order successfully created:", responseData);
+        toast.success("Заказ успешно создан!");
+        navigate("/madeorder", {
+          state: {
+            deliveryAddress: `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`,
+          },
+        });
       } else {
         const errorData = await response.json();
-        console.error('Error creating order:', errorData.detail[0].msg);
-        toast.error(errorData.detail, 'salom');
+        toast.error(errorData.detail);
       }
     } catch (error) {
-      console.error('Network error:', error, 'salom');
-      toast.error('Сетевая ошибка. Попробуйте еще раз. 12');
+      toast.error("Сетевая ошибка. Попробуйте еще раз.");
     } finally {
       setLoading(false);
     }
@@ -303,7 +312,9 @@ export const MakingOrder = () => {
                     {deliveryTime === "pickup2" && (
                       <FormSection className="delivery_time">
                         <div className="form_item">
-                          <label className="form_label">Укажите время доставки</label>
+                          <label className="form_label">
+                            Укажите время доставки
+                          </label>
                           <div className="select__box">
                             <input
                               type="text"
@@ -371,9 +382,15 @@ export const MakingOrder = () => {
                             onChange={(e) => setChangeAmount(e.target.value)}
                           />
                           <div className="example_prices">
-                            <span onClick={() => setChangeAmount("1000")}>1000</span>
-                            <span onClick={() => setChangeAmount("2000")}>2000</span>
-                            <span onClick={() => setChangeAmount("5000")}>5000</span>
+                            <span onClick={() => setChangeAmount("1000")}>
+                              1000
+                            </span>
+                            <span onClick={() => setChangeAmount("2000")}>
+                              2000
+                            </span>
+                            <span onClick={() => setChangeAmount("5000")}>
+                              5000
+                            </span>
                           </div>
                         </div>
                       )}
@@ -390,7 +407,7 @@ export const MakingOrder = () => {
                   </FormSection>
                 </div>
                 <Button
-                  label={`${loading ? 'Загрузка...' : 'Оформить заказ'}`}
+                  label={`${loading ? "Загрузка..." : "Оформить заказ"}`}
                   className="send_btn add__cart-btn"
                   onClick={handleSubmitOrder}
                 />
@@ -401,12 +418,30 @@ export const MakingOrder = () => {
                 Показать заказ
               </button>
               <div className="desktop_order-list">
-                <OrderList deliveryAddress={deliveryMethod === "delivery" ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}` : "г. Владимир, ул. Пушкина, д. 8"} />
+                <OrderList
+                  deliveryAddress={
+                    deliveryMethod === "delivery"
+                      ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
+                      : "г. Владимир, ул. Пушкина, д. 8"
+                  }
+                />
               </div>
-              <div className={`media_order-list ${showOrderList ? "show" : ""}`}>
-                <OrderList deliveryAddress={deliveryMethod === "delivery" ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}` : "г. Владимир, ул. Пушкина, д. 8"} />
+              <div
+                className={`media_order-list ${showOrderList ? "show" : ""}`}
+              >
+                <OrderList
+                  deliveryAddress={
+                    deliveryMethod === "delivery"
+                      ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
+                      : "г. Владимир, ул. Пушкина, д. 8"
+                  }
+                />
               </div>
-              <Button label={`${loading ? 'Загрузка...' : 'Оформить заказ'}`} className="button send_btn add__cart-btn" onClick={handleSubmitOrder} />
+              <Button
+                label={`${loading ? "Загрузка..." : "Оформить заказ"}`}
+                className="button send_btn add__cart-btn"
+                onClick={handleSubmitOrder}
+              />
             </div>
           </div>
         </div>
