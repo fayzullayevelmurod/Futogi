@@ -1045,5 +1045,14 @@
   }
   .products .products_block img {
     height: 84px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-image: linear-gradient(
+        155.44deg,
+        rgba(172, 172, 172, 0.6) 1.37%,
+        rgba(0, 0, 0, 0) 50.03%,
+        rgba(178, 178, 178, 0.6) 98.69%
+      )
+      1;
   }
 }

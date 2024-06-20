@@ -41,6 +41,15 @@ import mediaProductImg6 from "./product-media-6.png";
 import mediaProduct4 from "./product-media-4.png";
 import mediaProduct3 from "./product-media-3.png";
 import mediaProduct8 from "./product-media-8.png";
+import img1 from "./img-1.png";
+import img2 from "./img-2.png";
+import img3 from "./img-3.png";
+import img4 from "./img-4.png";
+import img5 from "./img-5.png";
+import img6 from "./img-6.png";
+import img7 from "./img-7.png";
+import img8 from "./img-8.png";
+
 export default {
   headerBurger,
   headerLogo,
@@ -84,5 +93,13 @@ export default {
   mediaProductImg6,
   mediaProduct4,
   mediaProduct3,
-  mediaProduct8
+  mediaProduct8,
+  img1,
+  img2,
+  img3,
+  img4,
+  img5,
+  img6,
+  img7,
+  img8,
 };
