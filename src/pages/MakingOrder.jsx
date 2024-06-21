@@ -1,4 +1,199 @@
-import { useState, useContext } from "react";
+// import { useState, useContext } from "react";
+// import assets from "../assets";
+// import { OrderList } from "../components";
+// import {
+//   Button,
+//   CheckboxItem,
+//   FormItem,
+//   FormSection,
+//   FormTextArea,
+//   PhoneInput,
+//   PromocodeInput,
+//   RadioItem,
+//   RadioItem2,
+// } from "../components/Form";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { BasketContext } from "../context/BasketContext";
+// import { useLocation, useNavigate } from "react-router-dom";
+
+// const isValidPhoneNumber = (phoneNumber) =>
+//   phoneNumber && phoneNumber.length > 0;
+// const isValidUserName = (userName) => userName && userName.length > 0;
+// const isValidAddress = (deliveryMethod, address, house, kvartira, etaj) =>
+//   deliveryMethod !== "delivery" || (address && house && kvartira && etaj);
+// const isValidDeliveryTime = (deliveryTime, selectedOption, options) =>
+//   deliveryTime !== "pickup2" || options.includes(selectedOption);
+
+// const convertTimeRangeToTime = (timeRange) => {
+//   const [startTime] = timeRange.split(" - ");
+//   return `${startTime}:00`;
+// };
+
+// export const MakingOrder = () => {
+//   const [deliveryMethod, setDeliveryMethod] = useState("");
+//   const [deliveryTime, setDeliveryTime] = useState("");
+//   const [paymentMethod, setPaymentMethod] = useState("");
+//   const [noChange, setNoChange] = useState(false);
+//   const [showOrderList, setShowOrderList] = useState(true);
+//   const [phoneNumber, setPhoneNumber] = useState("");
+//   const [userName, setUserName] = useState("");
+//   const [address, setAddress] = useState("");
+//   const [house, setHouse] = useState("");
+//   const [kvartira, setKvartira] = useState("");
+//   const [etaj, setEtaj] = useState("");
+//   const [comment, setComment] = useState("");
+//   const [promoCode, setPromoCode] = useState("");
+//   const [changeAmount, setChangeAmount] = useState("");
+//   const [selectedOption, setSelectedOption] = useState("Выберите время");
+//   const [showOptions, setShowOptions] = useState(false);
+//   const { basket } = useContext(BasketContext);
+//   const [loading, setLoading] = useState(false);
+//   const location = useLocation();
+//   const { personCount } = location.state;
+//   const navigate = useNavigate();
+
+//   const options = [
+//     "18:00 - 18:30",
+//     "18:30 - 19:00",
+//     "19:00 - 19:30",
+//     "19:30 - 20:00",
+//     "20:00 - 20:30",
+//     "20:30 - 21:00",
+//     "21:00 - 21:30",
+//     "21:30 - 22:00",
+//   ];
+
+//   const handleOptionClick = (option) => {
+//     setSelectedOption(option);
+//     setShowOptions(false);
+//   };
+
+//   const handleShowOrderList = () => {
+//     setShowOrderList(!showOrderList);
+//   };
+
+//   const handleValidation = () => {
+//     if (!isValidPhoneNumber(phoneNumber)) {
+//       toast.error("Пожалуйста, введите ваш номер телефона.");
+//       document.querySelector(".number-input").focus();
+//       return false;
+//     }
+//     if (!isValidUserName(userName)) {
+//       toast.error("Пожалуйста, введите ваше имя.");
+//       document.querySelector("input[name='name']").focus();
+//       return false;
+//     }
+//     if (!isValidAddress(deliveryMethod, address, house, kvartira, etaj)) {
+//       toast.error("Пожалуйста, введите полный адрес.");
+//       if (!address) document.querySelector("input[name='address']").focus();
+//       else if (!house) document.querySelector(".house").focus();
+//       else if (!kvartira) document.querySelector(".kvartira").focus();
+//       else if (!etaj) document.querySelector(".etaj").focus();
+//       return false;
+//     }
+//     if (!isValidDeliveryTime(deliveryTime, selectedOption, options)) {
+//       toast.error("Выберите допустимое время.");
+//       return false;
+//     }
+//     return true;
+//   };
+
+//   const calculateTotalPrice = () => {
+//     return basket.reduce((total, item) => {
+//       const itemTotal = item.price * item.count;
+//       const modsTotal = item.mods
+//         ? item.mods.reduce((sum, mod) => sum + mod.price * (mod.count || 1), 0)
+//         : 0;
+//       return total + itemTotal + modsTotal;
+//     }, 0);
+//   };
+//   const handleSubmitOrder = async () => {
+//     setLoading(true);
+
+//     if (!handleValidation()) {
+//       setLoading(false);
+//       return;
+//     }
+
+//     const fullAddress =
+//       deliveryMethod === "delivery"
+//         ? `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`
+//         : "г. Владимир, ул. Пушкина, д. 8";
+
+//     const totalPrice = calculateTotalPrice();
+
+//     if (changeAmount && changeAmount < totalPrice) {
+//       toast.error(`Сумма не может быть меньше ${totalPrice} штук.`);
+//       setLoading(false);
+//       return;
+//     }
+
+//     const nomenclature = basket.map((item) => ({
+//       id: item.id,
+//       count: item.count,
+//       modifiers: item.mods
+//         ? item.mods.map((mod) => ({
+//             id: mod.id,
+//             count: mod.count || 1,
+//           }))
+//         : [],
+//     }));
+
+//     const orderTime =
+//       deliveryTime === "pickup2"
+//         ? convertTimeRangeToTime(selectedOption)
+//         : "now";
+
+//     const orderData = {
+//       name: userName,
+//       lastName: userName,
+//       adress: fullAddress,
+//       paymentType: paymentMethod,
+//       persons: personCount,
+//       phone: phoneNumber,
+//       nomenclature,
+//       time: orderTime,
+//       source: 1,
+//       comment: comment,
+//       promo: promoCode,
+//       // changeAmount
+//     };
+
+//     try {
+//       const response = await fetch("https://api.futoji.ru/orders/create", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json;charset=utf-8",
+//         },
+//         body: JSON.stringify(orderData),
+//       });
+
+//       if (response.ok) {
+//         const responseData = await response.json();
+//         console.log("Order successfully created:", responseData);
+//         toast.success("Заказ успешно создан!");
+
+//         // responseData ni localStorage ga saqlash
+//         localStorage.setItem("orderData", JSON.stringify(responseData));
+//         navigate("/madeorder", {
+//           state: {
+//             deliveryAddress: `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`,
+//           },
+//         });
+//       } else {
+//         const errorData = await response.json();
+//         toast.error(errorData.detail);
+//       }
+//     } catch (error) {
+//       toast.error("Сетевая ошибка. Попробуйте еще раз.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//
+
+import React, { useState, useContext } from "react";
 import assets from "../assets";
 import { OrderList } from "../components";
 import {
@@ -17,20 +212,29 @@ import "react-toastify/dist/ReactToastify.css";
 import { BasketContext } from "../context/BasketContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// Telefon raqamining tekshirilishi
 const isValidPhoneNumber = (phoneNumber) =>
   phoneNumber && phoneNumber.length > 0;
+
+// Foydalanuvchi ismi uchun tekshirilishi
 const isValidUserName = (userName) => userName && userName.length > 0;
+
+// Yetkazib berish uchun manzil tekshirilishi
 const isValidAddress = (deliveryMethod, address, house, kvartira, etaj) =>
   deliveryMethod !== "delivery" || (address && house && kvartira && etaj);
+
+// Yetkazib berish vaqti tekshirilishi
 const isValidDeliveryTime = (deliveryTime, selectedOption, options) =>
   deliveryTime !== "pickup2" || options.includes(selectedOption);
 
+// Vaqt diapazonini vaqtga o'girish
 const convertTimeRangeToTime = (timeRange) => {
   const [startTime] = timeRange.split(" - ");
   return `${startTime}:00`;
 };
 
 export const MakingOrder = () => {
+  // Komponentdagi holatlar va ma'lumotlar
   const [deliveryMethod, setDeliveryMethod] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -53,6 +257,7 @@ export const MakingOrder = () => {
   const { personCount } = location.state;
   const navigate = useNavigate();
 
+  // Yetkazib berish vaqtlari
   const options = [
     "18:00 - 18:30",
     "18:30 - 19:00",
@@ -64,15 +269,18 @@ export const MakingOrder = () => {
     "21:30 - 22:00",
   ];
 
+  // Vaqt diapazonini tanlash
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setShowOptions(false);
   };
 
+  // Buyurtma ro'yxatini ko'rsatish
   const handleShowOrderList = () => {
     setShowOrderList(!showOrderList);
   };
 
+  // Ma'lumotlarni tekshirish
   const handleValidation = () => {
     if (!isValidPhoneNumber(phoneNumber)) {
       toast.error("Пожалуйста, введите ваш номер телефона.");
@@ -99,6 +307,7 @@ export const MakingOrder = () => {
     return true;
   };
 
+  // Umumiy narxni hisoblash
   const calculateTotalPrice = () => {
     return basket.reduce((total, item) => {
       const itemTotal = item.price * item.count;
@@ -108,6 +317,8 @@ export const MakingOrder = () => {
       return total + itemTotal + modsTotal;
     }, 0);
   };
+
+  // Buyurtmani yuborish
   const handleSubmitOrder = async () => {
     setLoading(true);
 
@@ -157,7 +368,6 @@ export const MakingOrder = () => {
       source: 1,
       comment: comment,
       promo: promoCode,
-      // changeAmount
     };
 
     try {
@@ -174,16 +384,13 @@ export const MakingOrder = () => {
         console.log("Order successfully created:", responseData);
         toast.success("Заказ успешно создан!");
 
-        // responseData ni localStorage ga saqlash
         localStorage.setItem("orderData", JSON.stringify(responseData));
-        navigate("/madeorder", {
-          state: {
-            deliveryAddress: `${address}, дом ${house}, квартира/офис ${kvartira}, этаж ${etaj}`,
-          },
+        navigate("/made-order", {
+          state: { deliveryAddress: fullAddress },
         });
       } else {
         const errorData = await response.json();
-        toast.error(errorData.detail);
+        toast.error(errorData?.detail?.error?.message);
       }
     } catch (error) {
       toast.error("Сетевая ошибка. Попробуйте еще раз.");
@@ -191,7 +398,6 @@ export const MakingOrder = () => {
       setLoading(false);
     }
   };
-
   return (
     <>
       <div className="making_order">

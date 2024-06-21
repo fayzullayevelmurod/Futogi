@@ -8,8 +8,10 @@ export const МadeОrder = () => {
   const location = useLocation();
   // const { deliveryAddress } = location.state;
 
-  // const storedResponseData = localStorage.getItem("orderData");
-  // const responseData = JSON.parse(storedResponseData);
+  const storedResponseData = localStorage.getItem("orderData");
+  const responseData = JSON.parse(storedResponseData);
+  const deliveryAddress = responseData?.delivery?.address;
+  console.log(responseData?.delivery?.address, "res");
 
   const handleShowOrderList = () => {
     setShowOrderList(!showOrderList);
@@ -29,7 +31,7 @@ export const МadeОrder = () => {
         <button className="blur__btn" onClick={handleShowOrderList}>
           Посмотреть заказ
         </button>
-        {showOrderList && <OrderList />}
+        {showOrderList && <OrderList deliveryAddress={deliveryAddress} />}
         <Link className="add__cart-btn" to="/products/Пицца">
           Назад к меню
         </Link>
