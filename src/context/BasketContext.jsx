@@ -13,6 +13,7 @@ export const BasketProvider = ({ children }) => {
       const key = `${item.id}-${item.mods ? item.mods.map((mod) => mod.id).join("-") : ""}`;
       const count = counts[key] || item.count;
       const pricePerItem = item.price / item.count;
+
       return { ...item, count, price: pricePerItem * count };
     });
 
@@ -69,22 +70,21 @@ export const BasketProvider = ({ children }) => {
           mods &&
           product.mods.every((mod, index) => mod.id === mods[index].id)
             ? count === 0
-              ? null
+              ? 0
               : { ...product, count }
             : product,
         )
         .filter(Boolean),
     );
-
-    const productCounts =
-      JSON.parse(localStorage.getItem("productCounts")) || {};
+    console.log(productId, count, "salom");
+    const productCounts = JSON.parse(localStorage.getItem("basket")) || {};
     const key = `${productId}-${mods ? mods.map((mod) => mod.id).join("-") : ""}`;
     if (count === 0) {
       delete productCounts[key];
     } else {
       productCounts[key] = count;
     }
-    localStorage.setItem("productCounts", JSON.stringify(productCounts));
+    localStorage.setItem("basket", JSON.stringify(productCounts));
     syncBasketWithCounts(productCounts);
   };
 
@@ -121,6 +121,8 @@ export const BasketProvider = ({ children }) => {
         updateProductCount,
         clearBasket,
         removeProduct,
+        syncBasketWithCounts,
+        setBasket,
       }}
     >
       {children}

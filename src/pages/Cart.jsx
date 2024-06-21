@@ -8,7 +8,7 @@ import { getImageUrl } from "../utils/helpers";
 export const Cart = () => {
   const [productCounts, setProductCounts] = useState({});
   const [personCount, setPersonCount] = useState(1);
-  const { basket, clearBasket, updateProductCount, removeProduct } =
+  const { basket, clearBasket, updateProductCount, removeProduct, setBasket } =
     useContext(BasketContext);
   const navigate = useNavigate();
 
@@ -33,11 +33,17 @@ export const Cart = () => {
     }
   }, [basket]);
 
-  console.log(basket);
   const handleProductCountChange = (productId, mods = [], newCount) => {
     const key = `${productId}-${mods ? mods.map((mod) => mod.id).join("-") : ""}`;
     if (newCount === 0) {
       removeProduct(productId, mods);
+      const s = JSON.parse(localStorage.getItem("basket"));
+      let idx = s.findIndex((a) => a.id === productId);
+      if (idx != -1) {
+        s.splice(idx, 1);
+        setBasket(s);
+      }
+
       setProductCounts((prevCounts) => {
         const updatedCounts = { ...prevCounts };
         delete updatedCounts[key];
@@ -54,9 +60,8 @@ export const Cart = () => {
     }
   };
 
-  const getProductTotalPrice = (productId, mods = [], price) => {
-    const key = `${productId}-${mods ? mods.map((mod) => mod.id).join("-") : ""}`;
-    const count = productCounts[key] || 1;
+  const getProductTotalPrice = (productId, price) => {
+    const count = productCounts[productId] || 1;
     return count * price;
   };
 
