@@ -474,6 +474,7 @@ import {
   Button,
   CheckboxItem,
   FormItem,
+  FormItem2,
   FormSection,
   FormTextArea,
   PhoneInput,
@@ -530,6 +531,13 @@ export const MakingOrder = () => {
   const location = useLocation();
   const { personCount } = location.state;
   const navigate = useNavigate();
+  const [changeAmount2, setChangeAmount2] = useState();
+
+  // Function to handle updating the changeAmount state
+  const handlePriceClick = (amount) => {
+    setChangeAmount2(amount);
+    console.log("salom");
+  };
 
   // Yetkazib berish vaqtlari
   const options = [
@@ -644,7 +652,7 @@ export const MakingOrder = () => {
       promo: promoCode,
       isPickup: deliveryMethod === "pickup",
       totalSum: totalPrice,
-      changeAmount: paymentMethod === "cash" ? changeAmount : null, // Add changeAmount if payment method is cash
+      changeAmount: paymentMethod === "cash" ? changeAmount2 : null, // Add changeAmount if payment method is cash
     };
 
     try {
@@ -861,22 +869,22 @@ export const MakingOrder = () => {
                       )}
                       {!noChange && paymentMethod === "cash" && (
                         <div className="ways_pay">
-                          <FormItem
+                          <FormItem2
                             label="Укажите с какой суммы подготовить сдачу"
-                            type="number"
+                            type="text"
                             placeholder="1000Р"
                             name="changeAmount"
-                            value={changeAmount}
-                            onChange={(e) => setChangeAmount(e.target.value)}
+                            value={changeAmount2}
+                            onChange={(e) => setChangeAmount2(e.target.value)} // Pass onChange handler
                           />
                           <div className="example_prices">
-                            <span onClick={() => setChangeAmount("1000")}>
+                            <span onClick={() => handlePriceClick("1000")}>
                               1000
                             </span>
-                            <span onClick={() => setChangeAmount("2000")}>
+                            <span onClick={() => handlePriceClick("2000")}>
                               2000
                             </span>
-                            <span onClick={() => setChangeAmount("5000")}>
+                            <span onClick={() => handlePriceClick("5000")}>
                               5000
                             </span>
                           </div>

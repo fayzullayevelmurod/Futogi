@@ -8,17 +8,50 @@ export const FormSection = ({ title, children, className }) => (
   </div>
 );
 
-export const FormItem = ({ label, type, name, className, placeholder, onChange }) => (
-  <div className={`form_item ${className ? className : ""}`}>
-    <label className="form_label">{label}</label>
-    <input
-      className={`form_input ${className ? className : ""}`}
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      onChange={onChange}
-    />
-  </div>
+export const FormItem2 = ({
+  label,
+  type,
+  placeholder,
+  name,
+  value,
+  className,
+  onChange,
+}) => (
+  <>
+    <div className={`form_item ${className ? className : ""}`}>
+      <label className="form_label">{label}</label>
+      <input
+        className="form_input"
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange} // Add onChange handler
+      />
+    </div>
+  </>
+);
+
+export const FormItem = ({
+  label,
+  type,
+  name,
+  className,
+  placeholder,
+  onChange,
+}) => (
+  <>
+    <div className={`form_item ${className ? className : ""}`}>
+      <label className="form_label">{label}</label>
+      <input
+        className={`form_input ${className ? className : ""}`}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+    </div>
+  </>
 );
 
 export const FormTextArea = ({ label, onChange }) => (
@@ -84,9 +117,10 @@ export const PromocodeInput = ({ onChange }) => (
 );
 
 export const Button = ({ label, className, onClick }) => (
-  <button className={`button ${className ? className : ""}`} onClick={onClick}>{label}</button>
+  <button className={`button ${className ? className : ""}`} onClick={onClick}>
+    {label}
+  </button>
 );
-
 
 // PhoneInput.js
 export const PhoneInput = ({ value, onChange, placeholder }) => {
